@@ -1,0 +1,18 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class GameType extends Model
+{
+    use HasFactory;
+    protected $table ='game_types';
+    protected $guarded=[];
+   
+    public function link_game()
+    {
+        return $this->HasOne(LinkGame::class,'game_id');
+    }
+}
