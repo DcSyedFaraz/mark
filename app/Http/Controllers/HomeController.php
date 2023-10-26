@@ -8,13 +8,14 @@ use App\Models\VeriantSize;
 use App\Models\PageCategory;
 use App\Models\PageSections;
 use App\Models\VeriantColor;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Storage;
 
 class HomeController extends Controller
 {
     public function index()
     {
-
+        // Artisan::call("storage:link");
         return view('home');
 
     }
@@ -23,12 +24,12 @@ class HomeController extends Controller
         // $this->middleware('auth')->except('logout');
         return view('auth.login');
     }
-    
+
     public function product_detail($id)
     {
         $data['product'] = Product::find($id);
         $data['size'] = VeriantSize::where('product_id',$id)->first();
-        // return json_decode($size->name); 
+        // return json_decode($size->name);
         $data['color'] = VeriantColor::where('product_id',$id)->first();
         return view('admin.product_detail',$data);
     }

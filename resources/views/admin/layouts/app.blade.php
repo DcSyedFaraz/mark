@@ -33,7 +33,7 @@
 
 </head>
 
-<body class="hold-transition sidebar-mini layout-fixed">
+<body class="hold-transition sidebar-mini layout-fixed layout-footer-fixed">
     <div class="wrapper">
 
         <!-- Preloader -->
@@ -109,38 +109,123 @@
                         <li class="nav-item">
                             <a href="{{ route('directory.index') }}"
                                 class="nav-link {{ request()->routeIs('directory.index') ? 'active' : '' }}">
-                                <i class="far fa-circle nav-icon"></i>
+                                <i class="far fa-folder nav-icon"></i>
                                 <p>Directory</p>
                             </a>
                         </li>
                         <li
-                            class="nav-item {{ request()->routeIs('pages.index') ? 'menu-open' : '' }} {{ request()->routeIs('sections.index') ? 'menu-open' : '' }}">
+                            class="nav-item {{ request()->routeIs('structure.index') ? 'menu-open' : '' }} {{ request()->routeIs('plant.index') ? 'menu-open' : '' }}">
                             <a href="#"
-                                class="nav-link nav-dropdown-toggle {{ request()->routeIs('pages.index') ? 'active' : '' }} {{ request()->routeIs('sections.index') ? 'active' : '' }}">
-                                <i class="nav-icon fas fa-table"></i>
+                                class="nav-link nav-dropdown-toggle {{ request()->routeIs('structure.index') ? 'active' : '' }} {{ request()->routeIs('plant.index') ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-building"></i>
                                 <p>
-                                    Physical Infrastructure Info
+                                    Physical Infrastructure
                                     <i class="fas fa-angle-left right"></i>
                                 </p>
                             </a>
                             <ul class="nav nav-treeview">
 
                                 <li class="nav-item">
-                                    <a href="#"
-                                        class="nav-link {{ request()->routeIs('pages.index') ? 'active' : '' }}">
+                                    <a href="{{ route('structure.index') }}"
+                                        class="nav-link {{ request()->routeIs('structure.index') ? 'active' : '' }}">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Water System Manuals </p>
                                     </a>
                                 </li>
 
                                 <li class="nav-item">
-                                    <a href="#"
-                                        class="nav-link {{ request()->routeIs('sections.index') ? 'active' : '' }}">
+                                    <a href="{{ route('plant.index') }}"
+                                        class="nav-link {{ request()->routeIs('plant.index') ? 'active' : '' }}">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Physical Plant Info. </p>
                                     </a>
                                 </li>
                             </ul>
+                        </li>
+                        <li
+                            class="nav-item ">
+                            <a href="#"
+                                class="nav-link nav-dropdown-toggle  ">
+                                <i class="nav-icon fas fa-info-circle"></i>
+                                <p>
+                                    General Info
+                                    <i class="fas fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+
+                                <li class="nav-item">
+                                    <a href="{{ route('structure.index') }}"
+                                        class="nav-link ">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Assoc. Meeting Minutes </p>
+                                    </a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a href="{{ route('plant.index') }}"
+                                        class="nav-link ">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Assoc. By-Laws</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="#"
+                                        class="nav-link ">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Water Testing Results</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="#"
+                                        class="nav-link ">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Budget Reports</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="#"
+                                        class="nav-link ">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Board Member List </p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="#"
+                                        class="nav-link ">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Contact Info</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="#"
+                                        class="nav-link ">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Survey Map</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="#"
+                                        class="nav-link ">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>CC&R's Poncin Estate & Johnson Point History</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="#"
+                                        class="nav-link ">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Articles of Incorporation</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('photo.index') }}"
+                                class="nav-link {{ request()->routeIs('photo.index') ? 'active' : '' }}">
+                                <i class="far fa-image  nav-icon"></i>
+                                <p>Photo Gallery</p>
+                            </a>
                         </li>
                         <li class="nav-item {{ request()->routeIs('roles.index') ? 'menu-open' : '' }} ">
                             <a href="#"
@@ -218,20 +303,20 @@
                                     </a>
                                 </li>
 
-                            <li class="nav-item">
-                                <a href="{{ route('permission.create') }}"
-                                    class="nav-link {{ request()->routeIs('permission.create') ? 'active' : '' }}">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Add Permission</p>
-                                </a>
-                            </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('permission.create') }}"
+                                        class="nav-link {{ request()->routeIs('permission.create') ? 'active' : '' }}">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Add Permission</p>
+                                    </a>
+                                </li>
 
-                        </ul>
-                    </li>
+                            </ul>
+                        </li>
 
 
 
-                    {{-- <li class="nav-item {{ request()->routeIs('general_setting.index') ? 'menu-open' : '' }} ">
+                        {{-- <li class="nav-item {{ request()->routeIs('general_setting.index') ? 'menu-open' : '' }} ">
                         <a href="#"
                             class="nav-link nav-dropdown-toggle {{ request()->routeIs('general_setting.index') ? 'active' : '' }}">
                             <i class="nav-icon fas fa-table"></i>
@@ -251,213 +336,195 @@
                         </ul>
                     </li> --}}
 
-                    <li
-                        class="nav-item {{ request()->routeIs('games.index') ? 'menu-open' : '' }} {{ request()->routeIs('change_password') ? 'menu-open' : '' }} {{ request()->routeIs('change_password') ? 'menu-open' : '' }}">
-                        <a href="#"
-                            class="nav-link nav-dropdown-toggle  {{ request()->routeIs('profile.index') ? 'active' : '' }} {{ request()->routeIs('games.index') ? 'active' : '' }} {{ request()->routeIs('change_password') ? 'menu-open' : '' }}">
-                            <i class="nav-icon fas fa-table"></i>
-                            <p>
-                                Account Setting
-                                <i class="fas fa-angle-left right"></i>
-                            </p>
-                        </a>
-                        <ul class="nav nav-treeview">
+                        <li
+                            class="nav-item {{ request()->routeIs('games.index') ? 'menu-open' : '' }} {{ request()->routeIs('change_password') ? 'menu-open' : '' }} {{ request()->routeIs('change_password') ? 'menu-open' : '' }}">
+                            <a href="#"
+                                class="nav-link nav-dropdown-toggle  {{ request()->routeIs('profile.index') ? 'active' : '' }} {{ request()->routeIs('games.index') ? 'active' : '' }} {{ request()->routeIs('change_password') ? 'menu-open' : '' }}">
+                                <i class="nav-icon fas fa-table"></i>
+                                <p>
+                                    Account Setting
+                                    <i class="fas fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
 
-                            <li class="nav-item">
-                                <a href="{{ route('profile.index') }}"
-                                    class="nav-link {{ request()->routeIs('profile.index') ? 'active' : '' }}">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Profile</p>
-                                </a>
-                            </li>
-
-
-                            <li class="nav-item">
-                                <a href="{{ route('change_password') }}"
-                                    class="nav-link {{ request()->routeIs('change_password') ? 'active' : '' }}">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Change Password</p>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('profile.index') }}"
+                                        class="nav-link {{ request()->routeIs('profile.index') ? 'active' : '' }}">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Profile</p>
+                                    </a>
+                                </li>
 
 
-
-                    <li class="nav-item">
-                        <a href="{{ url('/logout') }}" class="nav-link">
-                            <i class="far fa-circle nav-icon"></i>
-                            <p>Logout</p>
-                        </a>
-                    </li>
-
-                </ul>
-            </nav>
-            <!-- /.sidebar-menu -->
-        </div>
-        <!-- /.sidebar -->
-    </aside>
-    @yield('content')
-    <!-- /.content-wrapper -->
-    <footer class="main-footer">
-        <strong>Copyright &copy; 2022-2023 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
-        All rights reserved.
-        <div class="float-right d-none d-sm-inline-block">
-            <b>Version</b> 3.2.0
-        </div>
-    </footer>
-
-    <!-- Control Sidebar -->
-    <aside class="control-sidebar control-sidebar-dark">
-        <!-- Control sidebar content goes here -->
-    </aside>
-    <!-- /.control-sidebar -->
-</div>
-<!-- ./wrapper -->
-
-<!-- jQuery -->
-<script src="{{ asset('/admin/plugins/jquery/jquery.min.js') }}"></script>
-<!-- jQuery UI 1.11.4 -->
-<script src="{{ asset('/admin/plugins/jquery-ui/jquery-ui.min.js') }}"></script>
-<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-<script>
-    $.widget.bridge('uibutton', $.ui.button)
-</script>
-<!-- Bootstrap 4 -->
-<script src="{{ asset('/admin/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-<!-- ChartJS -->
-<script src="{{ asset('/admin/plugins/chart.js/Chart.min.js') }}"></script>
-<!-- Sparkline -->
-<script src="{{ asset('/admin/plugins/sparklines/sparkline.js') }}"></script>
-<!-- JQVMap -->
-<script src="{{ asset('/admin/plugins/jqvmap/jquery.vmap.min.js') }}"></script>
-<script src="{{ asset('/admin/plugins/jqvmap/maps/jquery.vmap.usa.js') }}"></script>
-<!-- jQuery Knob Chart -->
-<script src="{{ asset('/admin/plugins/jquery-knob/jquery.knob.min.js') }}"></script>
-<!-- daterangepicker -->
-<script src="{{ asset('/admin/plugins/moment/moment.min.js') }}"></script>
-<script src="{{ asset('/admin/plugins/daterangepicker/daterangepicker.js') }}"></script>
-<!-- Tempusdominus Bootstrap 4 -->
-<script src="{{ asset('/admin/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}"></script>
-<!-- overlayScrollbars -->
-<script src="{{ asset('/admin/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
-<!-- AdminLTE App -->
-<script src="{{ asset('/admin/dist/js/adminlte.js') }}"></script>
-
-<!-- geo Location -->
-<script
-    src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyDqnUWO38RJMjRlwsY1imxqB1WI8ZWsU3M">
-</script>
-
-<!-- Toastr -->
-<script src="{{ asset('/admin/plugins/toastr/toastr.min.js') }}"></script>
-<script>
-    @if (session('success'))
-        toastr.success("{{ session('success') }}");
-    @endif
-    @if (session('error'))
-        toastr.error("{{ session('error') }}")
-    @endif
-    @if ($errors->any())
-        @foreach ($errors->all() as $error)
-            toastr.error("{{ $error }}")
-        @endforeach
-    @endif
-</script>
-
-<!-- Change password -->
-<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.js" type="text/javascript">
-</script>
-<script type="text/javascript">
-    $('.validatedForm').validate({
-        rules: {
-            password: {
-                minlength: 8
-            },
-            password_confirmation: {
-                minlength: 8,
-                equalTo: "#password"
-            }
-        }
+                                <li class="nav-item">
+                                    <a href="{{ route('change_password') }}"
+                                        class="nav-link {{ request()->routeIs('change_password') ? 'active' : '' }}">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Change Password</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
 
 
 
-    });
-    $('button').click(function() {
-        $('.validatedForm').valid();
-    });
-</script>
+                        <li class="nav-item">
+                            <a href="{{ url('/logout') }}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Logout</p>
+                            </a>
+                        </li>
+
+                    </ul>
+                </nav>
+                <!-- /.sidebar-menu -->
+            </div>
+            <!-- /.sidebar -->
+        </aside>
+        @yield('content')
+        <!-- /.content-wrapper -->
+        <footer class="main-footer">
+            <strong>Copyright &copy; 2022-{{now()->year}} <a href="#">Mark</a>.</strong>
+            All rights reserved.
+            <div class="float-right d-none d-sm-inline-block">
+            </div>
+        </footer>
+
+        <!-- Control Sidebar -->
+        <aside class="control-sidebar control-sidebar-dark">
+            <!-- Control sidebar content goes here -->
+        </aside>
+        <!-- /.control-sidebar -->
+    </div>
+    <!-- ./wrapper -->
+
+    <!-- jQuery -->
+    <script src="{{ asset('/admin/plugins/jquery/jquery.min.js') }}"></script>
+    <!-- jQuery UI 1.11.4 -->
+    <script src="{{ asset('/admin/plugins/jquery-ui/jquery-ui.min.js') }}"></script>
+    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+    <script>
+        $.widget.bridge('uibutton', $.ui.button)
+    </script>
+    <!-- Bootstrap 4 -->
+    <script src="{{ asset('/admin/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <!-- ChartJS -->
+    <script src="{{ asset('/admin/plugins/chart.js/Chart.min.js') }}"></script>
+    <!-- Sparkline -->
+    <script src="{{ asset('/admin/plugins/sparklines/sparkline.js') }}"></script>
+    <!-- JQVMap -->
+    <script src="{{ asset('/admin/plugins/jqvmap/jquery.vmap.min.js') }}"></script>
+    <script src="{{ asset('/admin/plugins/jqvmap/maps/jquery.vmap.usa.js') }}"></script>
+    <!-- jQuery Knob Chart -->
+    <script src="{{ asset('/admin/plugins/jquery-knob/jquery.knob.min.js') }}"></script>
+    <!-- daterangepicker -->
+    <script src="{{ asset('/admin/plugins/moment/moment.min.js') }}"></script>
+    <script src="{{ asset('/admin/plugins/daterangepicker/daterangepicker.js') }}"></script>
+    <!-- Tempusdominus Bootstrap 4 -->
+    <script src="{{ asset('/admin/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}"></script>
+    <!-- overlayScrollbars -->
+    <script src="{{ asset('/admin/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
+    <!-- AdminLTE App -->
+    <script src="{{ asset('/admin/dist/js/adminlte.js') }}"></script>
+
+    <!-- geo Location -->
+    <script
+        src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyDqnUWO38RJMjRlwsY1imxqB1WI8ZWsU3M">
+    </script>
+
+    <!-- Toastr -->
+    <script src="{{ asset('/admin/plugins/toastr/toastr.min.js') }}"></script>
+    <script>
+        @if (session('success'))
+            toastr.success("{{ session('success') }}");
+        @endif
+        @if (session('error'))
+            toastr.error("{{ session('error') }}")
+        @endif
+        @if ($errors->any())
+            @foreach ($errors->all() as $error)
+                toastr.error("{{ $error }}")
+            @endforeach
+        @endif
+    </script>
+
+    <!-- Change password -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.js" type="text/javascript">
+    </script>
 
 
-<!-- DataTables  & Plugins -->
-<script src="{{ asset('/admin/plugins/datatables/jquery.dataTables.min.js') }}"></script>
-<script src="{{ asset('/admin/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
-<script src="{{ asset('/admin/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
-<script src="{{ asset('/admin/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
-<script src="{{ asset('/admin/plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
-<script src="{{ asset('/admin/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
-<script src="{{ asset('/admin/plugins/jszip/jszip.min.js') }}"></script>
-<script src="{{ asset('/admin/plugins/pdfmake/pdfmake.min.js') }}"></script>
-<script src="{{ asset('/admin/plugins/pdfmake/vfs_fonts.js') }}"></script>
-<script src="{{ asset('/admin/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
-<script src="{{ asset('/admin/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
-<script src="{{ asset('/admin/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
-<!-- Summernote -->
-<script src="{{ asset('/admin/plugins/summernote/summernote-bs4.min.js') }}"></script>
-<script src="{{ asset('js/style.js') }}"></script>
 
-<script>
-    $(function() {
-        $('#summernote').summernote();
-        $('#summernote1').summernote();
+    <!-- DataTables  & Plugins -->
+    <script src="{{ asset('/admin/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('/admin/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('/admin/plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
+    <script src="{{ asset('/admin/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('/admin/plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
+    <script src="{{ asset('/admin/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('/admin/plugins/jszip/jszip.min.js') }}"></script>
+    <script src="{{ asset('/admin/plugins/pdfmake/pdfmake.min.js') }}"></script>
+    <script src="{{ asset('/admin/plugins/pdfmake/vfs_fonts.js') }}"></script>
+    <script src="{{ asset('/admin/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
+    <script src="{{ asset('/admin/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
+    <script src="{{ asset('/admin/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
+    <!-- Summernote -->
+    <script src="{{ asset('/admin/plugins/summernote/summernote-bs4.min.js') }}"></script>
+    <script src="{{ asset('js/style.js') }}"></script>
 
-        $("#example1").DataTable({
-            "responsive": true,
-            "lengthChange": false,
-            "autoWidth": true,
-            "buttons": ["csv", "excel", "pdf", "print"]
-        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-        $('#example2').DataTable({
-            "paging": true,
-            "lengthChange": true,
-            "searching": true,
-            "ordering": true,
-            "info": true,
-            "autoWidth": false,
-            "responsive": true,
-        });
-    });
+    <script>
+        $(function() {
+            $('#summernote').summernote();
+            $('#summernote1').summernote();
 
-
-
-    var searchInput = 'search_input';
-
-    $(document).ready(function() {
-        // alert('saad');
-        var autocomplete;
-        autocomplete = new google.maps.places.Autocomplete((document.getElementById(searchInput)), {
-            types: ['geocode'],
-            componentRestrictions: {
-                country: "PK"
-            }
+            $("#example1").DataTable({
+                "responsive": true,
+                "lengthChange": false,
+                "autoWidth": true,
+                "buttons": ["csv", "excel", "pdf", "print"]
+            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+            $('#example2').DataTable({
+                "paging": true,
+                "lengthChange": true,
+                "searching": true,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                "responsive": true,
+            });
         });
 
-        google.maps.event.addListener(autocomplete, 'place_changed', function() {
-            var near_place = autocomplete.getPlace();
-            // alert(near_place.geometry);
-            debugger
-            document.getElementById('loc_lat').value = near_place.geometry.location.lat();
-            document.getElementById('loc_long').value = near_place.geometry.location.lng();
-        });
-    });
-</script>
-<script>
-    Toast.fire({
-        icon: 'error',
-        title: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
-    })
-</script>
 
+
+        var searchInput = 'search_input';
+
+        $(document).ready(function() {
+            // alert('saad');
+            var autocomplete;
+            autocomplete = new google.maps.places.Autocomplete((document.getElementById(searchInput)), {
+                types: ['geocode'],
+                componentRestrictions: {
+                    country: "PK"
+                }
+            });
+
+            google.maps.event.addListener(autocomplete, 'place_changed', function() {
+                var near_place = autocomplete.getPlace();
+                // alert(near_place.geometry);
+                debugger
+                document.getElementById('loc_lat').value = near_place.geometry.location.lat();
+                document.getElementById('loc_long').value = near_place.geometry.location.lng();
+            });
+        });
+    </script>
+    <script>
+        Toast.fire({
+            icon: 'error',
+            title: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+        })
+    </script>
+    @yield('script')
 </body>
 
 </html>

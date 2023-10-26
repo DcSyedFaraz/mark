@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\Admin\DirectoryController;
+use App\Http\Controllers\Admin\InfraStructureController;
+use App\Http\Controllers\Admin\PhotoController;
 use Illuminate\Support\Facades\Route;
 // Admin Dashboard
 use App\Http\Controllers\Admin\DashboardController;
@@ -48,9 +51,25 @@ Route::get('/', [HomeController::class,'login']);
 Route::get('/', [HomeController::class,'index']);
 
 
-Route::group(['prefix' => 'admin','middleware'=> ['auth']], function(){
+Route::group(['prefix' => 'admin','middleware'=> ['auth','role:Admin']], function(){
     //Directory
-    Route::resource('directory', PermissionController::class);
+    Route::resource('directory', DirectoryController::class);
+    //Structure
+    Route::resource('structure', InfraStructureController::class);
+    Route::get('/delete/{id}', [InfraStructureController::class, 'delete'])->name('structure.delete');
+
+    //Plant_Info
+    Route::get('/plantInfo', [InfraStructureController::class, 'plantInfo'])->name('plant.index');
+    Route::post('/plantInfo/store', [InfraStructureController::class, 'plantStore'])->name('plant.store');
+    Route::get('/plantInfo/{id}', [InfraStructureController::class, 'plantDelete'])->name('plant.delete');
+
+    //Gallery
+    Route::resource('photo', PhotoController::class);
+
+    // Route::get('/gallery', [PhotoController::class, 'gallery'])->name('photo.index');
+    // Route::get('/gallery', [InfraStructureController::class, 'gallery'])->name('photo.index');
+    // Route::get('/gallery/delete/{id}', [InfraStructureController::class, 'PhotoDelete'])->name('photo.delete');
+
 
     Route::get('/change_password', [DashboardController::class, 'change_password'])->name('change_password');
     Route::post('/store_change_password', [DashboardController::class, 'store_change_password'])->name('store_change_password');

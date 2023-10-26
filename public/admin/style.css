@@ -1,0 +1,116 @@
+.codepen-box {
+    position: relative;
+    border-radius: 6px;
+    width: 400px;
+    padding: 15px;
+    overflow: hidden;
+    margin: 0 auto;
+}
+.codepen-box::before {
+    content: '' !important;
+    position: absolute !important;
+    left: 40px !important;
+    border-radius: 10px !important;
+    right: 0 !important;
+    bottom: 50px !important;
+    top: 50px !important;
+    background-color: rgba(156, 45, 45, 0.37) !important;
+    transform-origin: right 40% !important;
+    z-index: -2 !important;
+    transition: 0.5s ease-in-out all !important;
+}
+.codepen-box:hover::before {
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    transition: 0.5s ease-in-out all;
+}
+.codepen-box .top {
+    width: 100%;
+    overflow: hidden;
+    margin: 0 auto;
+    height: 300px;
+}
+.codepen-box .top .top-image {
+    height: 250px;
+    object-fit: cover;
+}
+.codepen-box .top .top-image img {
+    width: 100%;
+    border-radius: 6px;
+    height: 100%;
+    object-fit: cover;
+}
+.codepen-box .top .profile {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: left;
+    /* padding: 5px 0; */
+}
+.codepen-box .top .profile .profile-pic {
+    display: block;
+    margin-right: 10px;
+}
+.codepen-box .top .profile .profile-pic img {
+    border-radius: 10px;
+    height: 40px;
+    object-fit: cover;
+    width: 40px;
+}
+.codepen-box .top .profile .profile-info {
+    display: block;
+    width: fit-content;
+    margin-left: 30px;
+}
+.codepen-box .top .profile .profile-info h3 {
+    font-size: 15px;
+    margin: 0;
+}
+.codepen-box .top .profile .profile-info p {
+    font-size: 12px;
+    margin: 0;
+}
+.codepen-box .bottom {
+    height: 40px;
+    padding: 5px 0;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+}
+.codepen-box .bottom .bottom-item:nth-child(1) {
+    transition-delay: 0.1s;
+}
+.codepen-box .bottom .bottom-item {
+    transition: 0.3s ease-in-out all;
+    height: 25px;
+    padding: 5px;
+    color: white;
+    margin: 0 5px 0 0;
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    font-size: 12px;
+    align-items: center;
+    border-radius: 5px;
+    opacity: 0;
+    transform: translateY(-20px);
+}
+.codepen-box .bottom .bottom-item span:first-child {
+    margin-right: 5px;
+}
+.codepen-box:hover .bottom-item {
+    transition: 0.3s ease-in-out all;
+    opacity: 1;
+    transform: translateY(0px);
+}
+.codepen-box:hover .profile-info {
+    margin: 0 !important;
+    transition: 0.5s ease-in-out all;
+}
+.bottom-item a {
+    color: #fff;
+}
