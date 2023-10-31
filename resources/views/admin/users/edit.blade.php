@@ -54,16 +54,44 @@
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group">
+                                <strong>Address:</strong>
+                                <input class="form-control" name="address" required value="{{$user->address}}">
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            <div class="form-group">
+                                <strong>Phone No:</strong>
+                                <input class="form-control" type="tel" name="phone" required value="{{$user->phone}}">
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            <div class="form-group">
                                 <strong>Password:</strong>
-                                <input class="form-control" type="password" name="password" required>
+                                <input class="form-control" name="password" >
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group">
                                 <strong>Confirm Password:</strong>
-                                <input class="form-control" type="password" name="confirm-password" required>
+                                <input class="form-control" name="confirm-password" >
+                                <small class="text-danger">Leave the Password Fields Blank if you don't want to change it</small>
                             </div>
                         </div>
+                        @if ($user->hasRole('member'))
+
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            <div class="form-group">
+                                <label for="status">Voting Status:</label>
+                                <select class="form-control" id="status" name="status">
+                                    <option  selected hidden >option</option>
+                                    <option value="voting" {{ $user->status === 'voting' ? 'selected' : '' }}>Voting</option>
+                                    <option value="non-voting" {{ $user->status === 'non-voting' ? 'selected' : '' }}>Non-Voting</option>
+                                </select>
+                            </div>
+
+                        </div>
+                        @endif
+
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group">
                                 <strong>Role:</strong>
@@ -81,8 +109,8 @@
                     </div>
                   </form>
                   </div>
-              </div> 
-          </div>   
+              </div>
+          </div>
         </div>
     </div>
 </section>

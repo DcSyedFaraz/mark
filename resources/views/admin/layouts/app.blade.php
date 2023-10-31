@@ -142,10 +142,8 @@
                                 </li>
                             </ul>
                         </li>
-                        <li
-                            class="nav-item ">
-                            <a href="#"
-                                class="nav-link nav-dropdown-toggle  ">
+                        <li class="nav-item ">
+                            <a href="#" class="nav-link nav-dropdown-toggle  ">
                                 <i class="nav-icon fas fa-info-circle"></i>
                                 <p>
                                     General Info
@@ -155,65 +153,56 @@
                             <ul class="nav nav-treeview">
 
                                 <li class="nav-item">
-                                    <a href="{{ route('structure.index') }}"
-                                        class="nav-link ">
+                                    <a href="{{ route('structure.index') }}" class="nav-link ">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Assoc. Meeting Minutes </p>
                                     </a>
                                 </li>
 
                                 <li class="nav-item">
-                                    <a href="{{ route('plant.index') }}"
-                                        class="nav-link ">
+                                    <a href="{{ route('plant.index') }}" class="nav-link ">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Assoc. By-Laws</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="#"
-                                        class="nav-link ">
+                                    <a href="#" class="nav-link ">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Water Testing Results</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="#"
-                                        class="nav-link ">
+                                    <a href="#" class="nav-link ">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Budget Reports</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="#"
-                                        class="nav-link ">
+                                    <a href="#" class="nav-link ">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Board Member List </p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="#"
-                                        class="nav-link ">
+                                    <a href="#" class="nav-link ">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Contact Info</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="#"
-                                        class="nav-link ">
+                                    <a href="#" class="nav-link ">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Survey Map</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="#"
-                                        class="nav-link ">
+                                    <a href="#" class="nav-link ">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>CC&R's Poncin Estate & Johnson Point History</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="#"
-                                        class="nav-link ">
+                                    <a href="#" class="nav-link ">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Articles of Incorporation</p>
                                     </a>
@@ -225,6 +214,63 @@
                                 class="nav-link {{ request()->routeIs('photo.index') ? 'active' : '' }}">
                                 <i class="far fa-image  nav-icon"></i>
                                 <p>Photo Gallery</p>
+                            </a>
+                        </li>
+                        <li class="nav-item ">
+                            <a href="#" class="nav-link nav-dropdown-toggle  ">
+                                <i class="nav-icon fas fa-calendar-alt"></i>
+                                <p>
+                                    Event Calendar
+                                    <i class="fas fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link ">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Games</p>
+                                    </a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link ">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Walking/Hiking</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link ">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Music</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link ">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Book Club</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link ">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Knitting Club </p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link ">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Wine Club</p>
+                                    </a>
+                                </li>
+
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('bussiness') }}"
+                                class="nav-link {{ request()->routeIs('bussiness') ? 'active' : '' }}">
+                                <i class="far fa-address-book  nav-icon"></i>
+                                <p>Resource Directory</p>
                             </a>
                         </li>
                         <li class="nav-item {{ request()->routeIs('roles.index') ? 'menu-open' : '' }} ">
@@ -385,7 +431,7 @@
         @yield('content')
         <!-- /.content-wrapper -->
         <footer class="main-footer">
-            <strong>Copyright &copy; 2022-{{now()->year}} <a href="#">Mark</a>.</strong>
+            <strong>Copyright &copy; 2022-{{ now()->year }} <a href="#">Mark</a>.</strong>
             All rights reserved.
             <div class="float-right d-none d-sm-inline-block">
             </div>

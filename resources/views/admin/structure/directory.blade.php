@@ -28,7 +28,7 @@
                         <h5>Personal Information</h5>
                     </div>
                     <div class="card-body">
-                        <form action="{{route('directory.store')}}" method="post">
+                        {{-- <form action="{{route('directory.store')}}" method="post">
                             @csrf
                             <div class="mb-3">
                                 <label for="fullName" class="form-label">Full Name</label>
@@ -64,7 +64,45 @@
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-primary">Submit</button>
-                        </form>
+                        </form> --}}
+                        <div class="card-body">
+                            <table id="example1" class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>S.N</th>
+                                        <th>Full name:</th>
+                                        <th>Email:</th>
+                                        <th>Address:</th>
+                                        <th>Phone Number:</th>
+                                        <th>Voting Status:</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    @if ($users)
+                                        @foreach ($users as $key => $user)
+                                            <tr>
+                                                <td>{{ $key + 1 }}</td>
+                                                <td>{{ $user->name ?? '' }}</td>
+                                                <td>{{ $user->email ?? '' }}</td>
+                                                <td>{{ $user->address ?? 'null' }}</td>
+                                                <td>{{ $user->phone ?? 'null' }}</td>
+                                                <td>
+                                                    @if ($user->status === 'voting')
+                                                        <span class="badge badge-success">Voting</span>
+                                                    @elseif ($user->status === 'non-voting')
+                                                        <span class="badge badge-warning">Non-Voting</span>
+                                                    @else
+                                                        <span class="badge badge-secondary">Unknown</span>
+                                                    @endif
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    @endif
+                                </tbody>
+                            </table>
+
+                        </div>
                     </div>
                 </div>
 
@@ -72,58 +110,5 @@
         </section>
     </div>
 @section('script')
-    {{-- <script>
-        function enableButton() {
-            const fileInput = document.getElementById('customFile');
-            const uploadButton = document.getElementById('upload');
-
-            if (fileInput.files.length > 0) {
-                uploadButton.removeAttribute('disabled');
-            } else {
-                uploadButton.setAttribute('disabled', 'disabled');
-            }
-        }
-        $(document).ready(function() {
-            $('input[type="file"]').on("change", function() {
-                let filenames = [];
-                let files = this.files;
-                if (files.length > 1) {
-                    filenames.push("Total Files (" + files.length + ")");
-                } else {
-                    for (let i in files) {
-                        if (files.hasOwnProperty(i)) {
-                            filenames.push(files[i].name);
-                        }
-                    }
-                }
-                $(this)
-                    .next(".custom-file-label")
-                    .html(filenames.join(","));
-            });
-            $('.dltBtn').click(function(e) {
-                e.preventDefault();
-                var anchor = $(this);
-                var dataID = anchor.data('id');
-                //   var form=$(this).closest('form');
-                //     var dataID=$(this).data('id');
-                // alert(dataID);
-                swal({
-                        title: "Are you sure?",
-                        text: "Once deleted, you will not be able to recover this data!",
-                        icon: "warning",
-                        buttons: true,
-                        dangerMode: true,
-                    })
-                    .then((willDelete) => {
-                        if (willDelete) {
-                            // form.submit();
-                            window.location.href = anchor.attr('href');
-                        } else {
-                            swal("Your data is safe!");
-                        }
-                    });
-            })
-        });
-    </script> --}}
 @endsection
 @endsection

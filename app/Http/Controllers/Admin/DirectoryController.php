@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Bussiness;
+use App\Models\User;
+use Auth;
 use Illuminate\Http\Request;
 
 class DirectoryController extends Controller
@@ -12,9 +15,16 @@ class DirectoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function bussiness()
+    {
+        $businesses= Bussiness::orderby("created_at","desc")->get();
+        return view('admin.structure.bussiness',compact('businesses'));
+    }
+
     public function index()
     {
-        return view('admin.structure.directory');
+        $users= User::withRole('member')->get();
+        return view('admin.structure.directory',compact('users'));
     }
 
     /**
@@ -36,6 +46,29 @@ class DirectoryController extends Controller
     public function store(Request $request)
     {
         return $request;
+    }
+    public function bussinessStore(Request $request)
+    {
+        // return $request;
+        $rules = [
+            'name' => 'required',
+            'phone' => 'required',
+            'email' => 'required|email',
+            'website' => 'nullable|url',
+            'recommendation_note' => 'nullable'
+        ];
+
+        // Validate the request
+        $request->validate($rules);
+
+        $business = new Bussiness;
+        $business->fill($request->all());
+
+        $business->user_id = Auth::id();
+
+        $business->save();
+
+        return redirect()->back()->with('success', 'Business added successfully.');
     }
 
     /**
@@ -81,5 +114,12 @@ class DirectoryController extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function bussinessDelete($id)
+    {
+    //    return $id;
+       $bussiness = Bussiness::find($id);
+       $bussiness->delete();
+       return redirect()->back()->with('success','Bussiness Deleted Successfully');
     }
 }

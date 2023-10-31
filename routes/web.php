@@ -54,6 +54,11 @@ Route::get('/', [HomeController::class,'index']);
 Route::group(['prefix' => 'admin','middleware'=> ['auth','role:Admin']], function(){
     //Directory
     Route::resource('directory', DirectoryController::class);
+    Route::controller(DirectoryController::class)->group(function () {
+        Route::get('bussiness', 'bussiness')->name('bussiness');
+        Route::post('bussiness/store', 'bussinessStore')->name('business.store');
+        Route::delete('/business/delete/{id}', 'bussinessDelete')->name('bussinessDelete');
+    });
     //Structure
     Route::resource('structure', InfraStructureController::class);
     Route::get('/delete/{id}', [InfraStructureController::class, 'delete'])->name('structure.delete');

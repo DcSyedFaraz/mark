@@ -15,7 +15,7 @@ use Bavix\Wallet\Interfaces\Wallet;
 class User extends Authenticatable implements MustVerifyEmail, Wallet
 {
     use HasApiTokens,HasFactory,Notifiable,HasRoles,HasWallet;
-    
+
     /**
      * The attributes that are mass assignable.
      *
@@ -25,6 +25,9 @@ class User extends Authenticatable implements MustVerifyEmail, Wallet
         'name',
         'email',
         'password',
+        'status',
+        'address',
+        'phone',
         'is_email_verified'
     ];
 
@@ -46,9 +49,11 @@ class User extends Authenticatable implements MustVerifyEmail, Wallet
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
-    public function walletHistory()
+    public function scopeWithRole($query, $roleName)
     {
-        return $this->hasMany(WalletHistory::class);
+        return $query->whereHas('roles', function ($query) use ($roleName) {
+            $query->where('name', $roleName);
+        });
     }
+
 }
