@@ -18,7 +18,14 @@ class DirectoryController extends Controller
     public function bussiness()
     {
         $businesses= Bussiness::orderby("created_at","desc")->get();
-        return view('admin.structure.bussiness',compact('businesses'));
+        if (Auth::user()->hasRole('member')) {
+
+            return view('voting.structure.bussiness',compact('businesses'));
+        } else {
+
+            return view('admin.structure.bussiness',compact('businesses'));
+        }
+
     }
 
     public function index()
@@ -103,6 +110,39 @@ class DirectoryController extends Controller
     public function update(Request $request, $id)
     {
         //
+    }
+    public function bussinessUpdate(Request $request, $id)
+    {
+        $rules = [
+            'name' => 'required',
+            'phone' => 'required',
+            'email' => 'required|email',
+            'website' => 'nullable|url',
+            'recommendation_note' => 'nullable'
+        ];
+
+        // Validate the request data
+        $validatedData = $request->validate($rules);
+
+        try {
+            // Find the business by ID
+            $business = Bussiness::find($id);
+
+            if (!$business) {
+                return redirect()->back()->with('error', 'Business not found.');
+            }
+
+            // Update the business fields from the request
+            $business->fill($validatedData);
+
+
+            // Save the updated business
+            $business->save();
+
+            return redirect()->back()->with('success', 'Business updated successfully.');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'An error occurred while updating the business.');
+        }
     }
 
     /**

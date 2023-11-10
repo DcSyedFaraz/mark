@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\DirectoryController;
 use App\Http\Controllers\Admin\InfraStructureController;
 use App\Http\Controllers\Admin\PhotoController;
+use App\Http\Controllers\EventsController;
 use Illuminate\Support\Facades\Route;
 // Admin Dashboard
 use App\Http\Controllers\Admin\DashboardController;
@@ -31,6 +32,7 @@ use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\voting\PostController as VotingPostController;
 use App\Http\Controllers\nonvoting\PostController as NonVotingPostController;
 use App\Http\Controllers\GeneralSettingController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -46,17 +48,22 @@ Route::get('logout', [LoginController::class, 'logout']);
 Route::get('account/verify/{token}', [LoginController::class, 'verifyAccount'])->name('user.verify');
 
 // Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
-Route::get('/', [HomeController::class,'login']);
+Route::get('/', [HomeController::class, 'login']);
 
-Route::get('/', [HomeController::class,'index']);
+Route::get('/', [HomeController::class, 'index']);
 
 
-Route::group(['prefix' => 'admin','middleware'=> ['auth','role:Admin']], function(){
+Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:Admin|board_member']], function () {
     //Directory
     Route::resource('directory', DirectoryController::class);
+
+    Route::resource('events', EventsController::class);
+
     Route::controller(DirectoryController::class)->group(function () {
         Route::get('bussiness', 'bussiness')->name('bussiness');
+        // Route::get('bussinessss', 'bussiness')->name('verification.notice');
         Route::post('bussiness/store', 'bussinessStore')->name('business.store');
+        Route::put('bussiness/update/{id}', 'bussinessUpdate')->name('business.update');
         Route::delete('/business/delete/{id}', 'bussinessDelete')->name('bussinessDelete');
     });
     //Structure
@@ -76,27 +83,58 @@ Route::group(['prefix' => 'admin','middleware'=> ['auth','role:Admin']], functio
     // Route::get('/gallery/delete/{id}', [InfraStructureController::class, 'PhotoDelete'])->name('photo.delete');
 
 
-    Route::get('/change_password', [DashboardController::class, 'change_password'])->name('change_password');
-    Route::post('/store_change_password', [DashboardController::class, 'store_change_password'])->name('store_change_password');
+
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
     Route::resource('roles', RoleController::class);
     Route::resource('permission', PermissionController::class);
     Route::resource('users', UserController::class);
     Route::get('/profile', [DashboardController::class, 'profile'])->name('profile.index');
-   // Storage
-   Route::get('/document', [DashboardController::class, 'document'])->name('document');
-   Route::get('/signature', [DashboardController::class, 'signature'])->name('signature');
+    // Storage
+    Route::get('/document', [DashboardController::class, 'document'])->name('document');
+    Route::get('/signature', [DashboardController::class, 'signature'])->name('signature');
 
     Route::post('profile/update', [DashboardController::class, 'update'])->name('profile.update');
 
 
 });
 Auth::routes();
-Route::group(['prefix' => 'member','middleware'=> ['auth']], function(){
+Route::group(['prefix' => 'member', 'middleware' => ['auth', 'role:member']], function () {
 
     Route::get('/change_password', [VotingDashboardController::class, 'change_password'])->name('change_password');
-    Route::post('/store_change_password', [VotingDashboardController::class, 'store_change_password'])->name('store_change_password');
+    Route::post('/store_change_passwords', [VotingDashboardController::class, 'store_change_passwords'])->name('store_change_passwords');
     Route::get('/dashboard', [VotingDashboardController::class, 'index'])->name('voting.dashboard');
+
+    //Directory
+    Route::resource('directories', DirectoryController::class);
+
+    Route::resource('event', EventsController::class);
+
+    Route::controller(VotingDashboardController::class)->group(function () {
+        Route::get('directories', 'directorys')->name('directorys.new');
+        Route::get('plantInfo', 'plantInfo')->name('plant.new')->middleware('non_voting');
+        Route::get('structure', 'structure')->name('structure.new')->middleware('non_voting');
+        // Route::get('bussinessss', 'bussiness')->name('verification.notice');
+
+    });
+    Route::controller(DirectoryController::class)->group(function () {
+        Route::get('bussiness', 'bussiness')->name('bussinesss');
+        Route::post('bussiness/store', 'bussinessStore')->name('businesss.store');
+        Route::put('bussiness/update/{id}', 'bussinessUpdate')->name('businesss.update');
+        Route::delete('/business/delete/{id}', 'bussinessDelete')->name('bussinesssDelete');
+        // Route::get('bussinessss', 'bussiness')->name('verification.notice');
+
+    });
+    //Gallery
+    Route::resource('photos', PhotoController::class);
+
+
+
+
+
+
+
+
+
 
     //post
     Route::get('/blogs', [VotingPostController::class, 'index'])->name('voting.blogs');
@@ -116,21 +154,21 @@ Route::group(['prefix' => 'member','middleware'=> ['auth']], function(){
 
 });
 
-Route::group(['prefix' => 'nonvoting','middleware'=> ['auth']], function(){
+Route::group(['prefix' => 'manage', 'middleware' => ['auth']], function () {
 
-    Route::get('/change_password', [NonVotingDashboardController::class, 'change_password'])->name('change_password');
-    Route::post('/store_change_password', [NonVotingDashboardController::class, 'store_change_password'])->name('store_change_password');
+    Route::get('/change_password', [DashboardController::class, 'change_password'])->name('change_password');
+    Route::post('/store_change_password', [DashboardController::class, 'store_change_password'])->name('store_change_password');
     Route::get('/dashboard', [NonVotingDashboardController::class, 'index'])->name('nonvoting.dashboard');
 
 
-     //post
-     Route::get('/blogs', [NonVotingPostController::class, 'index'])->name('nonvoting.blogs');
-     Route::get('/nonvoting/blogs', [NonVotingPostController::class, 'create'])->name('nonvoting.blogs.create');
-     Route::post('/nonvoting/blogs/create', [NonVotingPostController::class, 'store'])->name('nonvoting.blogs.store');
-     Route::get('/nonvoting/blogs/{blog}', [NonVotingPostController::class, 'show'])->name('nonvoting.blogs.show');
-     Route::get('/nonvoting/blogs/{blog}/edit', [NonVotingPostController::class, 'edit'])->name('nonvoting.blogs.edit');
-     Route::put('/nonvoting/{blog}', [NonVotingPostController::class, 'update'])->name('nonvoting.blogs.update');
-     Route::delete('/nonvoting/{blog}', [NonVotingPostController::class, 'destroy'])->name('nonvoting.blogs.destroy');
+    //post
+    Route::get('/blogs', [NonVotingPostController::class, 'index'])->name('nonvoting.blogs');
+    Route::get('/nonvoting/blogs', [NonVotingPostController::class, 'create'])->name('nonvoting.blogs.create');
+    Route::post('/nonvoting/blogs/create', [NonVotingPostController::class, 'store'])->name('nonvoting.blogs.store');
+    Route::get('/nonvoting/blogs/{blog}', [NonVotingPostController::class, 'show'])->name('nonvoting.blogs.show');
+    Route::get('/nonvoting/blogs/{blog}/edit', [NonVotingPostController::class, 'edit'])->name('nonvoting.blogs.edit');
+    Route::put('/nonvoting/{blog}', [NonVotingPostController::class, 'update'])->name('nonvoting.blogs.update');
+    Route::delete('/nonvoting/{blog}', [NonVotingPostController::class, 'destroy'])->name('nonvoting.blogs.destroy');
 
 
     //user Profile

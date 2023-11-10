@@ -41,18 +41,18 @@
                     filter: grayscale(100%);
                 }
 
-                &:hover {
-                    transform: scale(0.98);
-                    box-shadow: 0 0 5px -2px rgba(0, 0, 0, 0.3);
-                    background-size: 130%;
-                    transition: all 500ms cubic-bezier(0.19, 1, 0.22, 1);
+                /* &:hover {
+                        transform: scale(0.98);
+                        box-shadow: 0 0 5px -2px rgba(0, 0, 0, 0.3);
+                        background-size: 130%;
+                        transition: all 500ms cubic-bezier(0.19, 1, 0.22, 1);
 
-                    .card-img-overlay {
-                        transition: all 800ms cubic-bezier(0.19, 1, 0.22, 1);
-                        background: rgb(255, 186, 33);
-                        background: linear-gradient(0deg, rgba(255, 186, 33, 0.5) 0%, rgba(255, 186, 33, 1) 100%);
-                    }
-                }
+                        .card-img-overlay {
+                            transition: all 800ms cubic-bezier(0.19, 1, 0.22, 1);
+                            background: rgb(255, 186, 33);
+                            background: linear-gradient(0deg, rgba(255, 186, 33, 0.5) 0%, rgba(255, 186, 33, 1) 100%);
+                        }
+                    } */
             }
 
             .card-footer {
@@ -152,7 +152,7 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="phone">Phone</label>
-                                                    <input type="text" class="form-control" id="phone" name="phone"
+                                                    <input type="tel" class="form-control" id="phone" name="phone"
                                                         required>
                                                 </div>
                                                 <div class="form-group">
@@ -162,7 +162,7 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="website">Website</label>
-                                                    <input type="text" class="form-control" id="website"
+                                                    <input type="url" class="form-control" id="website"
                                                         name="website">
                                                 </div>
                                                 <div class="form-group">
@@ -207,20 +207,90 @@
                                         <div class="media">
 
                                             <div class="media-body">
-                                                <h6 class="my-0 text-dark d-block font-weight-bold">Recommended by: <span class="badge badge-success">
-                                                    {{ $business->username->name }}
+                                                <h6 class="my-0 text-dark d-block font-weight-bold">Recommended by: <span
+                                                        class="badge badge-success">
+                                                        {{ $business->username->name }}
+                                                    </span>
+                                                </h6>
+                                                <span class="">
+
+                                                    @if (Auth::check() && (Auth::user()->id == $business->user_id || Auth::user()->hasRole('Admin')))
+                                                        <form method="post"
+                                                            action="{{ route('bussinessDelete', $business->id) }}">
+                                                            @csrf
+                                                            @method('delete')
+                                                            <button type="submit" class="btn btn-danger btn-sm dltBtn"
+                                                                data-id="{{ $business->id }}"
+                                                                title="Delelte this Bussiness"><i
+                                                                    class="fas fa-trash"></i></button>
+                                                        </form>
+                                                        <a href="#" class="btn btn-info btn-sm" data-toggle="modal"
+                                                            data-target="#editEventModal{{ $business->id }}"><i
+                                                                class="my-0 fas fa-pencil-alt"></i></a>
+
+                                                        <div class="modal fade" id="editEventModal{{ $business->id }}"
+                                                            tabindex="-1" role="dialog"
+                                                            aria-labelledby="editEventModalLabel{{ $business->id }}"
+                                                            aria-hidden="true">
+                                                            <div class="modal-dialog" role="document">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title"
+                                                                            id="editEventModalLabel{{ $business->id }}">Edit
+                                                                            Bussiness</h5>
+                                                                        <button type="button" class="close"
+                                                                            data-dismiss="modal" aria-label="Close">
+                                                                            <span aria-hidden="true">&times;</span>
+                                                                        </button>
+                                                                    </div>
+                                                                    <form
+                                                                        action="{{ route('business.update', $business->id) }}"
+                                                                        method="post" enctype="multipart/form-data">
+                                                                        @csrf
+                                                                        @method('PUT')
+                                                                        <div class="modal-body">
+                                                                            <div class="form-group">
+                                                                                <label for="name">Business Name</label>
+                                                                                <input type="text" class="form-control"
+                                                                                    id="name" name="name"
+                                                                                    value="{{ $business->name }}" required>
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                <label for="phone">Phone</label>
+                                                                                <input type="tel" class="form-control"
+                                                                                    id="phone" name="phone"
+                                                                                    value="{{ $business->phone }}" required>
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                <label for="email">Email</label>
+                                                                                <input type="email" class="form-control"
+                                                                                    id="email" name="email"
+                                                                                    value="{{ $business->email }}" required>
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                <label for="website">Website</label>
+                                                                                <input type="url" class="form-control"
+                                                                                    id="website" name="website"
+                                                                                    value="{{ $business->website }}" required>
+                                                                            </div>
+                                                                            <div class="form-group">
+                                                                                <label for="recommendation_note">Recommendation
+                                                                                    Note</label>
+                                                                                <textarea class="form-control" id="recommendation_note" name="recommendation_note" rows="4" required>{{ $business->recommendation_note }}</textarea>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="modal-footer">
+                                                                            <button type="button" class="btn btn-secondary"
+                                                                                data-dismiss="modal">Close</button>
+                                                                            <button type="submit"
+                                                                                class="btn btn-primary">Save Changes</button>
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    @endif
                                                 </span>
-                                                    </h6>
-                                                @if (Auth::check() && (Auth::user()->id == $business->user_id || Auth::user()->hasRole('Admin')))
-                                                    <form method="post"
-                                                        action="{{ route('bussinessDelete', $business->id) }}">
-                                                        @csrf
-                                                        @method('delete')
-                                                        <button type="submit" class="btn btn-danger btn-sm dltBtn"
-                                                            data-id="{{ $business->id }}" title="Delelte this Bussiness"><i
-                                                                class="fas fa-trash"></i></button>
-                                                    </form>
-                                                @endif
                                             </div>
                                         </div>
                                     </div>

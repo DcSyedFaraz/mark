@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Admin | Dashboard</title>
+    <title>Dashboard</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
@@ -49,7 +49,13 @@
             <a href="index3.html" class="brand-link">
                 <img src="{{ asset('/admin/dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo"
                     class="brand-image img-circle elevation-3" style="opacity: .8">
-                <span class="brand-text font-weight-light">Admin Dashboard</span>
+                <span class="brand-text font-weight-light">
+                    @if (auth()->user()->hasRole('Admin'))
+                        Admin Dashboard
+                    @else
+                        Board Member
+                    @endif
+                </span>
             </a>
 
             <!-- Sidebar -->
@@ -216,56 +222,14 @@
                                 <p>Photo Gallery</p>
                             </a>
                         </li>
-                        <li class="nav-item ">
-                            <a href="#" class="nav-link nav-dropdown-toggle  ">
-                                <i class="nav-icon fas fa-calendar-alt"></i>
-                                <p>
-                                    Event Calendar
-                                    <i class="fas fa-angle-left right"></i>
-                                </p>
+                        <li class="nav-item">
+                            <a href="{{ route('events.index') }}"
+                                class="nav-link {{ request()->routeIs('events.index') ? 'active' : '' }}">
+                                <i class="far fa-calendar-alt nav-icon"></i>
+                                <p>Event Calendar</p>
                             </a>
-                            <ul class="nav nav-treeview">
-
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link ">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Games</p>
-                                    </a>
-                                </li>
-
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link ">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Walking/Hiking</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link ">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Music</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link ">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Book Club</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link ">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Knitting Club </p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link ">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Wine Club</p>
-                                    </a>
-                                </li>
-
-                            </ul>
                         </li>
+
                         <li class="nav-item">
                             <a href="{{ route('bussiness') }}"
                                 class="nav-link {{ request()->routeIs('bussiness') ? 'active' : '' }}">
@@ -273,92 +237,94 @@
                                 <p>Resource Directory</p>
                             </a>
                         </li>
-                        <li class="nav-item {{ request()->routeIs('roles.index') ? 'menu-open' : '' }} ">
-                            <a href="#"
-                                class="nav-link nav-dropdown-toggle {{ request()->routeIs('roles.index') ? 'active' : '' }}">
-                                <i class="nav-icon fas fa-table"></i>
-                                <p>
-                                    Manage Roles
-                                    <i class="fas fa-angle-left right"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
+                        @if (auth()->user()->hasRole('Admin'))
+                            <li class="nav-item {{ request()->routeIs('roles.index') ? 'menu-open' : '' }} ">
+                                <a href="#"
+                                    class="nav-link nav-dropdown-toggle {{ request()->routeIs('roles.index') ? 'active' : '' }}">
+                                    <i class="nav-icon fas fa-table"></i>
+                                    <p>
+                                        Manage Roles
+                                        <i class="fas fa-angle-left right"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
 
-                                <li class="nav-item">
-                                    <a href="{{ route('roles.index') }}"
-                                        class="nav-link {{ request()->routeIs('roles.index') ? 'active' : '' }}">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>List Roles</p>
-                                    </a>
-                                </li>
+                                    <li class="nav-item">
+                                        <a href="{{ route('roles.index') }}"
+                                            class="nav-link {{ request()->routeIs('roles.index') ? 'active' : '' }}">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>List Roles</p>
+                                        </a>
+                                    </li>
 
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Add Role</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li
-                            class="nav-item {{ request()->routeIs('users.index') ? 'menu-open' : '' }} {{ request()->routeIs('users.create') ? 'menu-open' : '' }}">
-                            <a href="#"
-                                class="nav-link nav-dropdown-toggle {{ request()->routeIs('users.index') ? 'active' : '' }} {{ request()->routeIs('users.create') ? 'active' : '' }}">
-                                <i class="nav-icon fas fa-table"></i>
-                                <p>
-                                    Manage Users
-                                    <i class="fas fa-angle-left right"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="{{ route('users.index') }}"
-                                        class="nav-link {{ request()->routeIs('users.index') ? 'active' : '' }}">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>List Users</p>
-                                    </a>
-                                </li>
+                                    <li class="nav-item">
+                                        <a href="#" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Add Role</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li
+                                class="nav-item {{ request()->routeIs('users.index') ? 'menu-open' : '' }} {{ request()->routeIs('users.create') ? 'menu-open' : '' }}">
+                                <a href="#"
+                                    class="nav-link nav-dropdown-toggle {{ request()->routeIs('users.index') ? 'active' : '' }} {{ request()->routeIs('users.create') ? 'active' : '' }}">
+                                    <i class="nav-icon fas fa-table"></i>
+                                    <p>
+                                        Manage Users
+                                        <i class="fas fa-angle-left right"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="{{ route('users.index') }}"
+                                            class="nav-link {{ request()->routeIs('users.index') ? 'active' : '' }}">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>List Users</p>
+                                        </a>
+                                    </li>
 
-                                <li class="nav-item">
-                                    <a href="{{ route('users.create') }}"
-                                        class="nav-link {{ request()->routeIs('users.create') ? 'active' : '' }}">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Add Users</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
+                                    <li class="nav-item">
+                                        <a href="{{ route('users.create') }}"
+                                            class="nav-link {{ request()->routeIs('users.create') ? 'active' : '' }}">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Add Users</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
 
-                        <li
-                            class="nav-item {{ request()->routeIs('permission.index') ? 'menu-open' : '' }} {{ request()->routeIs('permission.create') ? 'menu-open' : '' }}">
-                            <a href="#"
-                                class="nav-link nav-dropdown-toggle {{ request()->routeIs('permission.index') ? 'active' : '' }} {{ request()->routeIs('permission.create') ? 'active' : '' }}">
-                                <i class="nav-icon fas fa-table"></i>
-                                <p>
-                                    Manage Permissions
-                                    <i class="fas fa-angle-left right"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
+                            <li
+                                class="nav-item {{ request()->routeIs('permission.index') ? 'menu-open' : '' }} {{ request()->routeIs('permission.create') ? 'menu-open' : '' }}">
+                                <a href="#"
+                                    class="nav-link nav-dropdown-toggle {{ request()->routeIs('permission.index') ? 'active' : '' }} {{ request()->routeIs('permission.create') ? 'active' : '' }}">
+                                    <i class="nav-icon fas fa-table"></i>
+                                    <p>
+                                        Manage Permissions
+                                        <i class="fas fa-angle-left right"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
 
-                                <li class="nav-item">
-                                    <a href="{{ route('permission.index') }}"
-                                        class="nav-link {{ request()->routeIs('permission.index') ? 'active' : '' }}">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>List Permissions</p>
-                                    </a>
-                                </li>
+                                    <li class="nav-item">
+                                        <a href="{{ route('permission.index') }}"
+                                            class="nav-link {{ request()->routeIs('permission.index') ? 'active' : '' }}">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>List Permissions</p>
+                                        </a>
+                                    </li>
 
-                                <li class="nav-item">
-                                    <a href="{{ route('permission.create') }}"
-                                        class="nav-link {{ request()->routeIs('permission.create') ? 'active' : '' }}">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Add Permission</p>
-                                    </a>
-                                </li>
+                                    <li class="nav-item">
+                                        <a href="{{ route('permission.create') }}"
+                                            class="nav-link {{ request()->routeIs('permission.create') ? 'active' : '' }}">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Add Permission</p>
+                                        </a>
+                                    </li>
 
-                            </ul>
-                        </li>
+                                </ul>
+                            </li>
+                        @endif
 
 
 
@@ -383,7 +349,7 @@
                     </li> --}}
 
                         <li
-                            class="nav-item {{ request()->routeIs('games.index') ? 'menu-open' : '' }} {{ request()->routeIs('change_password') ? 'menu-open' : '' }} {{ request()->routeIs('change_password') ? 'menu-open' : '' }}">
+                            class="nav-item {{ request()->routeIs('profile.index') ? 'menu-open' : '' }} {{ request()->routeIs('change_password') ? 'menu-open' : '' }}">
                             <a href="#"
                                 class="nav-link nav-dropdown-toggle  {{ request()->routeIs('profile.index') ? 'active' : '' }} {{ request()->routeIs('games.index') ? 'active' : '' }} {{ request()->routeIs('change_password') ? 'menu-open' : '' }}">
                                 <i class="nav-icon fas fa-table"></i>
@@ -474,10 +440,6 @@
     <!-- AdminLTE App -->
     <script src="{{ asset('/admin/dist/js/adminlte.js') }}"></script>
 
-    <!-- geo Location -->
-    <script
-        src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyDqnUWO38RJMjRlwsY1imxqB1WI8ZWsU3M">
-    </script>
 
     <!-- Toastr -->
     <script src="{{ asset('/admin/plugins/toastr/toastr.min.js') }}"></script>
@@ -540,35 +502,6 @@
                 "responsive": true,
             });
         });
-
-
-
-        var searchInput = 'search_input';
-
-        $(document).ready(function() {
-            // alert('saad');
-            var autocomplete;
-            autocomplete = new google.maps.places.Autocomplete((document.getElementById(searchInput)), {
-                types: ['geocode'],
-                componentRestrictions: {
-                    country: "PK"
-                }
-            });
-
-            google.maps.event.addListener(autocomplete, 'place_changed', function() {
-                var near_place = autocomplete.getPlace();
-                // alert(near_place.geometry);
-                debugger
-                document.getElementById('loc_lat').value = near_place.geometry.location.lat();
-                document.getElementById('loc_long').value = near_place.geometry.location.lng();
-            });
-        });
-    </script>
-    <script>
-        Toast.fire({
-            icon: 'error',
-            title: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
-        })
     </script>
     @yield('script')
 </body>

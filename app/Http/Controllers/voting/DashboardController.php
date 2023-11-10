@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\voting;
 
 use App\Http\Controllers\Controller;
+use App\Models\Files;
 use Illuminate\Http\Request;
 use Auth;
 use Hash;
@@ -35,27 +36,39 @@ class DashboardController extends Controller
     {
         // return Auth::user();
         $data['users'] = User::all()->count();
-     
+
         return view('voting.dashboard',$data);
     }
-    
+    public function directorys()
+    {
+        $users= User::withRole('member')->get();
+        return view('voting.structure.directory',compact('users'));
+    }
+    public function plantInfo()
+    {   $files = Files::orderBy("created_at","desc")->where('type','plantInfo')->get();
+        return view("voting.structure.plant",compact('files'));
+    }
+    public function structure()
+    {   $files = Files::orderBy("created_at","desc")->where('type','water_system')->get();
+        return view("voting.structure.index",compact('files'));
+    }
     public function profile()
     {
         return view('voting.profile');
     }
-    
+
 
 
     public function UserProfileUpdate(Request $request)
     {
         $id = Auth::user()->id;
-       
+
         $this->validate($request, [
             'first_name' => 'nullable',
             'last_name' => 'nullable',
             'email' => 'nullable',
         ]);
-    
+
         $password = Hash::make($request->password);
 
         $user = User::find($id);
@@ -70,10 +83,10 @@ class DashboardController extends Controller
 
     }
 
-    
-    
+
+
     public function UserEditProfile(Request $request){
-   
+
         $user_id = Auth::user()->id;
         $user = User::find($user_id);
         $user->paypal_email = $request->paypal_email;
@@ -85,7 +98,7 @@ class DashboardController extends Controller
         return redirect()->back();
     }
     public function UserBankDetail(Request $request){
-        
+
         $user_id = Auth::user()->id;
         $user = User::find($user_id);
         $user->account_number = $request->account_number;
@@ -100,7 +113,7 @@ class DashboardController extends Controller
     {
         return view('auth.change-password');
     }
-    public function store_change_password(Request $request)
+    public function store_change_passwords(Request $request)
     {
         $user = Auth::user();
         $userPassword = $user->password;
@@ -111,7 +124,7 @@ class DashboardController extends Controller
           'password_confirmation' => 'required',
         ]);
 
-        if(Hash::check($request->oldpassword, $userPassword)) 
+        if(!Hash::check($request->oldpassword, $userPassword))
         {
             return back()->with(['error'=>'Old password not match']);
         }
@@ -122,5 +135,5 @@ class DashboardController extends Controller
         return redirect()->back()->with("success","Password changed successfully !");
     }
 
-    
+
 }

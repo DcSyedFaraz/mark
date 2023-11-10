@@ -56,7 +56,10 @@
                                                 <th>S.N</th>
                                                 <th>Name</th>
                                                 <th>Uploaded</th>
+                                                @can('delete_files')
+
                                                 <th>Action</th>
+                                                @endcan
                                             </tr>
                                         </thead>
 
@@ -70,12 +73,14 @@
 
 
                                                     {{-- <td>{{ $file->deadline ?? '' }}</td> --}}
+                                                    @can('delete_files')
 
                                                     <td>
                                                         <a href="{{ route('structure.delete', $file->id) }}" data-id="{{$file->id}}"
                                                             class="btn btn-danger dltBtn"><i class="fas fa-trash"></i></a>
 
                                                     </td>
+                                                    @endcan
                                                 </tr>
                                             @endforeach
                                         @endif

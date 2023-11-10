@@ -1,4 +1,5 @@
-@extends('admin.layouts.app')
+@extends(Auth::user()->hasRole('member') ? 'voting.layouts.app' : 'admin.layouts.app')
+
 
 @section('title', 'Change Password')
 

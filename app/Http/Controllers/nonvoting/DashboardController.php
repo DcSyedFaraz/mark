@@ -35,26 +35,26 @@ class DashboardController extends Controller
     {
         // return Auth::user();
         $data['users'] = User::all()->count();
-        
+
         return view('nonvoting.dashboard',$data);
     }
-    
+
     public function profile()
     {
         return view('nonvoting.profile');
     }
-    
+
 
     public function UserProfileUpdate(Request $request)
     {
         $id = Auth::user()->id;
-       
+
         $this->validate($request, [
             'first_name' => 'nullable',
             'last_name' => 'nullable',
             'email' => 'nullable',
         ]);
-    
+
         $password = Hash::make($request->password);
 
         $user = User::find($id);
@@ -69,10 +69,10 @@ class DashboardController extends Controller
 
     }
 
-    
-    
+
+
     public function UserEditProfile(Request $request){
-   
+
         $user_id = Auth::user()->id;
         $user = User::find($user_id);
         $user->paypal_email = $request->paypal_email;
@@ -84,7 +84,7 @@ class DashboardController extends Controller
         return redirect()->back();
     }
     public function UserBankDetail(Request $request){
-        
+
         $user_id = Auth::user()->id;
         $user = User::find($user_id);
         $user->account_number = $request->account_number;
@@ -99,7 +99,7 @@ class DashboardController extends Controller
     {
         return view('auth.change-password');
     }
-    public function store_change_password(Request $request)
+    public function store_change_passwordss(Request $request)
     {
         $user = Auth::user();
         $userPassword = $user->password;
@@ -110,7 +110,7 @@ class DashboardController extends Controller
           'password_confirmation' => 'required',
         ]);
 
-        if(Hash::check($request->oldpassword, $userPassword)) 
+        if(!Hash::check($request->oldpassword, $userPassword))
         {
             return back()->with(['error'=>'Old password not match']);
         }

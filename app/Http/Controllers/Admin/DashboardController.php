@@ -68,6 +68,8 @@ class DashboardController extends Controller
     }
     public function store_change_password(Request $request)
     {
+// dd($request->oldpassword);
+
         $user = Auth::user();
         $userPassword = $user->password;
 
@@ -76,11 +78,10 @@ class DashboardController extends Controller
           'newpassword' => 'required|same:password_confirmation|min:6',
           'password_confirmation' => 'required',
         ]);
-
-        if(Hash::check($request->oldpassword, $userPassword))
-        {
-            return back()->with(['error'=>'Old password not match']);
+        if (!Hash::check($request->oldpassword, $userPassword)) {
+            return back()->with(['error' => 'Old password does not match']);
         }
+
 
         $user->password = Hash::make($request->newpassword);
         $user->save();

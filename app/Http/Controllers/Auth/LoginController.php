@@ -50,6 +50,9 @@ class LoginController extends Controller
             case 'Admin':
                 return 'admin/dashboard';
             break;
+            case 'board_member':
+                return 'admin/dashboard';
+            break;
             case 'member':
                 return 'member/dashboard';
              break;

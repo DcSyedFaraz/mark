@@ -19,9 +19,14 @@ class PhotoController extends Controller
      */
     public function index()
     {
-         $photos = Photo::orderBy("created_at","desc")->get();
+        $photos = Photo::orderBy("created_at", "desc")->get();
+        if (Auth::user()->hasRole('member')) {
 
-        return view("admin.structure.gallery",compact('photos'));
+            return view("voting.structure.gallery", compact('photos'));
+        } else {
+
+            return view("admin.structure.gallery", compact('photos'));
+        }
     }
 
     /**
@@ -52,14 +57,14 @@ class PhotoController extends Controller
         try {
             $file = $request->file('photo');
             $fileName = $file->getClientOriginalName() . Str::random(5) . '.' . $file->getClientOriginalExtension();
-                $path = $file->storeAs('gallery', $fileName, 'public');
+            $path = $file->storeAs('gallery', $fileName, 'public');
 
-                Photo::create([
-                    'file_name' => $file->getClientOriginalName(),
-                    'user_id' => Auth::user()->id,
-                    'caption' => $request->caption,
-                    'path' => $path,
-                ]);
+            Photo::create([
+                'file_name' => $file->getClientOriginalName(),
+                'user_id' => Auth::user()->id,
+                'caption' => $request->caption,
+                'path' => $path,
+            ]);
 
             // $image = new Photo();
             // $image->path = $path;
@@ -71,7 +76,7 @@ class PhotoController extends Controller
         } catch (\Exception $e) {
             DB::rollBack();
 
-            return redirect()->back()->with('error', 'File upload failed. Please try again.'.$e->getMessage());
+            return redirect()->back()->with('error', 'File upload failed. Please try again.' . $e->getMessage());
         }
 
     }
@@ -129,7 +134,7 @@ class PhotoController extends Controller
             }
 
             if (Storage::disk('public')->exists($file->path)) {
-             // dd('done');
+                // dd('done');
                 Storage::disk('public')->delete($file->path);
             }
 
@@ -143,6 +148,6 @@ class PhotoController extends Controller
 
             return redirect()->back()->with('error', 'File deletion failed. Please try again.');
         }
-     }
+    }
 
 }
