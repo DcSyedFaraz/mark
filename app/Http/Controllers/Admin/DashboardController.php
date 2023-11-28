@@ -25,7 +25,7 @@ class DashboardController extends Controller
      */
     public function __construct()
     {
-        $this->middleware(['auth','verified']);
+        $this->middleware(['auth', 'verified']);
     }
 
     /**
@@ -36,7 +36,35 @@ class DashboardController extends Controller
     public function index()
     {
         $data['users'] = User::all()->count();
-        return view('admin.dashboard',$data);
+        $data['request'] = User::withRole('member')
+            ->where(function ($query) {
+                $query->where('access', 'declined')
+                    ->orWhereNull('access');
+            })->orderby('created_at', 'desc')->get();
+        // dd($data['request']);
+        return view('admin.dashboard', $data);
+    }
+    public function accept($id)
+    {
+        $user = User::find($id);
+
+        $user->access = 'approved';
+        $user->save();
+
+
+        return redirect()->back()->with('success', 'Request Accepted Successfully');
+    }
+
+    public function decline($id)
+    {
+        $user = User::find($id);
+
+
+        $user->access = 'declined';
+        $user->save();
+
+
+        return redirect()->back()->with('warning', 'Request Declined Successfully');
     }
 
     public function profile()
@@ -45,22 +73,37 @@ class DashboardController extends Controller
     }
 
     public function update(Request $request)
-    {
-        $id = Auth::user()->id;
-        $this->validate($request, [
-            'name' => 'required',
-            'phone' => 'required',
-        ]);
+{
+    $id = Auth::user()->id;
 
-        $input = $request->all();
+    $rules = [
+        'name' => 'required',
+        'phone' => 'required',
+        'profile_picture' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+    ];
 
-        $user = User::find($id);
-        $user->update($input);
+    $this->validate($request, $rules);
 
-        session::flash('success','Record Updated Successfully');
-        return redirect()->back();
+    $user = User::find($id);
+    $input = $request->except('profile_picture');
 
+    if ($request->hasFile('profile_picture')) {
+        $newProfilePicture = $request->file('profile_picture');
+        $imageName = 'profile_picture_' . $id . '.' . $newProfilePicture->getClientOriginalExtension();
+       $name =  $newProfilePicture->storeAs('profile_pictures', $imageName, 'public');
+
+        $user->update(['profile_picture' => $name]);
+    } else {
+        $input['profile_picture'] = $user->profile_picture;
     }
+
+    $user->update($input);
+
+    session()->flash('success', 'Record Updated Successfully');
+    return redirect()->back();
+}
+
+
 
     public function change_password()
     {
@@ -68,15 +111,15 @@ class DashboardController extends Controller
     }
     public function store_change_password(Request $request)
     {
-// dd($request->oldpassword);
+        // dd($request->oldpassword);
 
         $user = Auth::user();
         $userPassword = $user->password;
 
-        $validator =Validator::make($request->all(),[
-          'oldpassword' => 'required',
-          'newpassword' => 'required|same:password_confirmation|min:6',
-          'password_confirmation' => 'required',
+        $validator = Validator::make($request->all(), [
+            'oldpassword' => 'required',
+            'newpassword' => 'required|same:password_confirmation|min:6',
+            'password_confirmation' => 'required',
         ]);
         if (!Hash::check($request->oldpassword, $userPassword)) {
             return back()->with(['error' => 'Old password does not match']);
@@ -86,52 +129,57 @@ class DashboardController extends Controller
         $user->password = Hash::make($request->newpassword);
         $user->save();
 
-        return redirect()->back()->with("success","Password changed successfully !");
+        return redirect()->back()->with("success", "Password changed successfully !");
     }
 
 
     //      Wallet Customer User List:-
-    public function walletUserList(){
-        $users =User::with('wallet')->where('role',3)->get();
-        return view('admin.wallet.wallet_user_list',["users"=>$users]);
-     }
+    public function walletUserList()
+    {
+        $users = User::with('wallet')->where('role', 3)->get();
+        return view('admin.wallet.wallet_user_list', ["users" => $users]);
+    }
 
-     public function walletdeposit($id){
-         $users = User::findOrFail($id);
-         return view('admin.wallet.deposit',["users"=>$users]);
-     }
+    public function walletdeposit($id)
+    {
+        $users = User::findOrFail($id);
+        return view('admin.wallet.deposit', ["users" => $users]);
+    }
 
-     public function createdeposite(Request $request){
+    public function createdeposite(Request $request)
+    {
 
         // dd($request->all());
-         $id =$request->user_id;
-            $deposit_amount=$request->dep_amount;
-            $users =User::where('id',$id)->first();
-            $users->deposit($deposit_amount);
+        $id = $request->user_id;
+        $deposit_amount = $request->dep_amount;
+        $users = User::where('id', $id)->first();
+        $users->deposit($deposit_amount);
 
 
-            Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
-            Stripe\Charge::create ([
-                    "amount" => $request->dep_amount,
-                    "currency" => "USD",
-                    "source" => $request->stripeToken,
-                    "description" => "This payment is testing purpose of techsolutionstuff",
-            ]);
+        Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+        Stripe\Charge::create([
+            "amount" => $request->dep_amount,
+            "currency" => "USD",
+            "source" => $request->stripeToken,
+            "description" => "This payment is testing purpose of techsolutionstuff",
+        ]);
 
 
-            // dd($users);
-         return redirect()->back()->with('success','Wallet Amount Deposit Has been submitted successfully');
-     }
+        // dd($users);
+        return redirect()->back()->with('success', 'Wallet Amount Deposit Has been submitted successfully');
+    }
 
-     public function walletwithdraw($id){
-         $users = User::findOrFail($id);
-         return view('admin.wallet.withdraw',["users"=>$users]);
-     }
-     public function createdewithdraw(Request $req){
-         $id =$req->user_id;
-         $withdraw_amount=$req->drw_amount;
-         $users =User::where('id',$id)->first();
-         $users->forceWithdraw($withdraw_amount);
-         return redirect()->back()->with('success',' Withdraw Amount wallet Has been detected Successfully');
-     }
+    public function walletwithdraw($id)
+    {
+        $users = User::findOrFail($id);
+        return view('admin.wallet.withdraw', ["users" => $users]);
+    }
+    public function createdewithdraw(Request $req)
+    {
+        $id = $req->user_id;
+        $withdraw_amount = $req->drw_amount;
+        $users = User::where('id', $id)->first();
+        $users->forceWithdraw($withdraw_amount);
+        return redirect()->back()->with('success', ' Withdraw Amount wallet Has been detected Successfully');
+    }
 }

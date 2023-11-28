@@ -29,7 +29,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    // protected $redirectTo = RouteServiceProvider::HOME;
 
     /**
      * Create a new controller instance.
@@ -40,16 +40,17 @@ class RegisterController extends Controller
     {
         $this->middleware('guest');
     }
+    protected function redirectTo()
+{
+    return '/login';
+}
+
 
     public function register_form()
     {
 
-        $data['roles'] = \Spatie\Permission\Models\Role::select(['id','name'])
-        ->where(function($query){
-            $query->where('name','!=', 'Admin');
-            $query->where('name','!=', 'Super-Admin');
-        })->get();
-        return view('auth.register',$data);
+
+        return view('auth.register');
     }
 
     /**
@@ -64,7 +65,10 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'same:confirm-password'],
-            'roles' => 'required',
+            'status' => 'required',
+            'address' => 'required',
+            'phone' => 'required',
+
         ]);
     }
 
@@ -76,15 +80,20 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        // return $data;
         $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'status' => $data['status'],
+            'phone' => $data['phone'],
+            'address' => $data['address'],
         ]);
         $user->assignRole($data['roles']);
+        session()->flash('success', 'Your account has been created successfully');
         return $user;
     }
 
 
-    
+
 }

@@ -12,7 +12,7 @@ use Bavix\Wallet\Traits\HasWallet;
 use Bavix\Wallet\Interfaces\Wallet;
 
 
-class User extends Authenticatable 
+class User extends Authenticatable
 {
     use HasApiTokens,HasFactory,Notifiable,HasRoles,HasWallet;
 
@@ -24,6 +24,8 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'status',
+        'profile_picture',
         'password',
         'status',
         'address',

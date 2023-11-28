@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AdminLTE 3 | Log in (v2)</title>
+  <title>Mark | Sign Up</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -50,6 +50,28 @@
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group">
+                                <strong>Address:</strong>
+                                <input class="form-control " type="text" name="address" value="{{ old('address') }}" required>
+                                @error('address')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            <div class="form-group">
+                                <strong>Phone No:</strong>
+                                <input class="form-control " type="tel" name="phone" value="{{ old('phone') }}" required>
+                                @error('phone')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            <div class="form-group">
                                 <strong>Password:</strong>
                                 <input class="form-control @error('password') is-invalid @enderror" type="password" name="password" required>
                                 @error('password')
@@ -65,15 +87,15 @@
                                 <input class="form-control" type="password" name="confirm-password" required>
                             </div>
                         </div>
+                        <input type="hidden" name="roles" value="member" id="">
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group">
-                                <strong>Role:</strong>
-                                <select name="roles" class="form-control" required="required">
-                                    <option disabled selected valüe="">select role</option>
-                                    @foreach($roles as $role)
-                                    
-                                    <option value="{{$role->name}}">{{$role->name}}</option>
-                                    @endforeach
+                                <strong>Status:</strong>
+                                <select name="status" class="form-control" required="required">
+                                    <option hidden selected value="">select Status</option>
+                                    <option value="non-voting">Non-Voting</option>
+                                    <option value="voting">Voting</option>
+
                                 </select>
                             </div>
                         </div>
@@ -83,8 +105,8 @@
                     </div>
                   </form>
                   </div>
-              </div> 
-          </div>   
+              </div>
+          </div>
         </div>
 </div>
 <a href="{{route('login')}}" class="text-center">Sign in</a>

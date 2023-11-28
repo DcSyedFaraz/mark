@@ -44,13 +44,16 @@ use App\Http\Controllers\GeneralSettingController;
 |
 */
 Route::get('/signup', [RegisterController::class, 'register_form'])->name('signup');
+// Route::get('/signup', [RegisterController::class, 'create'])->name('registers');
 Route::get('logout', [LoginController::class, 'logout']);
 Route::get('account/verify/{token}', [LoginController::class, 'verifyAccount'])->name('user.verify');
 
 // Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
-Route::get('/', [HomeController::class, 'login']);
+Route::get('/logins', [HomeController::class, 'login'])->name('logins');
 
-Route::get('/', [HomeController::class, 'index']);
+Route::get('/', [HomeController::class, 'index'])->name('home');
+
+// Profile
 
 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:Admin|board_member']], function () {
@@ -78,6 +81,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:Admin|board_me
     //Gallery
     Route::resource('photo', PhotoController::class);
 
+    Route::get('/request/accept/{id}', [DashboardController::class, 'accept'])->name('users.accept');
+    Route::post('/request/decline/{id}', [DashboardController::class, 'decline'])->name('users.decline');
+
     // Route::get('/gallery', [PhotoController::class, 'gallery'])->name('photo.index');
     // Route::get('/gallery', [InfraStructureController::class, 'gallery'])->name('photo.index');
     // Route::get('/gallery/delete/{id}', [InfraStructureController::class, 'PhotoDelete'])->name('photo.delete');
@@ -88,17 +94,16 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:Admin|board_me
     Route::resource('roles', RoleController::class);
     Route::resource('permission', PermissionController::class);
     Route::resource('users', UserController::class);
-    Route::get('/profile', [DashboardController::class, 'profile'])->name('profile.index');
+
     // Storage
     Route::get('/document', [DashboardController::class, 'document'])->name('document');
     Route::get('/signature', [DashboardController::class, 'signature'])->name('signature');
 
-    Route::post('profile/update', [DashboardController::class, 'update'])->name('profile.update');
 
 
 });
 Auth::routes();
-Route::group(['prefix' => 'member', 'middleware' => ['auth', 'role:member']], function () {
+Route::group(['prefix' => 'member', 'middleware' => ['auth', 'role:member','checkAccess']], function () {
 
     Route::get('/change_password', [VotingDashboardController::class, 'change_password'])->name('change_password');
     Route::post('/store_change_passwords', [VotingDashboardController::class, 'store_change_passwords'])->name('store_change_passwords');
@@ -160,22 +165,23 @@ Route::group(['prefix' => 'manage', 'middleware' => ['auth']], function () {
     Route::post('/store_change_password', [DashboardController::class, 'store_change_password'])->name('store_change_password');
     Route::get('/dashboard', [NonVotingDashboardController::class, 'index'])->name('nonvoting.dashboard');
 
-
+    Route::get('/profile', [DashboardController::class, 'profile'])->name('profile.index');
+    Route::post('profile/update', [DashboardController::class, 'update'])->name('profile.update');
     //post
-    Route::get('/blogs', [NonVotingPostController::class, 'index'])->name('nonvoting.blogs');
-    Route::get('/nonvoting/blogs', [NonVotingPostController::class, 'create'])->name('nonvoting.blogs.create');
-    Route::post('/nonvoting/blogs/create', [NonVotingPostController::class, 'store'])->name('nonvoting.blogs.store');
-    Route::get('/nonvoting/blogs/{blog}', [NonVotingPostController::class, 'show'])->name('nonvoting.blogs.show');
-    Route::get('/nonvoting/blogs/{blog}/edit', [NonVotingPostController::class, 'edit'])->name('nonvoting.blogs.edit');
-    Route::put('/nonvoting/{blog}', [NonVotingPostController::class, 'update'])->name('nonvoting.blogs.update');
-    Route::delete('/nonvoting/{blog}', [NonVotingPostController::class, 'destroy'])->name('nonvoting.blogs.destroy');
+    // Route::get('/blogs', [NonVotingPostController::class, 'index'])->name('nonvoting.blogs');
+    // Route::get('/nonvoting/blogs', [NonVotingPostController::class, 'create'])->name('nonvoting.blogs.create');
+    // Route::post('/nonvoting/blogs/create', [NonVotingPostController::class, 'store'])->name('nonvoting.blogs.store');
+    // Route::get('/nonvoting/blogs/{blog}', [NonVotingPostController::class, 'show'])->name('nonvoting.blogs.show');
+    // Route::get('/nonvoting/blogs/{blog}/edit', [NonVotingPostController::class, 'edit'])->name('nonvoting.blogs.edit');
+    // Route::put('/nonvoting/{blog}', [NonVotingPostController::class, 'update'])->name('nonvoting.blogs.update');
+    // Route::delete('/nonvoting/{blog}', [NonVotingPostController::class, 'destroy'])->name('nonvoting.blogs.destroy');
 
 
-    //user Profile
-    Route::get('/profile', [NonVotingDashboardController::class, 'profile'])->name('nonvoting.profile');
-    Route::post('/update/profile', [NonVotingDashboardController::class, 'UserProfileUpdate'])->name('nonvoting.profile.update');
-    Route::post('/edit/profile', [NonVotingDashboardController::class, 'UserEditProfile'])->name('nonvoting.edit.profile');
-    Route::post('/bank/detail', [NonVotingDashboardController::class, 'UserBankDetail'])->name('nonvoting.bank.detail');
+    // //user Profile
+    // Route::get('/profile', [NonVotingDashboardController::class, 'profile'])->name('nonvoting.profile');
+    // Route::post('/update/profile', [NonVotingDashboardController::class, 'UserProfileUpdate'])->name('nonvoting.profile.update');
+    // Route::post('/edit/profile', [NonVotingDashboardController::class, 'UserEditProfile'])->name('nonvoting.edit.profile');
+    // Route::post('/bank/detail', [NonVotingDashboardController::class, 'UserBankDetail'])->name('nonvoting.bank.detail');
 
 
 });

@@ -20,12 +20,12 @@ class RedirectIfAuthenticated
     public function handle($request, Closure $next, $guard = null)
     {
         if (Auth::guard($guard)->check()) {
-           
+
         }
-    
+
         return $next($request);
     }
-   
+
      // public function handle(Request $request, Closure $next, ...$guards)
     // {
     //     $guards = empty($guards) ? [null] : $guards;

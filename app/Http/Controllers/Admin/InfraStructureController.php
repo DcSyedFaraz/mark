@@ -44,7 +44,7 @@ class InfraStructureController extends Controller
      */
     public function store(Request $request)
     {
-        // return $request;
+        // dd($request->file('files'));
 
 
         // Validate the uploaded files

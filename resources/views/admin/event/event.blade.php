@@ -3,7 +3,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
 
 @section('content')
-    <div class="content-wrapper">
+
         <section class="content-header">
             <div class="container-fluid">
                 <div class="row mb-2">
@@ -93,7 +93,7 @@
                             <div class="row">
                                 @foreach ($events as $event)
                                     <div class="col-sm-12 d-flex justify-content-center mb-4">
-                                        <div class="card  w-50">
+                                        <div class="card  w-75">
 
                                             <div class="card-body">
                                                 <h5 class="card-title font-weight-bold">{{ $event->title }}</h5>
@@ -223,7 +223,7 @@
                 </div>
             </div>
         </div>
-    </div>
+
 @endsection
 @section('script')
     <script>
