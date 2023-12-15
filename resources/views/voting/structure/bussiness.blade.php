@@ -192,7 +192,7 @@
                             <div class="card-img-overlay d-flex flex-column">
                                 <div class="card-body">
                                     <h5 class="card-title mt-0 mx-2">{{ $business->name }}</h5>
-                                    <small><i class="far fa-clock"></i>
+                                    <small ><i class="far fa-clock"></i>
                                         {{ $business->updated_at->diffforhumans() }}</small>
                                     <br><br>
                                     <p>{{ $business->phone }}</p>
@@ -313,6 +313,9 @@
             </div>
         </div>
     </section>
+    <div class="d-flex justify-content-center mt-4">
+        {!! $businesses->links() !!}
+    </div>
 @section('script')
     <script>
         $(document).ready(function() {

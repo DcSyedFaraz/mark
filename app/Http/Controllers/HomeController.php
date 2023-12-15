@@ -15,7 +15,7 @@ class HomeController extends Controller
 {
     public function index()
     {
-        // Artisan::call("storage:link");
+       // Artisan::call("optimize:clear");
         return view('home');
 
     }

@@ -21,7 +21,7 @@
                     <h3>The next training schedule,
                         which must be followed!</h3>
                     <p>Medical traing with Dr.Richard</p>
-                    <a href="">Add to Secadule</a>
+                    <a href="#">Add to Schedule</a>
                 </div>
 
             </div>

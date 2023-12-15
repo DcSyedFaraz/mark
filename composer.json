@@ -6,6 +6,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.0.2",
+        "barryvdh/laravel-elfinder": "^0.5.2",
         "bavix/laravel-wallet": "^9.6",
         "guzzlehttp/guzzle": "^7.2",
         "intervention/image": "dev-master",
@@ -17,7 +18,8 @@
         "league/omnipay": "^3.2",
         "omnipay/stripe": "^3.2",
         "spatie/laravel-permission": "^5.5",
-        "stripe/stripe-php": "^10.11"
+        "stripe/stripe-php": "^10.11",
+        "unisharp/laravel-filemanager": "^2.6"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.9",

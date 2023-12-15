@@ -77,6 +77,7 @@
                             <input type="email" name="email" class="form-control" placeholder="Enter your Email" required />
                             <input type="password" name="password" class="form-control mt-3" placeholder="Enter your Password" required />
                             <button type="submit" class="btn-submit">Sign in</button>
+                            <a href="{{route('register')}}"><button type="button" class="btn-submit bg-primary text-light">Sign up</button></a>
                         </form>
                     </div>
                 </div>

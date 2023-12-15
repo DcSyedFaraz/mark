@@ -1,8 +1,21 @@
 @extends('admin.layouts.app')
 
-<link rel="stylesheet" href="{{asset('admin/style.css')}}">
+{{-- <link rel="stylesheet" href="{{ asset('admin/style.css') }}"> --}}
 @section('content')
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css">
     <style>
+        img,
+        video {
+            max-width: 100%;
+            height: auto;
+        }
+
+        figcaption {
+            text-align: center;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -167,80 +180,109 @@
             color: #f00
         }
     </style>
- 
-        <section class="content-header">
-            <div class="container-fluid">
-                <div class="row mb-2">
-                    <div class="col-sm-6">
-                        {{-- <h1>Water System Manuals</h1> --}}
-                    </div>
-                    <div class="col-sm-6">
-                        <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active">Photo Gallery</li>
-                        </ol>
-                    </div>
+
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    {{-- <h1>Water System Manuals</h1> --}}
                 </div>
-            </div><!-- /.container-fluid -->
-        </section>
-        <!-- Main content -->
-        <section class="content">
-            <div class="container-fluid">
-                <!-- Main content -->
-                <h1>Photo Gallery</h1>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">Photo Gallery</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <!-- Main content -->
+            <h1>Photo Gallery</h1>
 
-                <!-- Add a disclaimer -->
-                <p class="text-danger">*Disclaimer: If it is posted, it is considered public information.</p>
-                <button type="button" class="btn btn-success " data-toggle="modal" data-target="#exampleModal">
-                    Post
-                </button>
-                <!-- Modal -->
-                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-                    aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Post</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <form action="{{ route('photo.store') }}" method="post" enctype="multipart/form-data">
-                                    @csrf
-                                    <input type="text" maxlength="96" name="caption" class="form-control w-50 my-2"
-                                        placeholder="Caption(optional)" id="">
-                                    <main class="main_full">
-                                        <div class="panel">
-                                            <div class="button_outer">
-                                                <div class="btn_upload">
-                                                    <input type="file" id="upload_file" name="photo" accept=".jpeg, .jpg, .png, .gif, .jfif">
-                                                    Upload Image
-                                                </div>
-                                                <div class="processing_bar"></div>
-                                                <div class="success_box"></div>
+            <!-- Add a disclaimer -->
+            <p class="text-danger">*Disclaimer: If it is posted, it is considered public information.</p>
+            <button type="button" class="btn btn-success " data-toggle="modal" data-target="#exampleModal">
+                Post
+            </button>
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Post</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="{{ route('photo.store') }}" method="post" enctype="multipart/form-data">
+                                @csrf
+                                <input type="text" maxlength="96" name="caption" class="form-control w-50 my-2"
+                                    placeholder="Caption(optional)" id="">
+                                <main class="main_full">
+                                    <div class="panel">
+                                        <div class="button_outer">
+                                            <div class="btn_upload">
+                                                <input type="file" id="upload_file" name="photo"
+                                                    accept=".jpeg, .jpg, .png, .gif, .jfif">
+                                                Upload Image
                                             </div>
+                                            <div class="processing_bar"></div>
+                                            <div class="success_box"></div>
                                         </div>
-                                        <div class="container">
-                                            <div class="error_msg"></div>
-                                            <div class="uploaded_file_view" id="uploaded_view">
-                                                <span class="file_remove">X</span>
-                                            </div>
+                                    </div>
+                                    <div class="container">
+                                        <div class="error_msg"></div>
+                                        <div class="uploaded_file_view" id="uploaded_view">
+                                            <span class="file_remove">X</span>
                                         </div>
-                                    </main>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary">Post</button>
-                                </form>
+                                    </div>
+                                </main>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Post</button>
+                            </form>
 
-                            </div>
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <div class="row mt-4">
-                    @foreach ($photos as $photo)
+            <div class="row mt-4">
+                <section class="container mt-5">
+
+
+                    <article class="row row-cols-1 row-cols-sm-2 g-2 d-flex justify-content-center">
+
+                        @foreach ($photos as $photo)
+                            <div class="col-sm-6 col-md-4 mb-4 text-center " style="cursor: pointer;">
+                                <a data-fancybox="gallery" data-src="{{ asset('storage/' . $photo->path) }}"
+                                    data-caption="{{ $photo->caption }}">
+                                    <img src="{{ asset('storage/' . $photo->path) }}" />
+                                    <figcaption><span class="text-bold">Posted By:</span> <span class="badge badge-success">{{ $photo->user->name }}</span></figcaption>
+                                </a><br>
+                                @if (Auth::check() && (Auth::user()->id == $photo->user_id || Auth::user()->hasRole('Admin')))
+                                    <form method="post" action="{{ route('photo.destroy', $photo->id) }}">
+                                        @csrf
+                                        @method('delete')
+                                        <button type="submit" class="btn btn-danger dltBtn"
+                                            data-id="{{ $photo->id }}"><i class="fas fa-trash"></i></button>
+                                    </form>
+                                @endif
+                            </div>
+                        @endforeach
+
+                    </article>
+                </section>
+                <div class="d-flex justify-content-center mt-4">
+                    {!! $photos->links() !!}
+                </div>
+                {{-- @foreach ($photos as $photo)
                     <div class="codepen-box border col-4">
                         <div class="top">
                             <div class="top-image">
@@ -256,40 +298,63 @@
                         <div class="bottom">
                             <div class="bottom-item">
                                 @if (Auth::check() && (Auth::user()->id == $photo->user_id || Auth::user()->hasRole('Admin')))
-                                <form method="post" action="{{ route('photo.destroy', $photo->id) }}">
-                                    @csrf
-                                    @method('delete')
-                                    <button type="submit" class="btn btn-danger dltBtn" data-id="{{$photo->id}}"><i class="fas fa-trash"></i></button>
-                                </form>
+                                    <form method="post" action="{{ route('photo.destroy', $photo->id) }}">
+                                        @csrf
+                                        @method('delete')
+                                        <button type="submit" class="btn btn-danger dltBtn"
+                                            data-id="{{ $photo->id }}"><i class="fas fa-trash"></i></button>
+                                    </form>
                                 @endif
                             </div>
 
                         </div>
                     </div>
-                        {{-- <div class="col-md-4 ">
-                            <div class="card mb-4">
-                                <img src="{{ asset('storage/' . $photo->path) }}" class="card-img-top"
-                                    alt="{{ $photo->caption }}">
-                                <div class="card-body">
-                                    <h5 class="card-title">{{ $photo->caption }}</h5><br>
-                                    <small class="text-muted">{{ $photo->created_at->diffforhumans() }}</small>
-                                    <br>
-                                    @if (Auth::check() && (Auth::user()->id == $photo->user_id || Auth::user()->hasRole('Admin')))
-                                        <form method="post" action="{{ route('photo.destroy', $photo->id) }}">
-                                            @csrf
-                                            @method('delete')
-                                            <button type="submit" class="btn btn-danger "><i class="fas fa-trash"></i></button>
-                                        </form>
-                                    @endif
-                                </div>
-                            </div>
-                        </div> --}}
-                    @endforeach
-                </div>
+
+                @endforeach --}}
             </div>
-        </section>
+        </div>
+    </section>
 
 @section('script')
+    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const myCarousel = new Carousel(document.querySelector("#myCarousel"), {
+                preload: 1
+            });
+
+            Fancybox.assign('[data-fancybox="carousel-gallery"]', {
+                closeButton: "top",
+                Thumbs: false,
+                Carousel: {
+                    Dots: true,
+                    on: {
+                        change: (that) => {
+                            myCarousel.slideTo(myCarousel.getPageforSlide(that.page), {
+                                friction: 0
+                            });
+                        }
+                    },
+                    Navigation: {
+                        // Add a custom button to delete the current item
+                        deleteButton: {
+                            tpl: '<button data-fancybox-delete class="fancybox-button fancybox-button--delete" title="Delete">' +
+                                '<svg viewBox="0 0 24 24"><path fill="currentColor" d="M20 5v14c0 1.1-.9 2-2 2H6c-1.1 0-2-.9-2-2V5c0-1.1.9-2 2-2h12c1.1 0 2 .9 2 2zM10 15.6l1.4-1.4L12 13.4l2.6 2.6 1.4 1.4L13.4 16l2.6-2.6-1.4-1.4L12 11.6 9.4 14l-1.4 1.4L10.6 16zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"></path></svg>' +
+                                "</button>",
+                            click: function (instance, current) {
+                                if (confirm('Are you sure you want to delete this item?')) {
+                                    // Add your delete logic here
+                                    console.log('Delete item:', current);
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+
     <script>
         var btnUpload = $("#upload_file"),
             btnOuter = $(".button_outer");
@@ -315,33 +380,33 @@
             btnOuter.removeClass("file_uploading");
             btnOuter.removeClass("file_uploaded");
         });
-        $(document).ready(function(){
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-          $('.dltBtn').click(function(e){
-            var form=$(this).closest('form');
-              var dataID=$(this).data('id');
-              // alert(dataID);
-              e.preventDefault();
-              swal({
-                    title: "Are you sure?",
-                    text: "Once deleted, you will not be able to recover this data!",
-                    icon: "warning",
-                    buttons: true,
-                    dangerMode: true,
-                })
-                .then((willDelete) => {
-                    if (willDelete) {
-                       form.submit();
-                    } else {
-                        swal("Your data is safe!");
-                    }
-                });
-          })
-      })
+        $(document).ready(function() {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $('.dltBtn').click(function(e) {
+                var form = $(this).closest('form');
+                var dataID = $(this).data('id');
+                // alert(dataID);
+                e.preventDefault();
+                swal({
+                        title: "Are you sure?",
+                        text: "Once deleted, you will not be able to recover this data!",
+                        icon: "warning",
+                        buttons: true,
+                        dangerMode: true,
+                    })
+                    .then((willDelete) => {
+                        if (willDelete) {
+                            form.submit();
+                        } else {
+                            swal("Your data is safe!");
+                        }
+                    });
+            })
+        })
     </script>
 @endsection
 @endsection

@@ -17,15 +17,15 @@ class EventsController extends Controller
      */
     public function index()
     {
-        $events = Events::orderBy("created_at","desc")->get();
+        $events = Events::orderBy("updated_at", "desc")->paginate(7);
 
         if (Auth::user()->hasRole('member')) {
 
-            return view("voting.event.event",compact("events"));
+            return view("voting.event.event", compact("events"));
 
         } else {
 
-            return view("admin.event.event",compact("events"));
+            return view("admin.event.event", compact("events"));
 
         }
     }
@@ -35,9 +35,10 @@ class EventsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function calendar()
     {
-        //
+        $data['jobs'] = Events::all();
+        return view('admin.event.calendar',$data);
     }
 
     /**
@@ -120,53 +121,53 @@ class EventsController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-public function update(Request $request, $id)
-{
-    // return $request;
-    $validatedData = $request->validate([
-        'title' => 'required|max:255',
-        'location' => 'required|max:255',
-        'start_date' => 'required|date',
-        'end_date' => 'required|date|after:start_date',
-        'description' => 'required',
-        'category' => 'required',
-        'picture' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Adjust the image validation rules as needed
-    ]);
+    public function update(Request $request, $id)
+    {
+        // return $request;
+        $validatedData = $request->validate([
+            'title' => 'required|max:255',
+            'location' => 'required|max:255',
+            'start_date' => 'required|date',
+            'end_date' => 'required|date|after:start_date',
+            'description' => 'required',
+            'category' => 'required',
+            'picture' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Adjust the image validation rules as needed
+        ]);
 
-    try {
-        $event = Events::find($id);
+        try {
+            $event = Events::find($id);
 
-        if (!$event) {
-            return redirect()->back()->with('error', 'Event not found.');
-        }
-        // return $validatedData;
-        // Update the event fields from the request
-        $event->title = $validatedData['title'];
-        $event->category = $validatedData['category'];
-        $event->location = $validatedData['location'];
-        $event->start_date = $validatedData['start_date'];
-        $event->end_date = $validatedData['end_date'];
-        $event->description = $validatedData['description'];
+            if (!$event) {
+                return redirect()->back()->with('error', 'Event not found.');
+            }
+            // return $validatedData;
+            // Update the event fields from the request
+            $event->title = $validatedData['title'];
+            $event->category = $validatedData['category'];
+            $event->location = $validatedData['location'];
+            $event->start_date = $validatedData['start_date'];
+            $event->end_date = $validatedData['end_date'];
+            $event->description = $validatedData['description'];
 
-        // Check if a new picture was uploaded
-        if ($request->hasFile('picture')) {
-            // Delete the old picture, if it exists
-            if ($event->picture) {
-                Storage::delete('public/' . $event->picture);
+            // Check if a new picture was uploaded
+            if ($request->hasFile('picture')) {
+                // Delete the old picture, if it exists
+                if ($event->picture) {
+                    Storage::delete('public/' . $event->picture);
+                }
+
+                // Store the new picture
+                $picturePath = $request->file('picture')->store('event_pictures', 'public');
+                $event->picture = $picturePath;
             }
 
-            // Store the new picture
-            $picturePath = $request->file('picture')->store('event_pictures', 'public');
-            $event->picture = $picturePath;
+            $event->save();
+
+            return redirect()->back()->with('success', 'Event updated successfully');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'An error occurred while updating the event.' . $e->getMessage());
         }
-
-        $event->save();
-
-        return redirect()->back()->with('success', 'Event updated successfully');
-    } catch (\Exception $e) {
-        return redirect()->back()->with('error', 'An error occurred while updating the event.'.$e->getMessage());
     }
-}
 
     /**
      * Remove the specified resource from storage.
@@ -178,25 +179,25 @@ public function update(Request $request, $id)
     {
         // return $id;
 
-try {
-    $event = Events::find($id);
+        try {
+            $event = Events::find($id);
 
-    if (!$event) {
-        return redirect()->back()->with('error', 'Event not found.');
-    }
+            if (!$event) {
+                return redirect()->back()->with('error', 'Event not found.');
+            }
 
-    // Check if the event has a picture
-    if ($event->picture) {
-        // Delete the event's picture from storage
-        Storage::delete('public/' . $event->picture);
-    }
+            // Check if the event has a picture
+            if ($event->picture) {
+                // Delete the event's picture from storage
+                Storage::delete('public/' . $event->picture);
+            }
 
-    $event->delete();
+            $event->delete();
 
-    return redirect()->back()->with('success', 'Event Removed Successfully');
-} catch (\Exception $e) {
-    return redirect()->back()->with('error', 'An error occurred while deleting the event.');
-}
+            return redirect()->back()->with('success', 'Event Removed Successfully');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'An error occurred while deleting the event.');
+        }
 
     }
 }

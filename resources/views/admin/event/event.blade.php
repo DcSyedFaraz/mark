@@ -24,11 +24,14 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
-                        <div class="card-header">
+                        <div class="card-header d-flex ">
                             <button type="button" class="btn btn-success" data-toggle="modal"
                                 data-target="#createEventModal">
                                 Create Event
                             </button>
+                            <a href="{{route('events.calendar')}}" class="btn btn-info ms-auto font-weight-bold "><i class="bi bi-calendar"></i> Calendar</a>
+
+                            {{-- // Modal --}}
                             <div class="modal fade" id="createEventModal" tabindex="-1" role="dialog"
                                 aria-labelledby="createEventModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
@@ -218,7 +221,9 @@
                                 @endforeach
                             </div>
                         </div>
-
+                        <div class="d-flex justify-content-center mt-4">
+                            {!! $events->links() !!}
+                        </div>
                     </div>
                 </div>
             </div>

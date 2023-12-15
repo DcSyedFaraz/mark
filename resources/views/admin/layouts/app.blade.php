@@ -452,59 +452,50 @@
                         <i class="bi bi-chevron-down ms-auto"></i>
                     </a>
                     <ul id="components-info"
-                        class="nav-content collapse {{ request()->routeIs(['structure.index', 'plant.index']) ? 'show' : '' }}"
+                        class="nav-content collapse {{ request()->routeIs(['#', '#']) ? 'show' : '' }}"
                         data-bs-parent="#sidebar-nav">
                         <li>
-                            <a class="nav-links {{ request()->routeIs('structure.index') ? 'active' : '' }}"
-                                href="{{ route('structure.index') }}">
+                            <a class="nav-links {{ request()->routeIs('#') ? 'active' : '' }}" href="#">
                                 <i class="bi bi-circle"></i><span>Assoc. Meeting Minutes</span>
                             </a>
                         </li>
                         <li>
-                            <a class="nav-links {{ request()->routeIs('#') ? 'active' : '' }}"
-                                href="#">
+                            <a class="nav-links {{ request()->routeIs('#') ? 'active' : '' }}" href="#">
                                 <i class="bi bi-circle"></i><span>Assoc. By-Laws</span>
                             </a>
                         </li>
                         <li>
-                            <a class="nav-links {{ request()->routeIs('#') ? 'active' : '' }}"
-                                href="#">
+                            <a class="nav-links {{ request()->routeIs('#') ? 'active' : '' }}" href="#">
                                 <i class="bi bi-circle"></i><span>Water Testing Results</span>
                             </a>
                         </li>
                         <li>
-                            <a class="nav-links {{ request()->routeIs('#') ? 'active' : '' }}"
-                                href="#">
+                            <a class="nav-links {{ request()->routeIs('#') ? 'active' : '' }}" href="#">
                                 <i class="bi bi-circle"></i><span>Budget Reports</span>
                             </a>
                         </li>
                         <li>
-                            <a class="nav-links {{ request()->routeIs('#') ? 'active' : '' }}"
-                                href="#">
+                            <a class="nav-links {{ request()->routeIs('#') ? 'active' : '' }}" href="#">
                                 <i class="bi bi-circle"></i><span>Board Member List</span>
                             </a>
                         </li>
                         <li>
-                            <a class="nav-links {{ request()->routeIs('#') ? 'active' : '' }}"
-                                href="#">
+                            <a class="nav-links {{ request()->routeIs('#') ? 'active' : '' }}" href="#">
                                 <i class="bi bi-circle"></i><span>Contact Info</span>
                             </a>
                         </li>
                         <li>
-                            <a class="nav-links {{ request()->routeIs('#') ? 'active' : '' }}"
-                                href="#">
+                            <a class="nav-links {{ request()->routeIs('#') ? 'active' : '' }}" href="#">
                                 <i class="bi bi-circle"></i><span>Survey Map</span>
                             </a>
                         </li>
                         <li>
-                            <a class="nav-links {{ request()->routeIs('#') ? 'active' : '' }}"
-                                href="#">
+                            <a class="nav-links {{ request()->routeIs('#') ? 'active' : '' }}" href="#">
                                 <i class="bi bi-circle"></i><span>CC&R's Poncin Estate & Johnson Point History</span>
                             </a>
                         </li>
                         <li>
-                            <a class="nav-links {{ request()->routeIs('#') ? 'active' : '' }}"
-                                href="#">
+                            <a class="nav-links {{ request()->routeIs('#') ? 'active' : '' }}" href="#">
                                 <i class="bi bi-circle"></i><span>Articles of Incorporation</span>
                             </a>
                         </li>
@@ -529,36 +520,38 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link collapsed {{ request()->routeIs('bussiness') ? 'active' : '' }}"
+                    <a class="nav-link collapsed {{ request()->routeIs(['bussiness','search']) ? 'active' : '' }}"
                         href="{{ route('bussiness') }}">
                         <i class="bi bi-file-earmark-binary"></i>
                         <span>Resource Directory</span>
                     </a>
                 </li>
 
-               @if (auth()->user()->hasRole('Admin'))
-                 <li class="nav-item">
-                     <a class="nav-link collapsed {{ request()->routeIs('roles.*') ? 'active' : '' }}" href="{{ route('roles.index') }}">
-                         <i class="bi bi-menu-up"></i>
-                         <span>Manage Roles</span>
-                     </a>
-                 </li>
+                @if (auth()->user()->hasRole('Admin'))
+                    <li class="nav-item">
+                        <a class="nav-link collapsed {{ request()->routeIs('roles.*') ? 'active' : '' }}"
+                            href="{{ route('roles.index') }}">
+                            <i class="bi bi-menu-up"></i>
+                            <span>Manage Roles</span>
+                        </a>
+                    </li>
 
-                 <li class="nav-item">
-                     <a class="nav-link collapsed {{ request()->routeIs('users.*') ? 'active' : '' }}"
-                         href="{{ route('users.index') }}">
-                         <i class="bi bi-menu-up"></i>
-                         <span>Manage User</span>
-                     </a>
-                 </li>
+                    <li class="nav-item">
+                        <a class="nav-link collapsed {{ request()->routeIs('users.*') ? 'active' : '' }}"
+                            href="{{ route('users.index') }}">
+                            <i class="bi bi-menu-up"></i>
+                            <span>Manage User</span>
+                        </a>
+                    </li>
 
-                 <li class="nav-item">
-                     <a class="nav-link collapsed {{ request()->routeIs('permission.*') ? 'active' : '' }}" href="{{ route('permission.index') }}">
-                         <i class="bi bi-menu-up"></i>
-                         <span>Manage Permissions</span>
-                     </a>
-                 </li>
-               @endif
+                    <li class="nav-item">
+                        <a class="nav-link collapsed {{ request()->routeIs('permission.*') ? 'active' : '' }}"
+                            href="{{ route('permission.index') }}">
+                            <i class="bi bi-menu-up"></i>
+                            <span>Manage Permissions</span>
+                        </a>
+                    </li>
+                @endif
 
                 <li class="nav-item">
                     <a class="nav-link collapsed {{ request()->routeIs('profile.*') ? 'active' : '' }}"
@@ -630,15 +623,28 @@
                             <div class="row">
 
                                 <!-- Search Bar -->
-
+                                @if (request()->routeIs('bussiness'))
                                 <div class="search-bar">
-                                    <form class="search-form d-flex align-items-center" method="POST"
-                                        action="#">
+                                    <form class="search-form d-flex align-items-center" method="get"
+                                        action="{{route('search')}}">
+                                        @csrf
                                         <input type="text" name="query" placeholder="Search"
                                             id="customSearchInput" title="Enter search keyword">
-                                        <button type="submit" title="Search"><i class="bi bi-search"></i></button>
+                                        <button type="submit" title="Search"><i
+                                                class="bi bi-search"></i></button>
                                     </form>
                                 </div><!-- END Search Bar -->
+                                @else
+                                    <div class="search-bar">
+                                        <form class="search-form d-flex align-items-center" method="GET"
+                                            action="#">
+                                            <input type="text" name="query" placeholder="Search"
+                                                id="customSearchInput" title="Enter search keyword">
+                                            <button type="submit" title="Search"><i
+                                                    class="bi bi-search"></i></button>
+                                        </form>
+                                    </div><!-- END Search Bar -->
+                                @endif
 
                                 @yield('content')
                             </div>
@@ -647,8 +653,8 @@
                         <!-- Right side columns -->
                         <div class="col-lg-4 right-side-col">
                             <div class="login0">
-                                <a class="login-img" href="#"><img
-                                        src="{{ asset('assets/img/notification.png') }}" alt=""></a>
+                                {{-- <a class="login-img" href="#"><img
+                                        src="{{ asset('assets/img/notification.png') }}" alt=""></a> --}}
                                 <a class="login-img" href="#">
 
                                     @if (!empty(auth()->user()->profile_picture))
@@ -691,7 +697,9 @@
                                             </div>
                                         @endforeach
                                         @php
-                                            $users = App\Models\User::withRole('member')->get();
+                                            $users = App\Models\User::withRole('member')
+                                                ->whereaccess('approved')
+                                                ->get();
                                         @endphp
                                         <h4 class="badge badge-success my-3">Members</h4>
                                         @foreach ($users as $user)
@@ -737,11 +745,22 @@
         <!-- /.control-sidebar -->
     </div>
     <!-- ./wrapper -->
-
     <!-- Include jQuery -->
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    {{-- LFM --}}
+
     <!-- jQuery -->
-    {{-- <script src="{{ asset('/admin/plugins/jquery/jquery.min.js') }}"></script> --}}
+    <script src="{{ asset('/admin/plugins/jquery/jquery.min.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+    <script>
+        //    var route_prefix = "/filemanager";
+    </script>
+
+    <!-- CKEditor init -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ckeditor/4.5.11/ckeditor.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ckeditor/4.5.11/adapters/jquery.js"></script>
+
     <!-- jQuery UI 1.11.4 -->
     <script src="{{ asset('/admin/plugins/jquery-ui/jquery-ui.min.js') }}"></script>
     <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
@@ -835,8 +854,7 @@
 
     <script>
         $(document).ready(function() {
-            $('#summernote').summernote();
-            $('#summernote1').summernote();
+
 
             var dataTable = $("#example1").DataTable({
                 "responsive": true,

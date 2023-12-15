@@ -7,6 +7,8 @@ use App\Models\Bussiness;
 use App\Models\User;
 use Auth;
 use Illuminate\Http\Request;
+use UniSharp\LaravelFilemanager\Lfm;
+use UniSharp\LaravelFilemanager\LfmPath;
 
 class DirectoryController extends Controller
 {
@@ -17,21 +19,21 @@ class DirectoryController extends Controller
      */
     public function bussiness()
     {
-        $businesses= Bussiness::orderby("created_at","desc")->get();
+        $businesses = Bussiness::orderby("created_at", "desc")->paginate(10);
         if (Auth::user()->hasRole('member')) {
 
-            return view('voting.structure.bussiness',compact('businesses'));
+            return view('voting.structure.bussiness', compact('businesses'));
         } else {
 
-            return view('admin.structure.bussiness',compact('businesses'));
+            return view('admin.structure.bussiness', compact('businesses'));
         }
 
     }
 
     public function index()
     {
-        $users= User::withRole('member')->get();
-        return view('admin.structure.directory',compact('users'));
+        $users = User::withRole('member')->whereaccess('approved')->get();
+        return view('admin.structure.directory', compact('users'));
     }
 
     /**
@@ -39,9 +41,34 @@ class DirectoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function search(Request $request)
     {
-        //
+        // dd($request->has('typeahead'));
+        $category = $request->input('query');
+
+
+        if ($request->has('typeahead')) {
+            $businesses = Bussiness::searchByCategory($category)->get();
+
+
+            $response = $businesses->map(function ($business) {
+                return ['name' => $business->category];
+            });
+            // dd($response);
+
+            return response()->json($response);
+
+        } else {
+            $businesses = Bussiness::searchByCategory($category)->paginate(10);
+            if (Auth::user()->hasRole('member')) {
+
+                return view('voting.structure.bussiness', compact('businesses'));
+            } else {
+
+                return view('admin.structure.bussiness', compact('businesses'));
+            }
+
+        }
     }
 
     /**
@@ -60,6 +87,7 @@ class DirectoryController extends Controller
         $rules = [
             'name' => 'required',
             'phone' => 'required',
+            'category' => 'required',
             'email' => 'required|email',
             'website' => 'nullable|url',
             'recommendation_note' => 'nullable'
@@ -116,6 +144,7 @@ class DirectoryController extends Controller
         $rules = [
             'name' => 'required',
             'phone' => 'required',
+            'category' => 'required',
             'email' => 'required|email',
             'website' => 'nullable|url',
             'recommendation_note' => 'nullable'
@@ -157,9 +186,9 @@ class DirectoryController extends Controller
     }
     public function bussinessDelete($id)
     {
-    //    return $id;
-       $bussiness = Bussiness::find($id);
-       $bussiness->delete();
-       return redirect()->back()->with('success','Bussiness Deleted Successfully');
+        //    return $id;
+        $bussiness = Bussiness::find($id);
+        $bussiness->delete();
+        return redirect()->back()->with('success', 'Bussiness Deleted Successfully');
     }
 }

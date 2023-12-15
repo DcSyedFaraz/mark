@@ -19,7 +19,7 @@ class PhotoController extends Controller
      */
     public function index()
     {
-        $photos = Photo::orderBy("created_at", "desc")->get();
+        $photos = Photo::orderBy("created_at", "desc")->paginate(15);
         if (Auth::user()->hasRole('member')) {
 
             return view("voting.structure.gallery", compact('photos'));

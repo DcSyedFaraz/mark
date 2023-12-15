@@ -3,7 +3,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
 
 @section('content')
- 
+
     <section class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
@@ -47,33 +47,16 @@
 
     <!-- Main content -->
     <section class="content">
-        <div class="container-fluid">
+        <iframe src="/filemanager?type=water_system" id="filemanager"
+            style="width: 100%; height: 500px; overflow: hidden; border: none;"></iframe>
+        {{-- <div class="container-fluid">
             <div class="row">
                 <div class="col-12">
 
                     <div class="card">
                         <!-- /.card-header -->
                         <div class="card-header">
-                            {{-- <div class="container">
-                                <div class="col-sm-12 col-lg-4 border">
-                                    <form method="post" action="{{ route('structure.store') }}"
-                                        enctype="multipart/form-data">
-                                        @csrf
-                                        <div class="form-group">
-                                            <div class="custom-file">
-                                                <input type="file" name="files[]" multiple onchange="enableButton()"
-                                                    class="custom-file-input form-control" id="customFile">
-                                                <label class="custom-file-label" for="customFile">Choose file</label>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <button type="submit" name="upload" value="upload" id="upload" disabled
-                                                class="btn btn-block btn-dark"><i class="fa fa-fw fa-upload"></i>
-                                                Upload</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div> --}}
+
                             <div class="card-body">
                                 <table id="example1" class="table table-bordered table-striped">
                                     <thead>
@@ -97,7 +80,6 @@
                                                     <td>{{ $file->created_at->diffforhumans() ?? '' }}</td>
 
 
-                                                    {{-- <td>{{ $file->deadline ?? '' }}</td> --}}
                                                     @can('delete_files')
                                                         <td>
                                                             <a href="{{ route('structure.delete', $file->id) }}"
@@ -121,7 +103,8 @@
                 </div>
                 <!-- /.row -->
             </div>
-            <!-- /.container-fluid -->
+        </div> --}}
+        <!-- /.container-fluid -->
     </section>
 @section('script')
     <script>

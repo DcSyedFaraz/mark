@@ -32,6 +32,7 @@ use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\voting\PostController as VotingPostController;
 use App\Http\Controllers\nonvoting\PostController as NonVotingPostController;
 use App\Http\Controllers\GeneralSettingController;
+use UniSharp\LaravelFilemanager\Controllers\LfmController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,6 +44,7 @@ use App\Http\Controllers\GeneralSettingController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 Route::get('/signup', [RegisterController::class, 'register_form'])->name('signup');
 // Route::get('/signup', [RegisterController::class, 'create'])->name('registers');
 Route::get('logout', [LoginController::class, 'logout']);
@@ -52,7 +54,9 @@ Route::get('account/verify/{token}', [LoginController::class, 'verifyAccount'])-
 Route::get('/logins', [HomeController::class, 'login'])->name('logins');
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
-
+Route::get('/event/calendar', [EventsController::class, 'calendar'])->name('events.calendar');
+Route::get('/lfmm', [LfmController::class, 'show']);
+Route::get('/search', [DirectoryController::class, 'search'])->name('search');
 // Profile
 
 
@@ -124,6 +128,7 @@ Route::group(['prefix' => 'member', 'middleware' => ['auth', 'role:member','chec
     Route::controller(DirectoryController::class)->group(function () {
         Route::get('bussiness', 'bussiness')->name('bussinesss');
         Route::post('bussiness/store', 'bussinessStore')->name('businesss.store');
+
         Route::put('bussiness/update/{id}', 'bussinessUpdate')->name('businesss.update');
         Route::delete('/business/delete/{id}', 'bussinessDelete')->name('bussinesssDelete');
         // Route::get('bussinessss', 'bussiness')->name('verification.notice');
@@ -186,3 +191,6 @@ Route::group(['prefix' => 'manage', 'middleware' => ['auth']], function () {
 
 });
 
+Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
+    \UniSharp\LaravelFilemanager\Lfm::routes();
+});

@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
 use Request;
 use Illuminate\Support\Facades\View;
@@ -27,6 +28,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(Request $REQUEST)
     {
+        Paginator::useBootstrapFive();
         // $data['page'] = Request::segment(1);
         // $data['category'] = Category::all();
         // $data['generalsetting'] = GeneralSetting::first();
