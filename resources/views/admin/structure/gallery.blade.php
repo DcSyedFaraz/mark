@@ -221,8 +221,10 @@
                         <div class="modal-body">
                             <form action="{{ route('photo.store') }}" method="post" enctype="multipart/form-data">
                                 @csrf
-                                <input type="text" maxlength="96" name="caption" class="form-control w-50 my-2"
-                                    placeholder="Caption(optional)" id="">
+                                {{-- <input type="text" maxlength="96" name="caption" class="form-control w-50 my-2"
+                                    placeholder="Caption(optional)" id=""> --}}
+                                <textarea name="cation" id="caption" cols="56" rows="4" class="form-control my-2"
+                                    placeholder="Caption(optional)"></textarea>
                                 <main class="main_full">
                                     <div class="panel">
                                         <div class="button_outer">
@@ -264,7 +266,8 @@
                                 <a data-fancybox="gallery" data-src="{{ asset('storage/' . $photo->path) }}"
                                     data-caption="{{ $photo->caption }}">
                                     <img src="{{ asset('storage/' . $photo->path) }}" />
-                                    <figcaption><span class="text-bold">Posted By:</span> <span class="badge badge-success">{{ $photo->user->name }}</span></figcaption>
+                                    <figcaption><span class="text-bold">Posted By:</span> <span
+                                            class="badge badge-success">{{ $photo->user->name }}</span></figcaption>
                                 </a><br>
                                 @if (Auth::check() && (Auth::user()->id == $photo->user_id || Auth::user()->hasRole('Admin')))
                                     <form method="post" action="{{ route('photo.destroy', $photo->id) }}">
@@ -319,7 +322,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             const myCarousel = new Carousel(document.querySelector("#myCarousel"), {
                 preload: 1
             });
@@ -342,7 +345,7 @@
                             tpl: '<button data-fancybox-delete class="fancybox-button fancybox-button--delete" title="Delete">' +
                                 '<svg viewBox="0 0 24 24"><path fill="currentColor" d="M20 5v14c0 1.1-.9 2-2 2H6c-1.1 0-2-.9-2-2V5c0-1.1.9-2 2-2h12c1.1 0 2 .9 2 2zM10 15.6l1.4-1.4L12 13.4l2.6 2.6 1.4 1.4L13.4 16l2.6-2.6-1.4-1.4L12 11.6 9.4 14l-1.4 1.4L10.6 16zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"></path></svg>' +
                                 "</button>",
-                            click: function (instance, current) {
+                            click: function(instance, current) {
                                 if (confirm('Are you sure you want to delete this item?')) {
                                     // Add your delete logic here
                                     console.log('Delete item:', current);

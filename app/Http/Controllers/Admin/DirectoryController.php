@@ -89,7 +89,7 @@ class DirectoryController extends Controller
             'phone' => 'required',
             'category' => 'required',
             'email' => 'required|email',
-            'website' => 'nullable|url',
+            'website' => 'nullable',
             'recommendation_note' => 'nullable'
         ];
 
@@ -146,7 +146,7 @@ class DirectoryController extends Controller
             'phone' => 'required',
             'category' => 'required',
             'email' => 'required|email',
-            'website' => 'nullable|url',
+            'website' => 'nullable',
             'recommendation_note' => 'nullable'
         ];
 

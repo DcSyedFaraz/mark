@@ -5,28 +5,10 @@
 
 
     <!-- Personal Information -->
-    <div class="card">
-        <div class="card-body">
-            <div class="traing-sec">
-                <div class="right-sid">
-                    <div class="calend">
-                        <a class="nav-link collapsed" href="#">
-                            <i class="bi bi-calendar3"></i>
-                            <span>November 2023</span>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="left-sid">
-                    <h3>The next training schedule,
-                        which must be followed!</h3>
-                    <p>Medical traing with Dr.Richard</p>
-                    <a href="#">Add to Schedule</a>
-                </div>
-
-            </div>
-        </div>
+    <div class="card justify-content-center"
+        style="background-image: url({{asset('img/pexels-pixabay-417173.jpg')}}); background-size: cover; background-position: center; width: 46.5rem; height: 12rem;">
     </div>
+
     <div class="col-12">
         <div class="card recent-sales overflow-auto">
 
@@ -73,7 +55,7 @@
     </div>
 
     <!-- User Registeration -->
-    <div class="col-12">
+    {{-- <div class="col-12">
         <div class="card top-selling overflow-auto">
 
             <div class="card-body pb-0">
@@ -90,7 +72,7 @@
             </div>
 
         </div>
-    </div>
+    </div> --}}
 
     <!-- End Top Selling -->
 

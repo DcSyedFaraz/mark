@@ -19,7 +19,7 @@
             </div>
         </div><!-- /.container-fluid -->
     </section>
-    <div class="card">
+    {{-- <div class="card">
         <div class="card-body">
             <div class="uplord-sec">
                 <div class="right-sid0">
@@ -42,7 +42,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
 
     <!-- Main content -->

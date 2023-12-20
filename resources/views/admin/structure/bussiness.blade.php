@@ -174,7 +174,7 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="website">Website</label>
-                                                    <input type="url" class="form-control" id="website"
+                                                    <input type="text" class="form-control" id="website"
                                                         name="website">
                                                 </div>
                                                 <div class="form-group">
@@ -291,7 +291,7 @@
                                                                         </div>
                                                                         <div class="form-group">
                                                                             <label for="website">Website</label>
-                                                                            <input type="url" class="form-control"
+                                                                            <input type="text" class="form-control"
                                                                                 id="website" name="website"
                                                                                 value="{{ $business->website }}" required>
                                                                         </div>

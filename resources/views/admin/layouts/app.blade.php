@@ -515,7 +515,7 @@
                     <a class="nav-link collapsed {{ request()->routeIs('events.*') ? 'active' : '' }}"
                         href="{{ route('events.index') }}">
                         <i class="bi bi-calendar3"></i>
-                        <span>Event Calender</span>
+                        <span>Event Calendar</span>
                     </a>
                 </li>
 
