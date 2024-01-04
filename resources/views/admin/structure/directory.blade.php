@@ -77,6 +77,5 @@
     <!-- End Top Selling -->
 
 
-@section('script')
-@endsection
+
 @endsection

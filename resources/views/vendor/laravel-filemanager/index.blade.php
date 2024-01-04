@@ -104,7 +104,9 @@
       </a>
     </div>
 
-    <div id="fab"></div>
+    @if (!auth()->user()->hasRole('member'))
+        <div id="fab"></div>
+    @endif
   </div>
 
   <div class="modal fade" id="uploadModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

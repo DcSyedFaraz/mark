@@ -42,17 +42,17 @@
                 }
 
                 /* &:hover {
-                                    transform: scale(0.98);
-                                    box-shadow: 0 0 5px -2px rgba(0, 0, 0, 0.3);
-                                    background-size: 130%;
-                                    transition: all 500ms cubic-bezier(0.19, 1, 0.22, 1);
+                                        transform: scale(0.98);
+                                        box-shadow: 0 0 5px -2px rgba(0, 0, 0, 0.3);
+                                        background-size: 130%;
+                                        transition: all 500ms cubic-bezier(0.19, 1, 0.22, 1);
 
-                                    .card-img-overlay {
-                                        transition: all 800ms cubic-bezier(0.19, 1, 0.22, 1);
-                                        background: rgb(255, 186, 33);
-                                        background: linear-gradient(0deg, rgba(255, 186, 33, 0.5) 0%, rgba(255, 186, 33, 1) 100%);
-                                    }
-                                } */
+                                        .card-img-overlay {
+                                            transition: all 800ms cubic-bezier(0.19, 1, 0.22, 1);
+                                            background: rgb(255, 186, 33);
+                                            background: linear-gradient(0deg, rgba(255, 186, 33, 0.5) 0%, rgba(255, 186, 33, 1) 100%);
+                                        }
+                                    } */
             }
 
             .card-footer {
@@ -153,12 +153,12 @@
                                                     <label for="category">Category</label>
                                                     <select name="category" class="form-control" id="category">
                                                         <option value="" selected hidden>Select Category</option>
-                                                        <option value="Restaurant" >Restaurant</option>
-                                                        <option value="Retail" >Retail</option>
-                                                        <option value="Technology" >Technology</option>
-                                                        <option value="Healthcare" >Healthcare</option>
-                                                        <option value="Finance" >Finance</option>
-                                                        <option value="Education" >Education</option>
+                                                        <option value="Restaurant">Restaurant</option>
+                                                        <option value="Retail">Retail</option>
+                                                        <option value="Technology">Technology</option>
+                                                        <option value="Healthcare">Healthcare</option>
+                                                        <option value="Finance">Finance</option>
+                                                        <option value="Education">Education</option>
                                                     </select>
                                                     {{-- <input type="text" class="form-control" id="category" name="category" required> --}}
                                                 </div>

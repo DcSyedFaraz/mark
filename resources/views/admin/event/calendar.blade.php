@@ -1,4 +1,4 @@
-@extends('admin.layouts.app')
+@extends(auth()->user()->hasRole('member') ? 'voting.layouts.app' : 'admin.layouts.app')
 
 @section('content')
     <style>
@@ -23,7 +23,15 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item "><a href="{{ route('events.index') }}">Event Details</a></li>
+                        <li class="breadcrumb-item ">
+                            @if (auth()->user()->hasRole('member'))
+
+                            <a href="{{ route('event.index') }}">Event Details</a>
+                            @else
+
+                            <a href="{{ route('events.index') }}">Event Details</a>
+                            @endif
+                        </li>
                         <li class="breadcrumb-item active">Calendar</li>
                     </ol>
                 </div>

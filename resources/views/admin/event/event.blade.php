@@ -122,7 +122,7 @@
                                             <i class="far fa-clock"></i> {{ $event->updated_at->diffforhumans() }}
                                         </div>
                                         <div class="card-footer p-0 d-flex">
-                                            @if (Auth::check() && (Auth::user()->id == $event->user_id || Auth::user()->hasRole('Admin')))
+                                            @if (Auth::check() && (Auth::user()->id == $event->users_id || Auth::user()->hasRole('Admin')))
                                                 <form method="post" action="{{ route('events.destroy', $event->id) }}">
                                                     @csrf
                                                     @method('delete')

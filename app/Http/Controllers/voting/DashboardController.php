@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\voting;
 
 use App\Http\Controllers\Controller;
+use App\Models\Bussiness;
+use App\Models\Events;
 use App\Models\Files;
 use Illuminate\Http\Request;
 use Auth;
@@ -35,13 +37,14 @@ class DashboardController extends Controller
     public function index()
     {
         // return Auth::user();
-        $data['users'] = User::all()->count();
+        $data['Bussiness'] = Bussiness::all()->count();
+        $data['Events'] = Events::all()->count();
 
         return view('voting.dashboard',$data);
     }
     public function directorys()
     {
-        $users= User::withRole('member')->get();
+        $users= User::withRole('member')->whereaccess('approved')->get();
         return view('voting.structure.directory',compact('users'));
     }
     public function plantInfo()

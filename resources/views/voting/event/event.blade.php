@@ -2,6 +2,8 @@
 
 
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
+
 @section('content')
     <section class="content-header">
         <div class="container-fluid">
@@ -23,10 +25,14 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">
+                    <div class="card-header d-flex ">
                         <button type="button" class="btn btn-success" data-toggle="modal" data-target="#createEventModal">
                             Create Event
                         </button>
+                        <a href="{{ route('events.calendar') }}" class="btn btn-info ms-auto font-weight-bold "><i
+                                class="bi bi-calendar"></i> Calendar</a>
+
+                        {{-- // Modal --}}
                         <div class="modal fade" id="createEventModal" tabindex="-1" role="dialog"
                             aria-labelledby="createEventModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
@@ -89,12 +95,13 @@
                     <div class="card-body">
                         <div class="row">
                             @foreach ($events as $event)
-                                <div class="col-sm-12 d-flex justify-content-center mb-4">
-                                    <div class="card  w-75">
-
+                                <div class="col-sm-12 d-flex justify-content-center mb-4 ">
+                                    <div class="card w-75 border border-2 shadow-lg" {{-- style="--tw-bg-opacity: 1;
+                                    background-color: rgb(148 163 184 / var(--tw-bg-opacity)); " --}}>
                                         <div class="card-body">
                                             <h5 class="card-title font-weight-bold">{{ $event->title }}</h5>
-                                            <h6 class="card-text mb-2 text-muted">{{ $event->category }}</h6>
+                                            <h6 class="card-text mb-2 text-muted"><span class="font-weight-bold">Category:
+                                                </span>{{ $event->category }}</h6>
                                             <p class="card-text"> <span class="font-weight-bold">Location:</span>
                                                 {{ $event->location }}</p>
                                             <p class="card-text"> <span class="font-weight-bold">Start Date:</span>
@@ -117,6 +124,7 @@
                                             <i class="far fa-clock"></i> {{ $event->updated_at->diffforhumans() }}
                                         </div>
                                         <div class="card-footer p-0 d-flex">
+                                            {{-- {{$event->users_id ."dfjsdkfsdj"}} --}}
                                             @if (Auth::check() && (Auth::user()->id == $event->users_id || Auth::user()->hasRole('Admin')))
                                                 <form method="post" action="{{ route('event.destroy', $event->id) }}">
                                                     @csrf
@@ -212,7 +220,9 @@
                             @endforeach
                         </div>
                     </div>
-
+                    <div class="d-flex justify-content-center mt-4">
+                        {!! $events->links() !!}
+                    </div>
                 </div>
             </div>
         </div>

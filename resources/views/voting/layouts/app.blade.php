@@ -178,7 +178,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link collapsed {{ request()->routeIs('event.*') ? 'active' : '' }}"
+                    <a class="nav-link collapsed {{ request()->routeIs(['event.*','events.calendar']) ? 'active' : '' }}"
                         href="{{ route('event.index') }}">
                         <i class="bi bi-calendar3"></i>
                         <span>Event Calender</span>
@@ -186,7 +186,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link collapsed {{ request()->routeIs('bussinesss') ? 'active' : '' }}"
+                    <a class="nav-link collapsed {{ request()->routeIs(['bussinesss','search']) ? 'active' : '' }}"
                         href="{{ route('bussinesss') }}">
                         <i class="bi bi-file-earmark-binary"></i>
                         <span>Resource Directory</span>
@@ -257,16 +257,28 @@
                         <div class="col-lg-8">
                             <div class="row">
 
-                                <!-- Search Bar -->
-
+                                @if (request()->routeIs('bussinesss'))
                                 <div class="search-bar">
-                                    <form class="search-form d-flex align-items-center" method="POST"
-                                        action="#">
+                                    <form class="search-form d-flex align-items-center" method="get"
+                                        action="{{route('search')}}">
+                                        @csrf
                                         <input type="text" name="query" placeholder="Search"
                                             id="customSearchInput" title="Enter search keyword">
-                                        <button type="submit" title="Search"><i class="bi bi-search"></i></button>
+                                        <button type="submit" title="Search"><i
+                                                class="bi bi-search"></i></button>
                                     </form>
                                 </div><!-- END Search Bar -->
+                                @else
+                                    <div class="search-bar">
+                                        <form class="search-form d-flex align-items-center" method="GET"
+                                            action="#">
+                                            <input type="text" name="query" placeholder="Search"
+                                                id="customSearchInput" title="Enter search keyword">
+                                            <button type="submit" title="Search"><i
+                                                    class="bi bi-search"></i></button>
+                                        </form>
+                                    </div><!-- END Search Bar -->
+                                @endif
 
                                 @yield('content')
                             </div>
@@ -319,8 +331,8 @@
                                             </div>
                                         @endforeach
                                         @php
-                                            $users = App\Models\User::withRole('member')->get();
-                                            // $users = App\Models\User::withRole('member')->whereaccess('approved')->get();
+                                            // $users = App\Models\User::withRole('member')->get();
+                                            $users = App\Models\User::withRole('member')->whereaccess('approved')->get();
                                         @endphp
                                         <h4 class="badge badge-success my-3">Members</h4>
                                         @foreach ($users as $user)
