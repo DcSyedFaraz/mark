@@ -6,7 +6,7 @@
 
     <!-- Personal Information -->
     <div class="card justify-content-center"
-        style="background-image: url({{asset('img/pexels-pixabay-417173.jpg')}}); background-size: cover; background-position: center; width: 46.5rem; height: 12rem;">
+        style="background-image: url({{asset('img/pexels-pixabay-417173.jpg')}}); background-size: cover; background-position: center; width: 71.5rem; height: 12rem;">
     </div>
 
     <div class="col-12">

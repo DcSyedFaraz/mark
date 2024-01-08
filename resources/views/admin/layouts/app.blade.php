@@ -452,50 +452,59 @@
                         <i class="bi bi-chevron-down ms-auto"></i>
                     </a>
                     <ul id="components-info"
-                        class="nav-content collapse {{ request()->routeIs(['#', '#']) ? 'show' : '' }}"
+                        class="nav-content collapse {{ request()->routeIs(['general.*', '#']) ? 'show' : '' }}"
                         data-bs-parent="#sidebar-nav">
                         <li>
-                            <a class="nav-links {{ request()->routeIs('#') ? 'active' : '' }}" href="#">
+                            <a class="nav-links {{ request()->routeIs('general.asm') ? 'active' : '' }}"
+                                href="{{ route('general.asm') }}">
                                 <i class="bi bi-circle"></i><span>Assoc. Meeting Minutes</span>
                             </a>
                         </li>
                         <li>
-                            <a class="nav-links {{ request()->routeIs('#') ? 'active' : '' }}" href="#">
+                            <a class="nav-links {{ request()->routeIs('general.abl') ? 'active' : '' }}"
+                                href="{{ route('general.abl') }}">
                                 <i class="bi bi-circle"></i><span>Assoc. By-Laws</span>
                             </a>
                         </li>
                         <li>
-                            <a class="nav-links {{ request()->routeIs('#') ? 'active' : '' }}" href="#">
+                            <a class="nav-links {{ request()->routeIs('general.wtr') ? 'active' : '' }}"
+                                href="{{ route('general.wtr') }}">
                                 <i class="bi bi-circle"></i><span>Water Testing Results</span>
                             </a>
                         </li>
                         <li>
-                            <a class="nav-links {{ request()->routeIs('#') ? 'active' : '' }}" href="#">
+                            <a class="nav-links {{ request()->routeIs('general.br') ? 'active' : '' }}"
+                                href="{{ route('general.br') }}">
                                 <i class="bi bi-circle"></i><span>Budget Reports</span>
                             </a>
                         </li>
                         <li>
-                            <a class="nav-links {{ request()->routeIs('#') ? 'active' : '' }}" href="#">
+                            <a class="nav-links {{ request()->routeIs('general.bml') ? 'active' : '' }}"
+                                href="{{ route('general.bml') }}">
                                 <i class="bi bi-circle"></i><span>Board Member List</span>
                             </a>
                         </li>
                         <li>
-                            <a class="nav-links {{ request()->routeIs('#') ? 'active' : '' }}" href="#">
+                            <a class="nav-links {{ request()->routeIs('general.ci') ? 'active' : '' }}"
+                                href="{{ route('general.ci') }}">
                                 <i class="bi bi-circle"></i><span>Contact Info</span>
                             </a>
                         </li>
                         <li>
-                            <a class="nav-links {{ request()->routeIs('#') ? 'active' : '' }}" href="#">
+                            <a class="nav-links {{ request()->routeIs('general.sm') ? 'active' : '' }}"
+                                href="{{ route('general.sm') }}">
                                 <i class="bi bi-circle"></i><span>Survey Map</span>
                             </a>
                         </li>
                         <li>
-                            <a class="nav-links {{ request()->routeIs('#') ? 'active' : '' }}" href="#">
+                            <a class="nav-links {{ request()->routeIs('general.ccr') ? 'active' : '' }}"
+                                href="{{ route('general.ccr') }}">
                                 <i class="bi bi-circle"></i><span>CC&R's Poncin Estate & Johnson Point History</span>
                             </a>
                         </li>
                         <li>
-                            <a class="nav-links {{ request()->routeIs('#') ? 'active' : '' }}" href="#">
+                            <a class="nav-links {{ request()->routeIs('general.aoi') ? 'active' : '' }}"
+                                href="{{ route('general.aoi') }}">
                                 <i class="bi bi-circle"></i><span>Articles of Incorporation</span>
                             </a>
                         </li>
@@ -520,7 +529,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link collapsed {{ request()->routeIs(['bussiness','search']) ? 'active' : '' }}"
+                    <a class="nav-link collapsed {{ request()->routeIs(['bussiness', 'search']) ? 'active' : '' }}"
                         href="{{ route('bussiness') }}">
                         <i class="bi bi-file-earmark-binary"></i>
                         <span>Resource Directory</span>
@@ -600,40 +609,54 @@
         <div class="content-wrapper">
             <main id="main" class="main">
 
-                <div class="pagetitle">
-                    <h1>Hallo, {{ Auth::user()->name }}</h1>
-                    <nav>
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item active">
-                                @if (auth()->user()->hasRole('Admin'))
-                                    Admin Dashboard
-                                @else
-                                    Board Member Dashboard
-                                @endif
-                            </li>
-                        </ol>
-                    </nav>
-                </div>
+                <div class="row ">
+                    <div class="pagetitle col-10">
+                        <h1>Hallo, {{ Auth::user()->name }}</h1>
+                        <nav>
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item active">
+                                    @if (auth()->user()->hasRole('Admin'))
+                                        Admin Dashboard
+                                    @else
+                                        Board Member Dashboard
+                                    @endif
+                                </li>
+                            </ol>
+                        </nav>
+                    </div>
+                    <div class="col-2">
+                        <a class="login-img" href="#">
 
+                            @if (!empty(auth()->user()->profile_picture))
+                                <img src="{{ asset('storage/' . auth()->user()->profile_picture) }}"
+                                    style="width: 60px; border-radius: 50%;    height: 60px;" alt="">
+                            @else
+                                <img src="{{ asset('assets/img/default.png') }}"
+                                    style="width: 60px; border-radius: 50%;    height: 60px;" alt="">
+                            @endif
+                        </a>
+                    </div>
+
+                </div>
                 <!-- End Page Title -->
 
                 <section class="section dashboard">
                     <div class="row">
-                        <div class="col-lg-8">
+                        <div class="col-lg-12">
                             <div class="row">
 
                                 <!-- Search Bar -->
                                 @if (request()->routeIs('bussiness'))
-                                <div class="search-bar">
-                                    <form class="search-form d-flex align-items-center" method="get"
-                                        action="{{route('search')}}">
-                                        @csrf
-                                        <input type="text" name="query" placeholder="Search"
-                                            id="customSearchInput" title="Enter search keyword">
-                                        <button type="submit" title="Search"><i
-                                                class="bi bi-search"></i></button>
-                                    </form>
-                                </div><!-- END Search Bar -->
+                                    <div class="search-bar">
+                                        <form class="search-form d-flex align-items-center" method="get"
+                                            action="{{ route('search') }}">
+                                            @csrf
+                                            <input type="text" name="query" placeholder="Search"
+                                                id="customSearchInput" title="Enter search keyword">
+                                            <button type="submit" title="Search"><i
+                                                    class="bi bi-search"></i></button>
+                                        </form>
+                                    </div><!-- END Search Bar -->
                                 @else
                                     <div class="search-bar">
                                         <form class="search-form d-flex align-items-center" method="GET"
@@ -651,10 +674,9 @@
                         </div>
 
                         <!-- Right side columns -->
-                        <div class="col-lg-4 right-side-col">
+                        {{-- <div class="col-lg-4 right-side-col">
                             <div class="login0">
-                                {{-- <a class="login-img" href="#"><img
-                                        src="{{ asset('assets/img/notification.png') }}" alt=""></a> --}}
+
                                 <a class="login-img" href="#">
 
                                     @if (!empty(auth()->user()->profile_picture))
@@ -730,7 +752,7 @@
                                 </div>
                             </div><!-- End News & Updates -->
 
-                        </div><!-- End Right side columns -->
+                        </div><!-- End Right side columns --> --}}
 
                     </div>
                 </section>

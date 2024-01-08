@@ -183,6 +183,474 @@ return [
 
 
         ],
+        'general'  => [
+            'folder_name'  => 'general',
+            'startup_view' => 'grid',
+            'max_size'     => 50000, // size in KB
+            'thumb' => true,
+            'thumb_width' => 80,
+            'thumb_height' => 80,
+            'create_folder' => true,
+            'valid_mime' => [
+                // Images
+                'image/jpeg',
+                'image/pjpeg',
+                'image/png',
+                'image/gif',
+                'image/bmp',
+                'image/tiff',
+                'image/webp',
+
+                // Documents
+                'application/pdf',
+                'application/msword',
+                'application/vnd.openxmlformats-officedocument.wordprocessingml.document', // .docx
+                'application/vnd.ms-excel',
+                'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', // .xlsx
+                'application/vnd.ms-powerpoint',
+                'application/vnd.openxmlformats-officedocument.presentationml.presentation', // .pptx
+
+                // Text
+                'text/plain',
+
+                // Audio
+                'audio/mpeg',
+                'audio/ogg',
+                'audio/wav',
+
+                // Video
+                'video/mp4',
+                'video/ogg',
+                'video/webm',
+
+                // Archives
+                'application/zip',
+                'application/x-rar-compressed',
+                'application/x-tar',
+                'application/gzip',
+                'application/x-7z-compressed',
+
+                // Other
+                'application/octet-stream', // Binary data
+            ],
+
+        ],
+        'abl'  => [
+            'folder_name'  => 'abl',
+            'startup_view' => 'grid',
+            'max_size'     => 50000, // size in KB
+            'thumb' => true,
+            'thumb_width' => 80,
+            'thumb_height' => 80,
+            'create_folder' => true,
+            'valid_mime' => [
+                // Images
+                'image/jpeg',
+                'image/pjpeg',
+                'image/png',
+                'image/gif',
+                'image/bmp',
+                'image/tiff',
+                'image/webp',
+
+                // Documents
+                'application/pdf',
+                'application/msword',
+                'application/vnd.openxmlformats-officedocument.wordprocessingml.document', // .docx
+                'application/vnd.ms-excel',
+                'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', // .xlsx
+                'application/vnd.ms-powerpoint',
+                'application/vnd.openxmlformats-officedocument.presentationml.presentation', // .pptx
+
+                // Text
+                'text/plain',
+
+                // Audio
+                'audio/mpeg',
+                'audio/ogg',
+                'audio/wav',
+
+                // Video
+                'video/mp4',
+                'video/ogg',
+                'video/webm',
+
+                // Archives
+                'application/zip',
+                'application/x-rar-compressed',
+                'application/x-tar',
+                'application/gzip',
+                'application/x-7z-compressed',
+
+                // Other
+                'application/octet-stream', // Binary data
+            ],
+
+        ],
+        'wtr'  => [
+            'folder_name'  => 'wtr',
+            'startup_view' => 'grid',
+            'max_size'     => 50000, // size in KB
+            'thumb' => true,
+            'thumb_width' => 80,
+            'thumb_height' => 80,
+            'create_folder' => true,
+            'valid_mime' => [
+                // Images
+                'image/jpeg',
+                'image/pjpeg',
+                'image/png',
+                'image/gif',
+                'image/bmp',
+                'image/tiff',
+                'image/webp',
+
+                // Documents
+                'application/pdf',
+                'application/msword',
+                'application/vnd.openxmlformats-officedocument.wordprocessingml.document', // .docx
+                'application/vnd.ms-excel',
+                'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', // .xlsx
+                'application/vnd.ms-powerpoint',
+                'application/vnd.openxmlformats-officedocument.presentationml.presentation', // .pptx
+
+                // Text
+                'text/plain',
+
+                // Audio
+                'audio/mpeg',
+                'audio/ogg',
+                'audio/wav',
+
+                // Video
+                'video/mp4',
+                'video/ogg',
+                'video/webm',
+
+                // Archives
+                'application/zip',
+                'application/x-rar-compressed',
+                'application/x-tar',
+                'application/gzip',
+                'application/x-7z-compressed',
+
+                // Other
+                'application/octet-stream', // Binary data
+            ],
+
+        ],
+        'br'  => [
+            'folder_name'  => 'br',
+            'startup_view' => 'grid',
+            'max_size'     => 50000, // size in KB
+            'thumb' => true,
+            'thumb_width' => 80,
+            'thumb_height' => 80,
+            'create_folder' => true,
+            'valid_mime' => [
+                // Images
+                'image/jpeg',
+                'image/pjpeg',
+                'image/png',
+                'image/gif',
+                'image/bmp',
+                'image/tiff',
+                'image/webp',
+
+                // Documents
+                'application/pdf',
+                'application/msword',
+                'application/vnd.openxmlformats-officedocument.wordprocessingml.document', // .docx
+                'application/vnd.ms-excel',
+                'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', // .xlsx
+                'application/vnd.ms-powerpoint',
+                'application/vnd.openxmlformats-officedocument.presentationml.presentation', // .pptx
+
+                // Text
+                'text/plain',
+
+                // Audio
+                'audio/mpeg',
+                'audio/ogg',
+                'audio/wav',
+
+                // Video
+                'video/mp4',
+                'video/ogg',
+                'video/webm',
+
+                // Archives
+                'application/zip',
+                'application/x-rar-compressed',
+                'application/x-tar',
+                'application/gzip',
+                'application/x-7z-compressed',
+
+                // Other
+                'application/octet-stream', // Binary data
+            ],
+
+        ],
+        'bml'  => [
+            'folder_name'  => 'bml',
+            'startup_view' => 'grid',
+            'max_size'     => 50000, // size in KB
+            'thumb' => true,
+            'thumb_width' => 80,
+            'thumb_height' => 80,
+            'create_folder' => true,
+            'valid_mime' => [
+                // Images
+                'image/jpeg',
+                'image/pjpeg',
+                'image/png',
+                'image/gif',
+                'image/bmp',
+                'image/tiff',
+                'image/webp',
+
+                // Documents
+                'application/pdf',
+                'application/msword',
+                'application/vnd.openxmlformats-officedocument.wordprocessingml.document', // .docx
+                'application/vnd.ms-excel',
+                'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', // .xlsx
+                'application/vnd.ms-powerpoint',
+                'application/vnd.openxmlformats-officedocument.presentationml.presentation', // .pptx
+
+                // Text
+                'text/plain',
+
+                // Audio
+                'audio/mpeg',
+                'audio/ogg',
+                'audio/wav',
+
+                // Video
+                'video/mp4',
+                'video/ogg',
+                'video/webm',
+
+                // Archives
+                'application/zip',
+                'application/x-rar-compressed',
+                'application/x-tar',
+                'application/gzip',
+                'application/x-7z-compressed',
+
+                // Other
+                'application/octet-stream', // Binary data
+            ],
+
+        ],
+        'ci'  => [
+            'folder_name'  => 'ci',
+            'startup_view' => 'grid',
+            'max_size'     => 50000, // size in KB
+            'thumb' => true,
+            'thumb_width' => 80,
+            'thumb_height' => 80,
+            'create_folder' => true,
+            'valid_mime' => [
+                // Images
+                'image/jpeg',
+                'image/pjpeg',
+                'image/png',
+                'image/gif',
+                'image/bmp',
+                'image/tiff',
+                'image/webp',
+
+                // Documents
+                'application/pdf',
+                'application/msword',
+                'application/vnd.openxmlformats-officedocument.wordprocessingml.document', // .docx
+                'application/vnd.ms-excel',
+                'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', // .xlsx
+                'application/vnd.ms-powerpoint',
+                'application/vnd.openxmlformats-officedocument.presentationml.presentation', // .pptx
+
+                // Text
+                'text/plain',
+
+                // Audio
+                'audio/mpeg',
+                'audio/ogg',
+                'audio/wav',
+
+                // Video
+                'video/mp4',
+                'video/ogg',
+                'video/webm',
+
+                // Archives
+                'application/zip',
+                'application/x-rar-compressed',
+                'application/x-tar',
+                'application/gzip',
+                'application/x-7z-compressed',
+
+                // Other
+                'application/octet-stream', // Binary data
+            ],
+
+        ],
+        'sm'  => [
+            'folder_name'  => 'sm',
+            'startup_view' => 'grid',
+            'max_size'     => 50000, // size in KB
+            'thumb' => true,
+            'thumb_width' => 80,
+            'thumb_height' => 80,
+            'create_folder' => true,
+            'valid_mime' => [
+                // Images
+                'image/jpeg',
+                'image/pjpeg',
+                'image/png',
+                'image/gif',
+                'image/bmp',
+                'image/tiff',
+                'image/webp',
+
+                // Documents
+                'application/pdf',
+                'application/msword',
+                'application/vnd.openxmlformats-officedocument.wordprocessingml.document', // .docx
+                'application/vnd.ms-excel',
+                'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', // .xlsx
+                'application/vnd.ms-powerpoint',
+                'application/vnd.openxmlformats-officedocument.presentationml.presentation', // .pptx
+
+                // Text
+                'text/plain',
+
+                // Audio
+                'audio/mpeg',
+                'audio/ogg',
+                'audio/wav',
+
+                // Video
+                'video/mp4',
+                'video/ogg',
+                'video/webm',
+
+                // Archives
+                'application/zip',
+                'application/x-rar-compressed',
+                'application/x-tar',
+                'application/gzip',
+                'application/x-7z-compressed',
+
+                // Other
+                'application/octet-stream', // Binary data
+            ],
+
+        ],
+        'ccr'  => [
+            'folder_name'  => 'ccr',
+            'startup_view' => 'grid',
+            'max_size'     => 50000, // size in KB
+            'thumb' => true,
+            'thumb_width' => 80,
+            'thumb_height' => 80,
+            'create_folder' => true,
+            'valid_mime' => [
+                // Images
+                'image/jpeg',
+                'image/pjpeg',
+                'image/png',
+                'image/gif',
+                'image/bmp',
+                'image/tiff',
+                'image/webp',
+
+                // Documents
+                'application/pdf',
+                'application/msword',
+                'application/vnd.openxmlformats-officedocument.wordprocessingml.document', // .docx
+                'application/vnd.ms-excel',
+                'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', // .xlsx
+                'application/vnd.ms-powerpoint',
+                'application/vnd.openxmlformats-officedocument.presentationml.presentation', // .pptx
+
+                // Text
+                'text/plain',
+
+                // Audio
+                'audio/mpeg',
+                'audio/ogg',
+                'audio/wav',
+
+                // Video
+                'video/mp4',
+                'video/ogg',
+                'video/webm',
+
+                // Archives
+                'application/zip',
+                'application/x-rar-compressed',
+                'application/x-tar',
+                'application/gzip',
+                'application/x-7z-compressed',
+
+                // Other
+                'application/octet-stream', // Binary data
+            ],
+
+        ],
+        'aoi'  => [
+            'folder_name'  => 'aoi',
+            'startup_view' => 'grid',
+            'max_size'     => 50000, // size in KB
+            'thumb' => true,
+            'thumb_width' => 80,
+            'thumb_height' => 80,
+            'create_folder' => true,
+            'valid_mime' => [
+                // Images
+                'image/jpeg',
+                'image/pjpeg',
+                'image/png',
+                'image/gif',
+                'image/bmp',
+                'image/tiff',
+                'image/webp',
+
+                // Documents
+                'application/pdf',
+                'application/msword',
+                'application/vnd.openxmlformats-officedocument.wordprocessingml.document', // .docx
+                'application/vnd.ms-excel',
+                'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', // .xlsx
+                'application/vnd.ms-powerpoint',
+                'application/vnd.openxmlformats-officedocument.presentationml.presentation', // .pptx
+
+                // Text
+                'text/plain',
+
+                // Audio
+                'audio/mpeg',
+                'audio/ogg',
+                'audio/wav',
+
+                // Video
+                'video/mp4',
+                'video/ogg',
+                'video/webm',
+
+                // Archives
+                'application/zip',
+                'application/x-rar-compressed',
+                'application/x-tar',
+                'application/gzip',
+                'application/x-7z-compressed',
+
+                // Other
+                'application/octet-stream', // Binary data
+            ],
+
+        ],
     ],
 
     /*

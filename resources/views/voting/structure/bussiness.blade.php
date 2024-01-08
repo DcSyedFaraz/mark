@@ -198,7 +198,7 @@
             <!-- Business Listings -->
             <div class="row">
                 @foreach ($businesses as $business)
-                    <div class="col-sm-12 col-md-6 mb-4">
+                    <div class="col-sm-12 col-md-4 mb-4">
                         <div class="card text-dark card-has-bg click-col"
                             style="background-image:url('https://source.unsplash.com/600x900/?tree,nature');">
                             <img class="card-img d-none" src="https://source.unsplash.com/600x900/?tree,nature"

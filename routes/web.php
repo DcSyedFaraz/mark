@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\DirectoryController;
 use App\Http\Controllers\Admin\InfraStructureController;
 use App\Http\Controllers\Admin\PhotoController;
 use App\Http\Controllers\EventsController;
+use App\Http\Controllers\GeneralFilesController;
 use Illuminate\Support\Facades\Route;
 // Admin Dashboard
 use App\Http\Controllers\Admin\DashboardController;
@@ -59,6 +60,31 @@ Route::get('/lfmm', [LfmController::class, 'show']);
 Route::get('/search', [DirectoryController::class, 'search'])->name('search');
 // Profile
 
+Route::group(['middleware' => ['auth', 'role:Admin|board_member|member', 'checkAccess', 'non_voting']], function () {
+
+    // General Info Routes
+    Route::get('/general/AssocMeeting', [GeneralFilesController::class, 'Asm'])->name('general.asm');
+
+    Route::get('/general/abl', [GeneralFilesController::class, 'abl'])->name('general.abl');
+    Route::get('/general/wtr', [GeneralFilesController::class, 'wtr'])->name('general.wtr');
+    Route::get('/general/abl', [GeneralFilesController::class, 'abl'])->name('general.abl');
+
+    Route::get('/general/br', [GeneralFilesController::class, 'br'])->name('general.br');
+
+    Route::get('/general/bml', [GeneralFilesController::class, 'bml'])->name('general.bml');
+
+    Route::get('/general/ci', [GeneralFilesController::class, 'ci'])->name('general.ci');
+
+    Route::get('/general/smd', [GeneralFilesController::class, 'sm'])->name('general.sm');
+
+    Route::get('/general/ccr', [GeneralFilesController::class, 'ccr'])->name('general.ccr');
+
+    Route::get('/general/aoi', [GeneralFilesController::class, 'aoi'])->name('general.aoi');
+
+});
+
+
+
 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:Admin|board_member']], function () {
     //Directory
@@ -107,7 +133,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:Admin|board_me
 
 });
 Auth::routes();
-Route::group(['prefix' => 'member', 'middleware' => ['auth', 'role:member','checkAccess']], function () {
+Route::group(['prefix' => 'member', 'middleware' => ['auth', 'role:member', 'checkAccess']], function () {
 
     Route::get('/change_password', [VotingDashboardController::class, 'change_password'])->name('change_password');
     Route::post('/store_change_passwords', [VotingDashboardController::class, 'store_change_passwords'])->name('store_change_passwords');

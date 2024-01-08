@@ -18,11 +18,13 @@ class CheckAccess
     public function handle(Request $request, Closure $next)
     {
         $user = Auth::user();
-
-        if ($user && $user->access === 'approved') {
+        if ($user->hasRole('member')) {
+            if ($user && $user->access === 'approved') {
+                return $next($request);
+            }
+            abort(403, 'Your request has not been approved by the administrator. Please contact the administrator for further assistance.');
+        }else{
             return $next($request);
         }
-        abort(403, 'Your request has not been approved by the administrator. Please contact the administrator for further assistance.');
-
     }
 }

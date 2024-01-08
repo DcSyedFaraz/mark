@@ -261,10 +261,10 @@
                     <article class="row row-cols-1 row-cols-sm-2 g-2 d-flex justify-content-center">
 
                         @foreach ($photos as $photo)
-                            <div class="col-sm-6 col-md-4 mb-4 text-center " style="cursor: pointer;">
+                            <div class="col-sm-6 col-md-12 mb-4 text-center " style="cursor: pointer;">
                                 <a data-fancybox="gallery" data-src="{{ asset('storage/' . $photo->path) }}"
                                     data-caption="{{ $photo->caption }}">
-                                    <img src="{{ asset('storage/' . $photo->path) }}" />
+                                    <img class="w-50" src="{{ asset('storage/' . $photo->path) }}" />
                                     <figcaption><span class="text-bold">Posted By:</span> <span
                                             class="badge badge-success">{{ $photo->user->name }}</span></figcaption>
                                 </a><br>

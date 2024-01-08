@@ -95,9 +95,9 @@
                     <div class="card-body">
                         <div class="row">
                             @foreach ($events as $event)
-                                <div class="col-sm-12 d-flex justify-content-center mb-4 ">
-                                    <div class="card w-75 border border-2 shadow-lg" {{-- style="--tw-bg-opacity: 1;
-                                    background-color: rgb(148 163 184 / var(--tw-bg-opacity)); " --}}>
+                                <div class="col-sm-12 d-flex justify-content-center mb-4 " >
+                                    <div class="card w-75 border border-2 shadow-lg"
+                                        >
                                         <div class="card-body">
                                             <h5 class="card-title font-weight-bold">{{ $event->title }}</h5>
                                             <h6 class="card-text mb-2 text-muted"><span class="font-weight-bold">Category:

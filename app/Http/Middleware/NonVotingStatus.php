@@ -26,7 +26,6 @@ class NonVotingStatus
                 return $next($request);
             }
         }
-
-        return redirect()->back()->with("error","You Don't Have Access"); // You should define a route for this page
+        return redirect()->route('voting.dashboard')->with("error","You Don't Have Access");
     }
 }
