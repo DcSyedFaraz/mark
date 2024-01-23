@@ -46,6 +46,15 @@ class PollController extends Controller
         return redirect()->back()->with('success', 'Vote submitted successfully!');
     }
 
+    // Inside PollController.php
+    public function show(Poll $poll)
+    {
+        $poll->load('options', 'comments.user');
+
+        return view('polls.show', compact('poll'));
+    }
+
+
 
 
 }

@@ -5,17 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Poll extends Model
+class Comment extends Model
 {
     use HasFactory;
     protected $guarded = [];
-
-    public function options()
+    public function poll()
     {
-        return $this->hasMany(Option::class);
+        return $this->belongsTo(Poll::class, 'poll_id');
     }
-    public function comments()
+    public function user()
     {
-        return $this->hasMany(Comment::class);
+        return $this->belongsTo(User::class);
     }
 }

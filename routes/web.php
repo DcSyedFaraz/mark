@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\DirectoryController;
 use App\Http\Controllers\Admin\InfraStructureController;
 use App\Http\Controllers\Admin\PhotoController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\EventsController;
 use App\Http\Controllers\GeneralFilesController;
 use App\Http\Controllers\PollController;
@@ -97,6 +98,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:Admin|board_me
     // Poll
     Route::resource('polls', PollController::class);
     Route::post('polls/{poll}/vote', [PollController::class, 'vote'])->name('polls.vote');
+
+    // Comments
+    Route::resource('comments', CommentController::class)->only(['store']);
 
 
 

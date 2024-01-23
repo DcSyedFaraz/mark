@@ -146,8 +146,8 @@
                         <button type="submit" class="btn btn-success btn-sm"
                             {{ auth()->user()->hasVoted($poll)? 'disabled': '' }}>
                             <span class="glyphicon glyphicon-ok"></span>Vote</button>
-                        <button type="button" class="btn btn-primary btn-sm">
-                            View Result</button>
+                        <a href="{{route('polls.show',$poll->id)}}" class="btn btn-primary btn-sm">
+                            View Comments</a>
                     </div>
                 </form>
             </div>
