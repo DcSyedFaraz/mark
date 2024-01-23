@@ -10,7 +10,7 @@ class PollController extends Controller
 {
     public function index()
     {
-        $polls = Poll::with('options')->get();
+        $polls = Poll::with('options')->orderBy('created_at','desc')->get();
         return view('polls.index', compact('polls'));
     }
 

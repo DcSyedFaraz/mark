@@ -112,47 +112,43 @@
             </div>
         @endforeach
     </div> --}}
-    @foreach ($polls as $poll)
-        <div class="col-md-12 my-4">
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <h3 class="panel-title">
-                        <span class="glyphicon glyphicon-circle-arrow-right"></span>{{ $poll->question }}
-                    </h3>
+    <div class="container my-5">
+        @foreach ($polls as $poll)
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        <span class="me-2"><i class="bi bi-arrow-right-circle"></i></span>{{ $poll->question }}
+                    </h5>
                 </div>
-                <form method="post" action="{{ route('polls.vote', $poll->id) }}">
-                    @csrf
-                    <div class="panel-body two-col">
-                        <div class="row">
+                <div class="card-body">
+                    <form method="post" action="{{ route('polls.vote', $poll->id) }}">
+                        @csrf
+                        <div class="row g-3">
                             @foreach ($poll->options as $index => $option)
-                                <div class="col-md-6">
-                                    <div class="well well-sm">
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="radio" @if(auth()->user()->hasVoted($poll)) disabled @endif name="option_id" value="{{ $option->id }}">
-                                                {{ $option->options }}
-                                                @if(auth()->user()->hasVoted($poll))
-                                                   <span class="badge bg-success">{{ $option->votes }}</span>
-                                                @endif
-                                            </label>
-
-                                        </div>
+                                <div class="col-6">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" @if(auth()->user()->hasVoted($poll)) disabled @endif name="option_id" value="{{ $option->id }}">
+                                        <label class="form-check-label" for="option_{{ $option->id }}">
+                                            {{ $option->options }}
+                                            @if(auth()->user()->hasVoted($poll))
+                                                <span class="badge bg-success ms-2">{{ $option->votes }}</span>
+                                            @endif
+                                        </label>
                                     </div>
                                 </div>
                             @endforeach
                         </div>
-                    </div>
-                    <div class="panel-footer">
-                        <button type="submit" class="btn btn-success btn-sm"
-                            {{ auth()->user()->hasVoted($poll)? 'disabled': '' }}>
-                            <span class="glyphicon glyphicon-ok"></span>Vote</button>
-                        <a href="{{route('polls.show',$poll->id)}}" class="btn btn-primary btn-sm">
-                            View Comments</a>
-                    </div>
-                </form>
+                </div>
+                <div class="card-footer text-end">
+                    <button type="submit" class="btn btn-success btn-sm"
+                        {{ auth()->user()->hasVoted($poll)? 'disabled': '' }}>
+                        <span class="me-1"><i class="bi bi-check"></i></span>Vote</button>
+                    <a href="{{route('polls.show',$poll->id)}}" class="btn btn-primary btn-sm">
+                        <span class="me-1"><i class="bi bi-chat-left-text"></i></span>View Comments</a>
+                </div>
             </div>
-        </div>
-    @endforeach
+        @endforeach
+    </div>
 @endsection
 @section('script')
     <script>
