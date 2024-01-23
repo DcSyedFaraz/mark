@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\Permission\Models\Role;
 use Spatie\Permission\Traits\HasRoles;
 use Bavix\Wallet\Traits\HasWallet;
 use Bavix\Wallet\Interfaces\Wallet;
@@ -14,7 +15,7 @@ use Bavix\Wallet\Interfaces\Wallet;
 
 class User extends Authenticatable
 {
-    use HasApiTokens,HasFactory,Notifiable,HasRoles,HasWallet;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles, HasWallet;
 
     /**
      * The attributes that are mass assignable.
@@ -57,5 +58,21 @@ class User extends Authenticatable
             $query->where('name', $roleName);
         });
     }
+
+    public function hasVoted(Poll $poll)
+    {
+        return $this->votedPolls()->where('poll_id', $poll->id)->exists();
+    }
+
+    public function markAsVoted(Poll $poll)
+    {
+        $this->votedPolls()->attach($poll->id);
+    }
+
+    public function votedPolls()
+    {
+        return $this->belongsToMany(Poll::class, 'user_poll_votes')->withTimestamps();
+    }
+
 
 }

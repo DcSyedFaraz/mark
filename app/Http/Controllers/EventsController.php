@@ -18,14 +18,15 @@ class EventsController extends Controller
     public function index()
     {
         $events = Events::orderBy("updated_at", "desc")->paginate(7);
+        $status = null;
 
         if (Auth::user()->hasRole('member')) {
 
-            return view("voting.event.event", compact("events"));
+            return view("voting.event.event", compact("events","status"));
 
         } else {
 
-            return view("admin.event.event", compact("events"));
+            return view("admin.event.event", compact("events","status"));
 
         }
     }
@@ -38,7 +39,22 @@ class EventsController extends Controller
     public function calendar()
     {
         $data['jobs'] = Events::all();
-        return view('admin.event.calendar',$data);
+        return view('admin.event.calendar', $data);
+    }
+    public function calendarShow($id)
+    {
+        // dd($id);
+        $events = Events::where('id',$id)->get();
+        $status = 'single';
+        if (Auth::user()->hasRole('member')) {
+
+            return view("voting.event.event", compact("events", "status"));
+
+        } else {
+
+            return view("admin.event.event", compact("events", "status"));
+
+        }
     }
 
     /**

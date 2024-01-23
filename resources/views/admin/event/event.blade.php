@@ -217,9 +217,11 @@
                             @endforeach
                         </div>
                     </div>
-                    <div class="d-flex justify-content-center mt-4">
-                        {!! $events->links() !!}
-                    </div>
+                    @if ($status != 'single')
+                        <div class="d-flex justify-content-center mt-4">
+                            {!! $events->links() !!}
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>

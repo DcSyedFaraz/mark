@@ -83,7 +83,12 @@ class DirectoryController extends Controller
     }
     public function bussinessStore(Request $request)
     {
-        // return $request;
+        // if ($request->otherCategory != null) {
+
+        //     dd($request->all());
+        // } else {
+        //     dd('not found', $request->all());
+        // }
         $rules = [
             'name' => 'required',
             'phone' => 'required',
@@ -96,12 +101,25 @@ class DirectoryController extends Controller
         // Validate the request
         $request->validate($rules);
 
-        $business = new Bussiness;
-        $business->fill($request->all());
+        // $business = new Bussiness;
+        // $business->fill($request->all());
 
-        $business->user_id = Auth::id();
+        // $business->user_id = Auth::id();
 
-        $business->save();
+        // $business->save();
+
+        // Assuming this code is inside a method of a controller
+
+        Bussiness::create([
+            'name' => $request->name,
+            'category' => $request->category,
+            'otherCategory' => ($request->category == 'Other') ? $request->otherCategory : null,
+            'phone' => $request->phone,
+            'email' => $request->email,
+            'website' => $request->website,
+            'recommendation_note' => $request->recommendation_note,
+        ]);
+
 
         return redirect()->back()->with('success', 'Business added successfully.');
     }
@@ -162,14 +180,24 @@ class DirectoryController extends Controller
             }
 
             // Update the business fields from the request
-            $business->fill($validatedData);
+            // $business->fill($validatedData);
 
 
-            // Save the updated business
-            $business->save();
+            // // Save the updated business
+            // $business->save();
+            $business->update([
+                'name' => $request->name,
+                'category' => $request->category,
+                'otherCategory' => ($request->category == 'Other') ? $request->otherCategory : null,
+                'phone' => $request->phone,
+                'email' => $request->email,
+                'website' => $request->website,
+                'recommendation_note' => $request->recommendation_note,
+            ]);
 
             return redirect()->back()->with('success', 'Business updated successfully.');
         } catch (\Exception $e) {
+            // throw $e;
             return redirect()->back()->with('error', 'An error occurred while updating the business.');
         }
     }

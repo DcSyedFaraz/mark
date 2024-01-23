@@ -97,6 +97,7 @@
                         {
                             id: '{{ $job->id }}',
                             title: '{{ $job->category }}',
+                            url: '{{ route('calendar.show', $job->id) }}',
                             start: '{{ $job->start_date }}',
                             end: '{{ $job->end_date }}',
                             backgroundColor: '#{{ substr(md5(microtime()), 0, 6) }}',

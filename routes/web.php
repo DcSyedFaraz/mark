@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\InfraStructureController;
 use App\Http\Controllers\Admin\PhotoController;
 use App\Http\Controllers\EventsController;
 use App\Http\Controllers\GeneralFilesController;
+use App\Http\Controllers\PollController;
 use Illuminate\Support\Facades\Route;
 // Admin Dashboard
 use App\Http\Controllers\Admin\DashboardController;
@@ -57,6 +58,7 @@ Route::get('/logins', [HomeController::class, 'login'])->name('logins');
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/event/calendar', [EventsController::class, 'calendar'])->name('events.calendar');
 Route::get('/lfmm', [LfmController::class, 'show']);
+Route::get('/event/calendar/show/{id}', [EventsController::class, 'calendarShow'])->name('calendar.show');
 Route::get('/search', [DirectoryController::class, 'search'])->name('search');
 // Profile
 
@@ -91,6 +93,12 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:Admin|board_me
     Route::resource('directory', DirectoryController::class);
 
     Route::resource('events', EventsController::class);
+
+    // Poll
+    Route::resource('polls', PollController::class);
+    Route::post('polls/{poll}/vote', [PollController::class, 'vote'])->name('polls.vote');
+
+
 
     Route::controller(DirectoryController::class)->group(function () {
         Route::get('bussiness', 'bussiness')->name('bussiness');

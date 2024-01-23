@@ -12,7 +12,11 @@ class Bussiness extends Model
 
     public function scopeSearchByCategory($query, $category)
     {
-        return $query->where('category', 'like', "%$category%");
+        return $query->where(function ($query) use ($category) {
+            $query->where('category', 'like', "%$category%")
+                  ->orWhere('otherCategory', 'like', "%$category%");
+        });
+
     }
 
     public function username(){

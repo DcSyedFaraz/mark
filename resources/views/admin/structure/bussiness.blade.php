@@ -1,7 +1,6 @@
 @extends('admin.layouts.app')
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
-
 @section('content')
     <style>
         .card {
@@ -42,17 +41,17 @@
                 }
 
                 /* &:hover {
-                                        transform: scale(0.98);
-                                        box-shadow: 0 0 5px -2px rgba(0, 0, 0, 0.3);
-                                        background-size: 130%;
-                                        transition: all 500ms cubic-bezier(0.19, 1, 0.22, 1);
+                                                    transform: scale(0.98);
+                                                    box-shadow: 0 0 5px -2px rgba(0, 0, 0, 0.3);
+                                                    background-size: 130%;
+                                                    transition: all 500ms cubic-bezier(0.19, 1, 0.22, 1);
 
-                                        .card-img-overlay {
-                                            transition: all 800ms cubic-bezier(0.19, 1, 0.22, 1);
-                                            background: rgb(255, 186, 33);
-                                            background: linear-gradient(0deg, rgba(255, 186, 33, 0.5) 0%, rgba(255, 186, 33, 1) 100%);
-                                        }
-                                    } */
+                                                    .card-img-overlay {
+                                                        transition: all 800ms cubic-bezier(0.19, 1, 0.22, 1);
+                                                        background: rgb(255, 186, 33);
+                                                        background: linear-gradient(0deg, rgba(255, 186, 33, 0.5) 0%, rgba(255, 186, 33, 1) 100%);
+                                                    }
+                                                } */
             }
 
             .card-footer {
@@ -151,7 +150,7 @@
                                                     required>
                                                 <div class="form-group">
                                                     <label for="category">Category</label>
-                                                    <select name="category" class="form-control" id="category">
+                                                    <select name="category" class="form-control" id="categorySelector">
                                                         <option value="" selected hidden>Select Category</option>
                                                         <option value="Restaurant">Restaurant</option>
                                                         <option value="Retail">Retail</option>
@@ -159,8 +158,14 @@
                                                         <option value="Healthcare">Healthcare</option>
                                                         <option value="Finance">Finance</option>
                                                         <option value="Education">Education</option>
+                                                        <option value="Other">Other</option>
                                                     </select>
-                                                    {{-- <input type="text" class="form-control" id="category" name="category" required> --}}
+                                                </div>
+
+                                                <div id="otherCategoryField" style="display: none;" class="form-group">
+                                                    <label for="otherCategory">Other Category:</label>
+                                                    <input type="text" name="otherCategory" id="otherCategory"
+                                                        class="form-control">
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="phone">Phone</label>
@@ -216,7 +221,10 @@
                                     <p><span class="font-weight-bold">Recomendation
                                             Note:</span>{{ $business->recommendation_note ?? '' }}</p>
                                     <p><span class="font-weight-bold">Category:</span> <span
-                                            class="badge badge-primary">{{ $business->category ?? '' }}</span></p>
+                                            class="badge badge-primary">{{ $business->category ?? '' }} @if ($business->otherCategory != null && $business->category == 'Other')
+                                                - {{ $business->otherCategory }}
+                                            @endif
+                                        </span></p>
                                 </div>
                                 <div class="card-footer">
                                     <div class="media">
@@ -272,11 +280,63 @@
                                                                         </div>
                                                                         <div class="form-group">
                                                                             <label for="category">Category</label>
-                                                                            <input type="text" class="form-control"
-                                                                                id="category" name="category"
-                                                                                value="{{ $business->category }}"
-                                                                                required>
+                                                                            <select name="category" class="form-control"
+                                                                                id="categorySelector{{ $business->id }}">
+                                                                                <option value="" selected hidden>
+                                                                                    Select Category</option>
+                                                                                <option value="Restaurant"
+                                                                                    {{ $business->category == 'Restaurant' ? 'selected' : '' }}>
+                                                                                    Restaurant</option>
+                                                                                <option value="Retail"
+                                                                                    {{ $business->category == 'Retail' ? 'selected' : '' }}>
+                                                                                    Retail</option>
+                                                                                <option value="Technology"
+                                                                                    {{ $business->category == 'Technology' ? 'selected' : '' }}>
+                                                                                    Technology</option>
+                                                                                <option value="Healthcare"
+                                                                                    {{ $business->category == 'Healthcare' ? 'selected' : '' }}>
+                                                                                    Healthcare</option>
+                                                                                <option value="Finance"
+                                                                                    {{ $business->category == 'Finance' ? 'selected' : '' }}>
+                                                                                    Finance</option>
+                                                                                <option value="Education"
+                                                                                    {{ $business->category == 'Education' ? 'selected' : '' }}>
+                                                                                    Education</option>
+                                                                                <option value="Other"
+                                                                                    {{ $business->category == 'Other' ? 'selected' : '' }}>
+                                                                                    Other</option>
+                                                                            </select>
                                                                         </div>
+                                                                        <div id="otherCategoryFields{{ $business->id }}"
+                                                                            style="display: {{ $business->category == 'Other' ? 'block' : 'none' }}"
+                                                                            class="form-group">
+                                                                            <label
+                                                                                for="otherCategory{{ $business->id }}">Other
+                                                                                Category:</label>
+                                                                            <input type="text" name="otherCategory" value="{{$business->otherCategory}}"
+                                                                                id="otherCategory{{ $business->id }}"
+                                                                                class="form-control">
+                                                                        </div>
+
+                                                                        <script>
+                                                                            document.addEventListener('DOMContentLoaded', function() {
+                                                                                var categorySelector{{ $business->id }} = document.getElementById(
+                                                                                    'categorySelector{{ $business->id }}');
+                                                                                var otherCategoryFields{{ $business->id }} = document.getElementById(
+                                                                                    'otherCategoryFields{{ $business->id }}');
+
+                                                                                // Initial state based on the selected category
+                                                                                otherCategoryFields{{ $business->id }}.style.display = (categorySelector{{ $business->id }}.value ===
+                                                                                    'Other') ? 'block' : 'none';
+
+                                                                                categorySelector{{ $business->id }}.addEventListener('change', function() {
+                                                                                    // Toggle display based on the selected category
+                                                                                    otherCategoryFields{{ $business->id }}.style.display = (this.value === 'Other') ? 'block' :
+                                                                                        'none';
+                                                                                });
+                                                                            });
+                                                                        </script>
+
                                                                         <div class="form-group">
                                                                             <label for="phone">Phone</label>
                                                                             <input type="tel" class="form-control"
@@ -342,6 +402,26 @@
     </div>
 
 @section('script')
+    <script>
+        document.getElementById('categorySelector').addEventListener('change', function() {
+            var otherCategoryField = document.getElementById('otherCategoryField');
+            otherCategoryField.style.display = (this.value === 'Other') ? 'block' : 'none';
+        });
+
+        //     document.addEventListener('DOMContentLoaded', function () {
+        //     var categorySelector = document.getElementById('categorySelectors');
+        //     var otherCategoryField = document.getElementById('otherCategoryFields');
+
+        //     // Initial state based on the selected category
+        //     otherCategoryField.style.display = (categorySelector.value === 'Other') ? 'block' : 'none';
+
+        //     categorySelector.addEventListener('change', function () {
+        //         // Toggle display based on the selected category
+        //         console.log('done');
+        //         otherCategoryField.style.display = (this.value === 'Other') ? 'block' : 'none';
+        //     });
+        // });
+    </script>
     <script>
         $(document).ready(function() {
             $.ajaxSetup({
