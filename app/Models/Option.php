@@ -8,10 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Option extends Model
 {
     use HasFactory;
-    protected $guarded=[];
+    protected $guarded = [];
 
     public function poll()
-{
-    return $this->belongsTo(Poll::class);
-}
+    {
+        return $this->belongsTo(Poll::class);
+    }
+    public function votess()
+    {
+        return $this->hasMany(Vote::class,'option_id');
+    }
 }

@@ -10,13 +10,23 @@ class PollController extends Controller
 {
     public function index()
     {
-        $polls = Poll::with('options')->orderBy('created_at','desc')->get();
+        $polls = Poll::with('options')->orderBy('created_at', 'desc')->get();
         return view('polls.index', compact('polls'));
+    }
+    public function details()
+    {
+        $polls = Poll::with(['options', 'options.votess.user'])->orderBy('created_at', 'desc')->get();
+
+        return view('polls.details', compact('polls'));
     }
 
     public function store(Request $request)
     {
-        $poll = Poll::create(['question' => $request->question]);
+        $request->validate([
+            'question' => 'required|string',
+            'deadline' => 'nullable|date|after:now',
+        ]);
+        $poll = Poll::create(['question' => $request->question, 'deadline' => $request->deadline]);
 
         foreach ($request->options as $option) {
             $poll->options()->create(['options' => $option]);
@@ -32,7 +42,9 @@ class PollController extends Controller
             'option_id' => 'required|exists:options,id',
         ]);
 
-        // Check if the user has already voted for this poll
+        if (!$poll->isOpenForVoting()) {
+            return redirect()->back()->with('error', 'Voting for this poll is closed.');
+        }
         if ($request->user()->hasVoted($poll)) {
             return redirect()->back()->with('error', 'You have already voted for this poll!');
         }
@@ -41,7 +53,7 @@ class PollController extends Controller
         $option = Option::find($request->option_id);
         $option->increment('votes');
 
-        $request->user()->markAsVoted($poll);
+        $request->user()->markAsVoted($poll, $request->option_id);
 
         return redirect()->back()->with('success', 'Vote submitted successfully!');
     }

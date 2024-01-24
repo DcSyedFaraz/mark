@@ -11,10 +11,10 @@ class CommentController extends Controller
     public function store(Request $request)
     {
         $poll = Poll::find($request->poll);
-        // dd($request->all(), $poll);
         $request->validate([
-            'body' => 'required|string',
+            'body' => 'required|string|max:100',
         ]);
+        // dd($request->all(), $poll);
 
         // Create a new comment
         $comment = new Comment([

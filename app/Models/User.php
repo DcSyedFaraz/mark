@@ -64,15 +64,17 @@ class User extends Authenticatable
         return $this->votedPolls()->where('poll_id', $poll->id)->exists();
     }
 
-    public function markAsVoted(Poll $poll)
+    // Inside User.php
+    public function markAsVoted(Poll $poll, $optionId)
     {
-        $this->votedPolls()->attach($poll->id);
+        $this->votedPolls()->attach($poll->id, ['option_id' => $optionId]);
     }
 
     public function votedPolls()
     {
-        return $this->belongsToMany(Poll::class, 'user_poll_votes')->withTimestamps();
+        return $this->belongsToMany(Poll::class, 'user_poll_votes')->withPivot('option_id')->withTimestamps();
     }
+
 
 
 }

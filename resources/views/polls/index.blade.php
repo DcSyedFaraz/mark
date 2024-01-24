@@ -1,4 +1,4 @@
-@extends('admin.layouts.app')
+@extends(auth()->user()->hasRole('member') ? 'voting.layouts.app' : 'admin.layouts.app')
 @section('content')
     {{-- <style>
         .poll-form {
@@ -50,11 +50,15 @@
         }
     </style> --}}
     <!-- Button trigger modal -->
-    <div class="d-flex justify-content-center align-items-start my-2">
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            Add Poll
-        </button>
-    </div>
+   @if (!auth()->user()->hasRole('member'))
+     <div class="d-flex justify-content-center align-items-start my-2">
+         <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">
+             Add Poll
+         </button>
+         <a href="{{ route('polls.details') }}" class="btn btn-warning mx-2 btn-sm">
+             <span class="me-1"><i class="bi bi-file-text"></i></span>Voting Details</a>
+     </div>
+   @endif
 
 
     <!-- Modal -->
@@ -62,7 +66,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Add Poll</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -72,7 +76,17 @@
                             <label for="question" class="form-label">Question:</label>
                             <input type="text" name="question" class="form-control" required>
                         </div>
+                        <div class="col-md-12">
+                            <label for="question" class="form-label">Deadline(Optional):</label>
+                            <input type="datetime-local" name="deadline" class="form-control" required>
+                        </div>
 
+                        <div class="col-md-12 options">
+                            <div class="option">
+                                <label for="options" class="form-label">Options:</label>
+                                <input type="text" name="options[]" class="form-control" required>
+                            </div>
+                        </div>
                         <div class="col-md-12 options">
                             <div class="option">
                                 <label for="options" class="form-label">Options:</label>
@@ -119,18 +133,27 @@
                     <h5 class="mb-0">
                         <span class="me-2"><i class="bi bi-arrow-right-circle"></i></span>{{ $poll->question }}
                     </h5>
+                    <p>Deadline: {{ $poll->formattedDeadline }}</p>
                 </div>
-                <div class="card-body">
-                    <form method="post" action="{{ route('polls.vote', $poll->id) }}">
+                <form method="post" action="{{ route('polls.vote', $poll->id) }}">
+                    <div class="card-body">
                         @csrf
+                        {{-- {{ $poll->id }} --}}
                         <div class="row g-3">
                             @foreach ($poll->options as $index => $option)
                                 <div class="col-6">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" @if(auth()->user()->hasVoted($poll)) disabled @endif name="option_id" value="{{ $option->id }}">
+
+                                        <input class="form-check-input" type="radio"
+                                            @if (auth()->user()->hasVoted($poll) &&
+                                                    auth()->user()->votedPolls->first()->pivot->option_id == $option->id) checked @endif
+                                            @if (auth()->user()->hasVoted($poll) || !$poll->isOpenForVoting()) disabled @endif name="option_id"
+                                            value="{{ $option->id }}">
+
                                         <label class="form-check-label" for="option_{{ $option->id }}">
                                             {{ $option->options }}
-                                            @if(auth()->user()->hasVoted($poll))
+
+                                            @if (auth()->user()->hasVoted($poll) || !$poll->isOpenForVoting())
                                                 <span class="badge bg-success ms-2">{{ $option->votes }}</span>
                                             @endif
                                         </label>
@@ -138,14 +161,17 @@
                                 </div>
                             @endforeach
                         </div>
-                </div>
-                <div class="card-footer text-end">
-                    <button type="submit" class="btn btn-success btn-sm"
-                        {{ auth()->user()->hasVoted($poll)? 'disabled': '' }}>
-                        <span class="me-1"><i class="bi bi-check"></i></span>Vote</button>
-                    <a href="{{route('polls.show',$poll->id)}}" class="btn btn-primary btn-sm">
-                        <span class="me-1"><i class="bi bi-chat-left-text"></i></span>View Comments</a>
-                </div>
+
+                    </div>
+                    <div class="card-footer text-end">
+                        <button type="submit" class="btn btn-success btn-sm"
+                        @if (auth()->user()->hasVoted($poll) || !$poll->isOpenForVoting()) disabled @endif>
+                            <span class="me-1"><i class="bi bi-check"></i></span>Vote</button>
+                        <a href="{{ route('polls.show', $poll->id) }}" class="btn btn-primary btn-sm">
+                            <span class="me-1"><i class="bi bi-chat-left-text"></i></span>View Comments</a>
+
+                    </div>
+                </form>
             </div>
         @endforeach
     </div>

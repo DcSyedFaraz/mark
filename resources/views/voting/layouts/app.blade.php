@@ -201,6 +201,13 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link collapsed {{ request()->routeIs(['polls.*']) ? 'active' : '' }}"
+                        href="{{ route('polls.index') }}">
+                        <i class="bi bi-calendar3"></i>
+                        <span>Poll</span>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link collapsed {{ request()->routeIs('profile.*') ? 'active' : '' }}"
                         href="{{ route('profile.index') }}">
                         <i class="bi bi-menu-up"></i>

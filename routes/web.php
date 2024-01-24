@@ -84,6 +84,12 @@ Route::group(['middleware' => ['auth', 'role:Admin|board_member|member', 'checkA
 
     Route::get('/general/aoi', [GeneralFilesController::class, 'aoi'])->name('general.aoi');
 
+    // Poll
+    Route::resource('polls', PollController::class);
+    Route::post('polls/{poll}/vote', [PollController::class, 'vote'])->name('polls.vote');
+     // Comments
+     Route::resource('comments', CommentController::class)->only(['store']);
+
 });
 
 
@@ -95,12 +101,10 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:Admin|board_me
 
     Route::resource('events', EventsController::class);
 
-    // Poll
-    Route::resource('polls', PollController::class);
-    Route::post('polls/{poll}/vote', [PollController::class, 'vote'])->name('polls.vote');
 
-    // Comments
-    Route::resource('comments', CommentController::class)->only(['store']);
+    Route::get('/voting-details', [PollController::class, 'details'])->name('polls.details');
+
+
 
 
 
