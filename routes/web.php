@@ -48,6 +48,12 @@ use UniSharp\LaravelFilemanager\Controllers\LfmController;
 |
 */
 
+Route::get('/done', function () {
+    Artisan::call('optimize:clear');
+
+    return 'done';
+});
+
 Route::get('/signup', [RegisterController::class, 'register_form'])->name('signup');
 // Route::get('/signup', [RegisterController::class, 'create'])->name('registers');
 Route::get('logout', [LoginController::class, 'logout']);
@@ -87,6 +93,7 @@ Route::group(['middleware' => ['auth', 'role:Admin|board_member|member', 'checkA
     // Poll
     Route::resource('polls', PollController::class);
     Route::post('polls/{poll}/vote', [PollController::class, 'vote'])->name('polls.vote');
+    Route::get('generate-pdf/{id}', [PollController::class, 'generatePDF'])->name('polls.pdf');
      // Comments
      Route::resource('comments', CommentController::class)->only(['store']);
 

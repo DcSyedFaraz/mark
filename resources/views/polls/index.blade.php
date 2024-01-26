@@ -1,4 +1,8 @@
-@extends(auth()->user()->hasRole('member') ? 'voting.layouts.app' : 'admin.layouts.app')
+@extends(
+    auth()->user()->hasRole('member')
+        ? 'voting.layouts.app'
+        : 'admin.layouts.app'
+)
 @section('content')
     {{-- <style>
         .poll-form {
@@ -50,15 +54,15 @@
         }
     </style> --}}
     <!-- Button trigger modal -->
-   @if (!auth()->user()->hasRole('member'))
-     <div class="d-flex justify-content-center align-items-start my-2">
-         <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">
-             Add Poll
-         </button>
-         <a href="{{ route('polls.details') }}" class="btn btn-warning mx-2 btn-sm">
-             <span class="me-1"><i class="bi bi-file-text"></i></span>Voting Details</a>
-     </div>
-   @endif
+    @if (!auth()->user()->hasRole('member'))
+        <div class="d-flex justify-content-center align-items-start my-2">
+            <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Add Poll
+            </button>
+            <a href="{{ route('polls.details') }}" class="btn btn-warning mx-2 btn-sm">
+                <span class="me-1"><i class="bi bi-file-text"></i></span>Voting Details</a>
+        </div>
+    @endif
 
 
     <!-- Modal -->
@@ -133,7 +137,9 @@
                     <h5 class="mb-0">
                         <span class="me-2"><i class="bi bi-arrow-right-circle"></i></span>{{ $poll->question }}
                     </h5>
-                    <p>Deadline: {{ $poll->formattedDeadline }}</p>
+                    @if ($poll->formattedDeadline != null)
+                        <p class="badge bg-danger">Deadline: {{ $poll->formattedDeadline }}</p>
+                    @endif
                 </div>
                 <form method="post" action="{{ route('polls.vote', $poll->id) }}">
                     <div class="card-body">
@@ -165,10 +171,16 @@
                     </div>
                     <div class="card-footer text-end">
                         <button type="submit" class="btn btn-success btn-sm"
-                        @if (auth()->user()->hasVoted($poll) || !$poll->isOpenForVoting()) disabled @endif>
+                            @if (auth()->user()->hasVoted($poll) || !$poll->isOpenForVoting()) disabled @endif>
                             <span class="me-1"><i class="bi bi-check"></i></span>Vote</button>
+
                         <a href="{{ route('polls.show', $poll->id) }}" class="btn btn-primary btn-sm">
                             <span class="me-1"><i class="bi bi-chat-left-text"></i></span>View Comments</a>
+
+                        @if (!auth()->user()->hasRole('member') && !$poll->isOpenForVoting())
+                            <a href="{{ route('polls.pdf', $poll->id) }}" target="blank" class="btn btn-warning btn-sm">
+                                <span class="me-1"><i class="fa fa-file-pdf"></i></span>Export PDF</a>
+                        @endif
 
                     </div>
                 </form>

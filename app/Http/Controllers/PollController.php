@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Option;
 use App\Models\Poll;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 
 class PollController extends Controller
@@ -18,6 +19,17 @@ class PollController extends Controller
         $polls = Poll::with(['options', 'options.votess.user'])->orderBy('created_at', 'desc')->get();
 
         return view('polls.details', compact('polls'));
+    }
+
+    public function generatePDF($id)
+    {
+        $data['polls'] = Poll::with(['options', 'options.votess.user'])->where('id', $id)->first();
+
+        $pdf = Pdf::loadView('polls.pdf', $data)->setOptions(['defaultFont' => 'sans-serif']);
+
+        // return $pdf->download('filename.pdf');
+        return $pdf->stream();
+        // return view('polls.pdf', $data);
     }
 
     public function store(Request $request)
