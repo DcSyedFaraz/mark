@@ -3,120 +3,105 @@
 @section('content')
 
 
+    <section class="content mt-5">
+        <div class="container">
+            <div class="col-12">
 
+                <div class="card">
 
-    <!-- Content Wrapper. Contains page content -->
-
-        <!-- Content Header (Page header) -->
-        {{-- <div class="content-header">
-            <div class="container-fluid">
-                <div class="row mb-2">
-                    <div class="col-sm-6">
-                        <h1 class="m-0">Dashboard</h1>
-                    </div><!-- /.col -->
-                    <div class="col-sm-6">
-                        <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active">Dashboard</li>
-                        </ol>
-                    </div><!-- /.col -->
-                </div><!-- /.row -->
-            </div><!-- /.container-fluid -->
-        </div> --}}
-        <!-- /.content-header -->
-
-        <!-- Main content -->
-        {{-- <section class="content">
-            <div class="container-fluid">
-                <!-- Small boxes (Stat box) -->
-                <div class="row">
-                    <div class="col-lg-3 col-3">
-                        <!-- small box -->
-                        <div class="small-box bg-warning">
-                            <div class="inner">
-                                <h3>{{ $users }}</h3>
-
-                                <p>User Registrations</p>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-6 offset-md-3">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Upload File</h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <form action="{{ route('file') }}" method="post" enctype="multipart/form-data">
+                                            @csrf
+                                            <div class="mb-3">
+                                                {{-- <label for="inputGroupFile01" class="form-label">Upload</label> --}}
+                                                <input type="file" name="file" class="form-control" id="inputGroupFile01"
+                                                    accept=".xls,.xlsx">
+                                            </div>
+                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                        </form>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="icon">
-                                <i class="ion ion-person-add"></i>
-                            </div>
-                            <a href="#" class="small-box-footer">More info <i
-                                    class="fas fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
 
-                </div>
-
-            </div><!-- /.container-fluid -->
-        </section> --}}
-        <!-- /.content -->
-        <section class="content mt-5">
-            <div class="container">
-                <div class="col-12">
-
-                    <div class="card">
-
-
-
-                            <div class="card-body table-responsive-xl">
-                                <table  class="table table-bordered table-striped table-responsive">
-                                    <thead class="text-sm">
-                                        <tr>
-                                            <th>S.N</th>
-                                            <th>Full name:</th>
-                                            <th>Email:</th>
-                                            <th>Address:</th>
-                                            <th>Phone Number:</th>
-                                            <th>Voting Status:</th>
-                                            <th>Actions</th>
-                                        </tr>
-                                    </thead>
-
-                                    <tbody class="text-sm">
-                                        @if ($request)
-                                            @foreach ($request as $key => $user)
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h3>User Requests</h3>
+                                    </div>
+                                    <div class="card-body table-responsive">
+                                        <table class="table table-striped table-hover text-sm">
+                                            <thead>
                                                 <tr>
-                                                    <td>{{ $key + 1 }}</td>
-                                                    <td>{{ $user->name ?? '' }}</td>
-                                                    <td>{{ $user->email ?? '' }}</td>
-                                                    <td>{{ $user->address ?? 'null' }}</td>
-                                                    <td>{{ $user->phone ?? 'null' }}</td>
-                                                    <td>
-                                                        @if ($user->status === 'voting')
-                                                            <span class="badge badge-success">Voting</span>
-                                                        @elseif ($user->status === 'non-voting')
-                                                            <span class="badge badge-warning">Non-Voting</span>
-                                                        @else
-                                                            <span class="badge badge-secondary">Unknown</span>
-                                                        @endif
-                                                    </td>
-                                                    <td class="d-flex">
-                                                        @if ($user->access == 'declined')
-                                                            <span class="badge badge-danger"> Request Declined</span>
-                                                        @else
-                                                            <a href="{{ route('users.accept', $user->id) }}"
-                                                                class="btn btn-sm btn-success">Approved</a>
-                                                            <form action="{{ route('users.decline', $user->id) }}" method="POST"
-                                                                class="d-inline mx-1">
-                                                                @csrf
-                                                                <button type="submit"
-                                                                    class="btn btn-sm btn-danger dltBtn">Declined</button>
-                                                            </form>
-                                                        @endif
-                                                    </td>
+                                                    <th>S.N</th>
+                                                    <th>Full name:</th>
+                                                    <th>Email:</th>
+                                                    <th>Address:</th>
+                                                    <th>Phone Number:</th>
+                                                    <th>Voting Status:</th>
+                                                    <th>Actions</th>
                                                 </tr>
-                                            @endforeach
-                                        @endif
-                                    </tbody>
-                                </table>
+                                            </thead>
 
+                                            <tbody>
+                                                @if ($request)
+                                                    @foreach ($request as $key => $user)
+                                                        <tr>
+                                                            <td>{{ $key + 1 }}</td>
+                                                            <td>{{ $user->name ?? '' }}</td>
+                                                            <td>{{ $user->email ?? '' }}</td>
+                                                            <td>{{ $user->address ?? 'null' }}</td>
+                                                            <td>{{ $user->phone ?? 'null' }}</td>
+                                                            <td>
+                                                                @if ($user->status === 'voting')
+                                                                    <span class="badge bg-success">Voting</span>
+                                                                @elseif ($user->status === 'non-voting')
+                                                                    <span class="badge bg-warning">Non-Voting</span>
+                                                                @else
+                                                                    <span class="badge bg-secondary">Unknown</span>
+                                                                @endif
+                                                            </td>
+                                                            <td class="d-flex">
+                                                                @if ($user->access == 'declined')
+                                                                    <span class="badge bg-danger"> Request Declined</span>
+                                                                @else
+                                                                    <a href="{{ route('users.accept', $user->id) }}"
+                                                                        class="btn btn-sm btn-success">Approved</a>
+                                                                    <form action="{{ route('users.decline', $user->id) }}" method="POST"
+                                                                        class="d-inline mx-1">
+                                                                        @csrf
+                                                                        <button type="submit"
+                                                                            class="btn btn-sm btn-danger dltBtn">Declined</button>
+                                                                    </form>
+                                                                @endif
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+                                                @endif
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
                             </div>
+                        </div>
                     </div>
                 </div>
+            </div>
 
-                <!-- /.container-fluid -->
-        </section>
+            <!-- /.container-fluid -->
+        </div>
+        <!-- End of Main Content -->
+    </section>
 @endsection
 @section('script')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>

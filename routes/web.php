@@ -73,6 +73,7 @@ Route::group(['middleware' => ['auth', 'role:Admin|board_member|member', 'checkA
 
     // General Info Routes
     Route::get('/general/AssocMeeting', [GeneralFilesController::class, 'Asm'])->name('general.asm');
+    Route::post('/file', [GeneralFilesController::class, 'file'])->name('file');
 
     Route::get('/general/abl', [GeneralFilesController::class, 'abl'])->name('general.abl');
     Route::get('/general/wtr', [GeneralFilesController::class, 'wtr'])->name('general.wtr');
@@ -94,8 +95,8 @@ Route::group(['middleware' => ['auth', 'role:Admin|board_member|member', 'checkA
     Route::resource('polls', PollController::class);
     Route::post('polls/{poll}/vote', [PollController::class, 'vote'])->name('polls.vote');
     Route::get('generate-pdf/{id}', [PollController::class, 'generatePDF'])->name('polls.pdf');
-     // Comments
-     Route::resource('comments', CommentController::class)->only(['store']);
+    // Comments
+    Route::resource('comments', CommentController::class)->only(['store']);
 
 });
 

@@ -29,6 +29,10 @@ class User extends Authenticatable
         'profile_picture',
         'password',
         'status',
+        'access',
+        'mailing_address',
+        'phone_1',
+        'street',
         'address',
         'phone',
         'is_email_verified'
