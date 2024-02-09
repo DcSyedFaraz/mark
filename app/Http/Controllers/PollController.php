@@ -5,13 +5,28 @@ namespace App\Http\Controllers;
 use App\Models\Option;
 use App\Models\Poll;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class PollController extends Controller
 {
     public function index()
     {
-        $polls = Poll::with('options')->orderBy('created_at', 'desc')->get();
+        if (auth()->user()->hasRole('member')) {
+            $userId = auth()->id();
+
+            $polls = Poll::with('options')->where(function ($query) use ($userId) {
+                $query->whereNull('deadline')
+                    ->orWhere('deadline', '>', Carbon::now());
+            })->whereDoesntHave('users', function ($query) use ($userId) {
+                $query->where('user_id', $userId);
+            })
+                ->orderBy('created_at', 'desc')
+                ->get();
+        } else {
+            $polls = Poll::with('options')->orderBy('created_at', 'desc')->get();
+
+        }
         return view('polls.index', compact('polls'));
     }
     public function details()
@@ -67,7 +82,7 @@ class PollController extends Controller
 
         $request->user()->markAsVoted($poll, $request->option_id);
 
-        return redirect()->back()->with('success', 'Vote submitted successfully!');
+        return redirect()->back()->with('success', 'Thank you for your vote!');
     }
 
     // Inside PollController.php

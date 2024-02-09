@@ -16,11 +16,10 @@
                 <table id="example1" class="table datatable table-bordered table-striped">
                     <thead class="text-sm">
                         <tr>
-                            <th>S.N</th>
-                            <th>Full name:</th>
-                            <th>Email:</th>
-                            <th>Address:</th>
+                            <th>Name:</th>
                             <th>Phone Number:</th>
+                            <th>Address:</th>
+                            <th>Email:</th>
                             <th>Voting Status:</th>
                         </tr>
                     </thead>
@@ -29,11 +28,10 @@
                         @if ($users)
                             @foreach ($users as $key => $user)
                                 <tr>
-                                    <td>{{ $key + 1 }}</td>
                                     <td>{{ $user->name ?? '' }}</td>
-                                    <td>{{ $user->email ?? '' }}</td>
-                                    <td>{{ $user->address ?? 'null' }}</td>
                                     <td>{{ $user->phone ?? 'null' }}</td>
+                                    <td>{{ $user->address ?? 'null' }}</td>
+                                    <td>{{ $user->email ?? '' }}</td>
                                     <td>
                                         @if ($user->status === 'voting')
                                             <span class="badge badge-success">Voting</span>

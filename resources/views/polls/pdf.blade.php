@@ -18,6 +18,7 @@
                 <thead>
                     <tr>
                         <th>Option</th>
+                        <th>Total Votes</th>
                         <th>Voted by</th>
                     </tr>
                 </thead>
@@ -25,6 +26,7 @@
                     @foreach ($polls->options as $option)
                         <tr>
                             <td>{{ $option->options }}</td>
+                            <td>{{ $option->votes }}</td>
                             @if ($option->votess->count() > 0)
                                 <td>
                                     @foreach ($option->votess as $vote)

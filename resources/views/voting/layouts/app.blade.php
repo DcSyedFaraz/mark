@@ -226,21 +226,6 @@
             <!-- ======= SYSTEM MENU ======= -->
             <ul class="sidebar-nav" id="sidebar-nav">
 
-                <li class="nav-heading">SYSTEM</li>
-
-                <li class="nav-item">
-                    <a class="nav-link collapsed" href="#">
-                        <i class="bi bi-info-circle"></i>
-                        <span>Help Center</span>
-                    </a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link collapsed" href="#">
-                        <i class="bi bi-gear"></i>
-                        <span>Settings</span>
-                    </a>
-                </li>
 
                 <li class="nav-item">
                     <a class="nav-link collapsed" href="{{ url('/logout') }}">
@@ -254,28 +239,28 @@
         <div class="content-wrapper">
             <main id="main" class="main">
 
-                <div class="row">
-                    <div class="pagetitle col-10">
-                        <h1>Hallo, {{ Auth::user()->name }}</h1>
-                        <nav>
-                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item active">
-                                    Member Dashboard
-                                </li>
-                            </ol>
-                        </nav>
+                <div class="row ">
+
+                    <div class="pagetitle col-10 d-flex">
+                        <div class="col-1">
+                            <a class="login-img" href="#">
+
+                                @if (!empty(auth()->user()->profile_picture))
+                                    <img src="{{ asset('storage/' . auth()->user()->profile_picture) }}"
+                                        style="width: 60px; border-radius: 50%;    height: 60px;" alt="">
+                                @else
+                                    <img src="{{ asset('assets/img/default.png') }}"
+                                        style="width: 60px; border-radius: 50%;    height: 60px;" alt="">
+                                @endif
+                            </a>
+                        </div>
+                        <div class="col-11 mt-1">
+
+                            <h1 class="mt-2">Hello, {{ Auth::user()->name }}</h1>
+
+                        </div>
                     </div>
-                    <div class="col-2">
-                        <a class="login-img" href="#">
-                            @if (!empty(auth()->user()->profile_picture))
-                                <img src="{{ asset('storage/' . auth()->user()->profile_picture) }}"
-                                    style="width: 60px; border-radius: 50%;    height: 60px;" alt="">
-                            @else
-                                <img src="{{ asset('assets/img/default.png') }}"
-                                    style="width: 60px; border-radius: 50%;    height: 60px;" alt="">
-                            @endif
-                        </a>
-                    </div>
+
                 </div>
 
                 <!-- End Page Title -->

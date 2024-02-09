@@ -521,7 +521,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link collapsed {{ request()->routeIs(['events.*','calendar.show']) ? 'active' : '' }}"
+                    <a class="nav-link collapsed {{ request()->routeIs(['events.*', 'calendar.show']) ? 'active' : '' }}"
                         href="{{ route('events.index') }}">
                         <i class="bi bi-calendar3"></i>
                         <span>Event Calendar</span>
@@ -617,31 +617,35 @@
             <main id="main" class="main">
 
                 <div class="row ">
-                    <div class="pagetitle col-10">
-                        <h1>Hallo, {{ Auth::user()->name }}</h1>
-                        <nav>
-                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item active">
-                                    @if (auth()->user()->hasRole('Admin'))
-                                        Admin Dashboard
-                                    @else
-                                        Board Member Dashboard
-                                    @endif
-                                </li>
-                            </ol>
-                        </nav>
-                    </div>
-                    <div class="col-2">
-                        <a class="login-img" href="#">
 
-                            @if (!empty(auth()->user()->profile_picture))
-                                <img src="{{ asset('storage/' . auth()->user()->profile_picture) }}"
-                                    style="width: 60px; border-radius: 50%;    height: 60px;" alt="">
-                            @else
-                                <img src="{{ asset('assets/img/default.png') }}"
-                                    style="width: 60px; border-radius: 50%;    height: 60px;" alt="">
-                            @endif
-                        </a>
+                    <div class="pagetitle col-10 d-flex">
+                        <div class="col-1">
+                            <a class="login-img" href="#">
+
+                                @if (!empty(auth()->user()->profile_picture))
+                                    <img src="{{ asset('storage/' . auth()->user()->profile_picture) }}"
+                                        style="width: 60px; border-radius: 50%;    height: 60px;" alt="">
+                                @else
+                                    <img src="{{ asset('assets/img/default.png') }}"
+                                        style="width: 60px; border-radius: 50%;    height: 60px;" alt="">
+                                @endif
+                            </a>
+                        </div>
+                        <div class="col-11 mt-1">
+
+                            <h1 class="mt-2">Hello, {{ Auth::user()->name }}</h1>
+                            {{-- <nav>
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item active">
+                                        @if (auth()->user()->hasRole('Admin'))
+                                            Admin Dashboard
+                                        @else
+                                            Board Member Dashboard
+                                        @endif
+                                    </li>
+                                </ol>
+                            </nav> --}}
+                        </div>
                     </div>
 
                 </div>

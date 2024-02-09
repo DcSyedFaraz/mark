@@ -131,61 +131,68 @@
         @endforeach
     </div> --}}
     <div class="container my-5">
-        @foreach ($polls as $poll)
-            <div class="card mb-4">
-                <div class="card-header">
-                    <h5 class="mb-0">
-                        <span class="me-2"><i class="bi bi-arrow-right-circle"></i></span>{{ $poll->question }}
-                    </h5>
-                    @if ($poll->formattedDeadline != null)
-                        <p class="badge bg-danger">Deadline: {{ $poll->formattedDeadline }}</p>
-                    @endif
-                </div>
-                <form method="post" action="{{ route('polls.vote', $poll->id) }}">
-                    <div class="card-body">
-                        @csrf
-                        {{-- {{ $poll->id }} --}}
-                        <div class="row g-3">
-                            @foreach ($poll->options as $index => $option)
-                                <div class="col-6">
-                                    <div class="form-check">
-
-                                        <input class="form-check-input" type="radio"
-                                            @if (auth()->user()->hasVoted($poll) &&
-                                                    auth()->user()->votedPolls->first()->pivot->option_id == $option->id) checked @endif
-                                            @if (auth()->user()->hasVoted($poll) || !$poll->isOpenForVoting()) disabled @endif name="option_id"
-                                            value="{{ $option->id }}">
-
-                                        <label class="form-check-label" for="option_{{ $option->id }}">
-                                            {{ $option->options }}
-
-                                            @if (auth()->user()->hasVoted($poll) || !$poll->isOpenForVoting())
-                                                <span class="badge bg-success ms-2">{{ $option->votes }}</span>
-                                            @endif
-                                        </label>
-                                    </div>
-                                </div>
-                            @endforeach
-                        </div>
-
-                    </div>
-                    <div class="card-footer text-end">
-                        <button type="submit" class="btn btn-success btn-sm"
-                            @if (auth()->user()->hasVoted($poll) || !$poll->isOpenForVoting()) disabled @endif>
-                            <span class="me-1"><i class="bi bi-check"></i></span>Vote</button>
-
-                        <a href="{{ route('polls.show', $poll->id) }}" class="btn btn-primary btn-sm">
-                            <span class="me-1"><i class="bi bi-chat-left-text"></i></span>View Comments</a>
-
-                        @if (!auth()->user()->hasRole('member') && !$poll->isOpenForVoting())
-                            <a href="{{ route('polls.pdf', $poll->id) }}" target="blank" class="btn btn-warning btn-sm">
-                                <span class="me-1"><i class="fa fa-file-pdf"></i></span>Export PDF</a>
+        @if ($polls->count()>0)
+            @foreach ($polls as $poll)
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5 class="mb-0">
+                            <span class="me-2"><i class="bi bi-arrow-right-circle"></i></span>{{ $poll->question }}
+                        </h5>
+                        @if ($poll->formattedDeadline != null)
+                            <p class="badge bg-danger">Deadline: {{ $poll->formattedDeadline }}</p>
                         @endif
-
                     </div>
-                </form>
+                    <form method="post" action="{{ route('polls.vote', $poll->id) }}">
+                        <div class="card-body">
+                            @csrf
+                            {{-- {{ $poll->id }} --}}
+                            <div class="row g-3">
+                                @foreach ($poll->options as $index => $option)
+                                    <div class="col-6">
+                                        <div class="form-check">
+
+                                            <input class="form-check-input" type="radio"
+                                                @if (auth()->user()->hasVoted($poll) &&
+                                                        auth()->user()->votedPolls->first()->pivot->option_id == $option->id) checked @endif
+                                                @if (auth()->user()->hasVoted($poll) || !$poll->isOpenForVoting()) disabled @endif name="option_id"
+                                                value="{{ $option->id }}">
+
+                                            <label class="form-check-label" for="option_{{ $option->id }}">
+                                                {{ $option->options }}
+
+                                                @if (auth()->user()->hasVoted($poll) || !$poll->isOpenForVoting())
+                                                    <span class="badge bg-success ms-2">{{ $option->votes }}</span>
+                                                @endif
+                                            </label>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+
+                        </div>
+                        <div class="card-footer text-end">
+                            <button type="submit" class="btn btn-success btn-sm"
+                                @if (auth()->user()->hasVoted($poll) || !$poll->isOpenForVoting()) disabled @endif>
+                                <span class="me-1"><i class="bi bi-check"></i></span>Vote</button>
+
+                            <a href="{{ route('polls.show', $poll->id) }}" class="btn btn-primary btn-sm">
+                                <span class="me-1"><i class="bi bi-chat-left-text"></i></span>View Comments</a>
+
+                            @if (!auth()->user()->hasRole('member') && !$poll->isOpenForVoting())
+                                <a href="{{ route('polls.pdf', $poll->id) }}" target="blank"
+                                    class="btn btn-warning btn-sm">
+                                    <span class="me-1"><i class="fa fa-file-pdf"></i></span>Export PDF</a>
+                            @endif
+
+                        </div>
+                    </form>
+                </div>
+            @endforeach
+        @else
+            <div class="alert alert-info text-center" role="alert">
+                It seems that there are currently no polls available. Please check back later for new polls!
             </div>
-        @endforeach
+        @endif
     </div>
 @endsection
 @section('script')
