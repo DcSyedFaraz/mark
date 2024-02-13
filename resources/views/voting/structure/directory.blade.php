@@ -6,11 +6,11 @@
 
     <!-- Personal Information -->
     <div class="card justify-content-center"
-        style="background-image: url({{ asset('img/pexels-pixabay-417173.jpg') }}); background-size: cover; background-position: center; width: 71.5rem; height: 12rem;">
+        style="background-image: url({{ asset('frontend/images/bg1.jpg') }}); background-size: cover; background-position: center; width: 71.5rem; height: 12rem;">
     </div>
 
     <div class="col-12">
-        <div class="card recent-sales overflow-auto">
+        {{-- <div class="card recent-sales overflow-auto"> --}}
 
             <div class="card-body table-responsive-xl">
                 <table id="example1" class="table datatable table-bordered table-striped">

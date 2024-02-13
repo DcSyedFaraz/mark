@@ -396,7 +396,8 @@
 
             <div class="d-flex align-items-center justify-content-between">
                 <a href="#" class="logo d-flex align-items-center">
-                    <img src="{{ asset('assets/img/logo.png') }}" alt="">
+                    <h4 class="fw-bold text-secondary">JP ASSOCIATION</h4>
+                    {{-- <img src="{{ asset('assets/img/logo.png') }}" alt=""> --}}
                 </a>
             </div>
 
