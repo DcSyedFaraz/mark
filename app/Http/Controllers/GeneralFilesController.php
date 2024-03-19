@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Imports\ExcelImport;
 use App\Imports\UsersImport;
 use Exception;
 use Illuminate\Http\Request;
@@ -15,14 +16,19 @@ class GeneralFilesController extends Controller
         $this->validate($request, [
             'file' => 'required|mimes:xls,xlsx'
         ]);
-        // dd($request->all());
+        // // dd($request->all());
         try {
 
-            Excel::import(new UsersImport, request()->file('file'));
+            $import = Excel::import(new UsersImport, request()->file('file'));
             return redirect()->back()->with('success', 'Excel Data Imported successfully.');
         } catch (ValidationException $e) {
             return back()->withErrors($e->errors())->withInput();
         }
+        // $import = new ExcelImport();
+        // $array = Excel::import($import, request()->file('file'));
+        // dd($import);
+        // die;
+        // return redirect()->back()->with('success', 'Excel Data Imported successfully.');
 
     }
     public function Asm()

@@ -488,7 +488,7 @@
                         <li>
                             <a class="nav-links {{ request()->routeIs('general.ci') ? 'active' : '' }}"
                                 href="{{ route('general.ci') }}">
-                                <i class="bi bi-circle"></i><span>Contact Info</span>
+                                <i class="bi bi-circle"></i><span>Miscellaneous Folder</span>
                             </a>
                         </li>
                         <li>

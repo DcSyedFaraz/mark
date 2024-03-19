@@ -1,8 +1,4 @@
-@extends(
-    auth()->user()->hasRole('member')
-        ? 'voting.layouts.app'
-        : 'admin.layouts.app'
-)
+@extends(auth()->user()->hasRole('member') ? 'voting.layouts.app' : 'admin.layouts.app')
 @section('content')
     {{-- <style>
         .poll-form {
@@ -131,15 +127,27 @@
         @endforeach
     </div> --}}
     <div class="container my-5">
-        @if ($polls->count()>0)
+        @if ($polls->count() > 0)
             @foreach ($polls as $poll)
                 <div class="card mb-4">
-                    <div class="card-header">
-                        <h5 class="mb-0">
-                            <span class="me-2"><i class="bi bi-arrow-right-circle"></i></span>{{ $poll->question }}
+                    <div class="card-header bg-light border-0">
+                        <h5 class="mb-0 d-flex">
+                            <span class="me-2"><i class="bi bi-arrow-right-circle text-primary"></i></span>
+                            {{ $poll->question }}
+                            @if (Auth::check() && (Auth::user()->id == $poll->users_id || Auth::user()->hasRole('Admin')))
+                                <span>
+                                    <form method="post" action="{{ route('polls.destroy', $poll->id) }}">
+                                        @csrf
+                                        @method('delete')
+                                        <button type="submit" class="btn btn-link text-danger btn-sm dltBtn mb-2"
+                                            data-id="{{ $poll->id }}" title="Delete this Event"><i
+                                                class="fas fa-trash"></i></button>
+                                    </form>
+                                </span>
+                            @endif
                         </h5>
                         @if ($poll->formattedDeadline != null)
-                            <p class="badge bg-danger">Deadline: {{ $poll->formattedDeadline }}</p>
+                            <p class="badge bg-danger ms-2">Deadline: {{ $poll->formattedDeadline }}</p>
                         @endif
                     </div>
                     <form method="post" action="{{ route('polls.vote', $poll->id) }}">
@@ -151,9 +159,8 @@
                                     <div class="col-6">
                                         <div class="form-check">
 
-                                            <input class="form-check-input" type="radio"
-                                                @if (auth()->user()->hasVoted($poll) &&
-                                                        auth()->user()->votedPolls->first()->pivot->option_id == $option->id) checked @endif
+                                            <input class="form-check-input border-2" type="radio"
+                                                @if (auth()->user()->hasVoted($poll) && auth()->user()->votedPolls->first()->pivot->option_id == $option->id) checked @endif
                                                 @if (auth()->user()->hasVoted($poll) || !$poll->isOpenForVoting()) disabled @endif name="option_id"
                                                 value="{{ $option->id }}">
 
@@ -211,6 +218,31 @@
             $('.options').on('click', '.remove-option', function() {
                 $(this).closest('.option').remove();
             });
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $('.dltBtn').click(function(e) {
+                var form = $(this).closest('form');
+                var dataID = $(this).data('id');
+                // alert(dataID);
+                e.preventDefault();
+                swal({
+                        title: "Are you sure?",
+                        text: "Once deleted, you will not be able to recover this data!",
+                        icon: "warning",
+                        buttons: true,
+                        dangerMode: true,
+                    })
+                    .then((willDelete) => {
+                        if (willDelete) {
+                            form.submit();
+                        } else {
+                            swal("Your data is safe!");
+                        }
+                    });
+            })
         });
     </script>
 @endsection

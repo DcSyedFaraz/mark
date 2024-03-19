@@ -93,7 +93,12 @@ class PollController extends Controller
         return view('polls.show', compact('poll'));
     }
 
+    public function destroy(Poll $poll){
+        $poll->delete();
 
+        return redirect()->back()
+                ->with('success','Poll deleted Successfully');
+    }
 
 
 }
