@@ -18,10 +18,7 @@ class PollController extends Controller
             $polls = Poll::with('options')->where(function ($query) use ($userId) {
                 $query->whereNull('deadline')
                     ->orWhere('deadline', '>', Carbon::now());
-            })->whereDoesntHave('users', function ($query) use ($userId) {
-                $query->where('user_id', $userId);
-            })
-                ->orderBy('created_at', 'desc')
+            })->orderBy('created_at', 'desc')
                 ->get();
         } else {
             $polls = Poll::with('options')->orderBy('created_at', 'desc')->get();

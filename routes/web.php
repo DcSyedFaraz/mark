@@ -222,21 +222,7 @@ Route::group(['prefix' => 'manage', 'middleware' => ['auth']], function () {
 
     Route::get('/profile', [DashboardController::class, 'profile'])->name('profile.index');
     Route::post('profile/update', [DashboardController::class, 'update'])->name('profile.update');
-    //post
-    // Route::get('/blogs', [NonVotingPostController::class, 'index'])->name('nonvoting.blogs');
-    // Route::get('/nonvoting/blogs', [NonVotingPostController::class, 'create'])->name('nonvoting.blogs.create');
-    // Route::post('/nonvoting/blogs/create', [NonVotingPostController::class, 'store'])->name('nonvoting.blogs.store');
-    // Route::get('/nonvoting/blogs/{blog}', [NonVotingPostController::class, 'show'])->name('nonvoting.blogs.show');
-    // Route::get('/nonvoting/blogs/{blog}/edit', [NonVotingPostController::class, 'edit'])->name('nonvoting.blogs.edit');
-    // Route::put('/nonvoting/{blog}', [NonVotingPostController::class, 'update'])->name('nonvoting.blogs.update');
-    // Route::delete('/nonvoting/{blog}', [NonVotingPostController::class, 'destroy'])->name('nonvoting.blogs.destroy');
-
-
-    // //user Profile
-    // Route::get('/profile', [NonVotingDashboardController::class, 'profile'])->name('nonvoting.profile');
-    // Route::post('/update/profile', [NonVotingDashboardController::class, 'UserProfileUpdate'])->name('nonvoting.profile.update');
-    // Route::post('/edit/profile', [NonVotingDashboardController::class, 'UserEditProfile'])->name('nonvoting.edit.profile');
-    // Route::post('/bank/detail', [NonVotingDashboardController::class, 'UserBankDetail'])->name('nonvoting.bank.detail');
+   
 
 
 });

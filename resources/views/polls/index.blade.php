@@ -158,9 +158,9 @@
                                 @foreach ($poll->options as $index => $option)
                                     <div class="col-6">
                                         <div class="form-check">
-
-                                            <input class="form-check-input border-2" type="radio"
-                                                @if (auth()->user()->hasVoted($poll) && auth()->user()->votedPolls->first()->pivot->option_id == $option->id) checked @endif
+                                            {{-- @dump(auth()->user()->votedPolls) --}}
+                                            <input class="form-check-input border-2 border-black" type="radio"
+                                                @if (auth()->user()->hasVoted($poll) && auth()->user()->votedPolls->contains('pivot.option_id', $option->id)) checked @endif
                                                 @if (auth()->user()->hasVoted($poll) || !$poll->isOpenForVoting()) disabled @endif name="option_id"
                                                 value="{{ $option->id }}">
 
