@@ -14,8 +14,8 @@ return new class extends Migration {
     {
         Schema::create('user_poll_votes', function (Blueprint $table) {
             $table->id();
-            $table->Integer('user_id');
-            $table->Integer('poll_id');
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('poll_id');
             $table->Integer('option_id')->nullable();
             $table->timestamps();
 

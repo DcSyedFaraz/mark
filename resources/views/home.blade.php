@@ -19,7 +19,7 @@
         <div class="container-fluid">
             <div class="row align-items-center">
                 <div class="col-lg-12">
-                    <h2 class="main-text">JOHNSON POINT COMMUNITY ASSOCIATION</h2>
+                    <h2 class="main-text">Johnson Point Homeowners</h2>
                 </div>
                 <div class="col-lg-4">
                     <div class="main-div">
