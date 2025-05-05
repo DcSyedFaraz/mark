@@ -1,40 +1,26 @@
 <?php
 
-use App\Http\Controllers\Admin\DirectoryController;
-use App\Http\Controllers\Admin\InfraStructureController;
-use App\Http\Controllers\Admin\PhotoController;
-use App\Http\Controllers\CommentController;
-use App\Http\Controllers\EventsController;
-use App\Http\Controllers\GeneralFilesController;
-use App\Http\Controllers\PollController;
-use Illuminate\Support\Facades\Route;
 // Admin Dashboard
 use App\Http\Controllers\Admin\DashboardController;
-// users Dashboard
-use App\Http\Controllers\voting\DashboardController as VotingDashboardController;
-use App\Http\Controllers\nonvoting\DashboardController as NonVotingDashboardController;
-// users panel modules
-use App\Http\Controllers\users\DepositWalletController;
-use App\Http\Controllers\users\DepositController;
-use App\Http\Controllers\users\RedeemController;
-use App\Http\Controllers\users\GiftCardController;
-use App\Http\Controllers\users\LinkGameController;
-use App\Http\Controllers\users\RequestController;
-use App\Http\Controllers\users\TransactionsController;
-use App\Http\Controllers\users\WithdrawController;
+use App\Http\Controllers\Admin\DirectoryController;
+use App\Http\Controllers\Admin\InfraStructureController;
+use App\Http\Controllers\Admin\PermissionController;
+use App\Http\Controllers\Admin\PhotoController;
 // Admin modules
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
-use App\Http\Controllers\Admin\PermissionController;
-use App\Http\Controllers\Admin\TransactionsController as AdminTransactionsController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\EventsController;
+use App\Http\Controllers\GeneralFilesController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\Admin\GamesController;
-use App\Http\Controllers\Admin\PostController;
+use App\Http\Controllers\nonvoting\DashboardController as NonVotingDashboardController;
+use App\Http\Controllers\PollController;
+// users Dashboard
+use App\Http\Controllers\voting\DashboardController as VotingDashboardController;
 use App\Http\Controllers\voting\PostController as VotingPostController;
-use App\Http\Controllers\nonvoting\PostController as NonVotingPostController;
-use App\Http\Controllers\GeneralSettingController;
+use Illuminate\Support\Facades\Route;
 use UniSharp\LaravelFilemanager\Controllers\LfmController;
 
 /*
@@ -222,7 +208,7 @@ Route::group(['prefix' => 'manage', 'middleware' => ['auth']], function () {
 
     Route::get('/profile', [DashboardController::class, 'profile'])->name('profile.index');
     Route::post('profile/update', [DashboardController::class, 'update'])->name('profile.update');
-   
+
 
 
 });

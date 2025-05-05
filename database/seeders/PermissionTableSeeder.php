@@ -54,15 +54,15 @@ class PermissionTableSeeder extends Seeder
             'pages-delete',
             'general_setting',
          ];
-      
+
         foreach ($permissions as $permission) {
             Permission::create(['name' => $permission]);
         }
 
         $roles =[
             'Admin',
-            'User',
-            'Shopper',
+            'board_member',
+            'member',
         ];
 
         foreach ($roles as $role) {
@@ -82,7 +82,7 @@ class PermissionTableSeeder extends Seeder
 
 
         // permission assig
-        $rolepermission = 
+        $rolepermission =
         [
             ['permission_id' => 1, 'role_id' => 1],
             ['permission_id' => 2, 'role_id' => 1],

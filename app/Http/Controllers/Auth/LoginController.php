@@ -40,38 +40,28 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    public function redirectTo() {
+    public function redirectTo()
+    {
 
         $role = Auth::user()->getRoleNames();
 
-        switch ($role[0]) {
-
-
-            case 'Admin':
-                return 'admin/dashboard';
-            break;
-            case 'board_member':
-                return 'admin/dashboard';
-            break;
-            case 'member':
-                return 'member/dashboard';
-             break;
-            default:
-                return 'login';
-            break;
-        }
-     }
+        return match ($role[0]) {
+            'Admin' => 'admin/dashboard',
+            'board_member' => 'admin/dashboard',
+            'member' => 'member/dashboard',
+            default => '/',
+        };
+    }
 
 
 
 
     public function logout()
     {
-        if(Auth::check())
-        {
-            $user = Auth::logout();
+        if (Auth::check()) {
+            Auth::logout();
             return redirect()->to('/')->with('success', 'User Logout successfully.');
-        }else{
+        } else {
             return redirect()->to('/')->with('error', 'User Logout successfully.');
         }
     }
@@ -82,10 +72,10 @@ class LoginController extends Controller
 
         $message = 'Sorry your email cannot be identified.';
 
-        if(!is_null($verifyUser) ){
+        if (!$verifyUser === null) {
             $user = $verifyUser->user;
 
-            if(!$user->is_email_verified) {
+            if (!$user->is_email_verified) {
                 $verifyUser->user->is_email_verified = 1;
                 $verifyUser->user->save();
                 $message = "Your e-mail is verified. You can now login.";
@@ -94,6 +84,6 @@ class LoginController extends Controller
             }
         }
 
-      return redirect()->route('login')->with('message', $message);
+        return redirect()->route('login')->with('message', $message);
     }
 }

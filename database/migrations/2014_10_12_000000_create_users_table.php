@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('access')->nullable();
             $table->string('profile_picture')->nullable();
             $table->string('status')->nullable();
+            $table->string('address')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
