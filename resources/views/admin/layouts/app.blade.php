@@ -393,12 +393,12 @@
             <!-- /.sidebar -->
         </aside> --}}
         <aside id="sidebar" class="sidebars">
-
-            <div class="d-flex align-items-center justify-content-between">
+            <div class="d-flex align-items-center hello justify-content-between">
                 <a href="#" class="logo d-flex align-items-center">
                     <h4 class="fw-bold text-secondary">JP ASSOCIATION</h4>
                     {{-- <img src="{{ asset('assets/img/logo.png') }}" alt=""> --}}
                 </a>
+                <button id="closebtn"><i class="bi bi-x-lg"></i></button>
             </div>
 
             <ul class="sidebar-nav" id="sidebar-nav">
@@ -615,12 +615,13 @@
 
         </aside>
         <div class="content-wrapper">
+            <button id="close"><i class="bi bi-filter-left"></i></button>
             <main id="main" class="main">
 
-                <div class="row ">
+                <div class="row">
 
-                    <div class="pagetitle col-10 d-flex">
-                        <div class="col-1">
+                    <div class="pagetitle col-10 col-lg-10 d-flex">
+                        <div class="col-3 col-lg-1">
                             <a class="login-img" href="#">
 
                                 @if (!empty(auth()->user()->profile_picture))
@@ -632,7 +633,7 @@
                                 @endif
                             </a>
                         </div>
-                        <div class="col-11 mt-1">
+                        <div class="col-9 col-lg-11 mt-1">
 
                             <h1 class="mt-2">Hello, {{ Auth::user()->name }}</h1>
                             {{-- <nav>
@@ -789,6 +790,21 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
     <script>
         //    var route_prefix = "/filemanager";
+    </script>
+    <script>
+        var sidebar = document.querySelector('.sidebars');
+        var closeBtn = document.getElementById('close');
+        var close = document.getElementById('closebtn');
+
+        closeBtn.addEventListener('click', ()=>{
+            sidebar.classList.toggle('hide');
+
+        })
+
+        close.addEventListener('click', ()=>{
+            sidebar.classList.toggle('hide');
+
+        })
     </script>
 
     <!-- CKEditor init -->
