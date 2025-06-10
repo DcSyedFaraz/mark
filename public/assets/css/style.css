@@ -856,3 +856,51 @@ div#example1_filter {
     font-size: 13px;
   }
 }
+
+@media only screen and (min-width:768px) and (max-width: 1024px) {
+  .sidebars {
+    width: 215px;
+    padding: 20px 10px;
+  }
+
+  .logo h4 {
+    font-size: 18px;
+  }
+
+  .sidebar-nav .nav-link {
+    font-size: 14px;
+  }
+
+  .content-wrapper {
+    margin-left: 150px !important;
+  }
+
+  #main {
+    padding: 20px 0 20px 80px !important;
+  }
+
+  .content-header h1 {
+    font-size: 22px;
+  }
+
+  .card-title {
+    padding: 15px 0 0 0;
+    font-size: 20px;
+  }
+
+  .content-header .breadcrumb {
+    font-size: 14px;
+  }
+
+  .pagetitle h1 {
+    font-size: 22px;
+  }
+
+  .bg-img {
+    width: 96%;
+  }
+
+  .card-body {
+    overflow-x: scroll;
+  }
+}

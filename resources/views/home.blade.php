@@ -80,9 +80,9 @@
                                 required />
                             <input type="password" name="password" class="form-control mt-3"
                                 placeholder="Enter your Password" required />
-                            <button type="submit" class="btn-submit">Sign in</button>
+                            <button type="submit" class="btn-submit bg-primary text-light">Sign in</button>
                             <a href="{{ route('register') }}"><button type="button"
-                                    class="btn-submit bg-primary text-light">Sign up</button></a>
+                                    class="btn-submit">Sign up</button></a>
                         </form>
                     </div>
                 </div>

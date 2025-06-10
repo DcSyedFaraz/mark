@@ -621,7 +621,7 @@
                 <div class="row">
 
                     <div class="pagetitle col-10 col-lg-10 d-flex">
-                        <div class="col-3 col-lg-1">
+                        <div class="col-3 col-md-2 col-lg-1">
                             <a class="login-img" href="#">
 
                                 @if (!empty(auth()->user()->profile_picture))
@@ -633,7 +633,7 @@
                                 @endif
                             </a>
                         </div>
-                        <div class="col-9 col-lg-11 mt-1">
+                        <div class="col-9 col-md-10 col-lg-11 mt-1">
 
                             <h1 class="mt-2">Hello, {{ Auth::user()->name }}</h1>
                             {{-- <nav>
