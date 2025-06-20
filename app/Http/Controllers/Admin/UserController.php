@@ -15,7 +15,11 @@ class UserController extends Controller
 {
     public function index(Request $request)
     {
-        $data = User::with('roles')->orderBy('id', 'DESC')->paginate(10);
+        $data = User::with('roles')
+            ->where('email', '<>', 'admin@gmail.com')
+            ->orderBy('id', 'DESC')
+            ->paginate(10);
+
 
         return view('admin.users.index', compact('data'))
             ->with('i', ($request->input('page', 1) - 1) * 5);
