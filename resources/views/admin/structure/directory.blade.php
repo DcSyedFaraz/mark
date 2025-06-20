@@ -4,56 +4,55 @@
 @section('content')
 
 
-    <!-- Personal Information -->
-    <div class="card justify-content-center"
-        style="background-image: url({{asset('frontend/images/bg1.jpg')}}); background-size: cover; background-position: center; width: 71.5rem; height: 12rem;">
-    </div>
+<!-- Personal Information -->
+<div class="card justify-content-center bg-img">
+</div>
 
-    <div class="col-12">
-        <div class="card recent-sales overflow-auto">
+<div class="col-12">
+    <div class="card recent-sales overflow-auto">
 
-            <div class="card-body table-responsive-xl">
-                <table id="example1" class="table datatable table-bordered table-striped">
-                    <thead class="text-sm">
-                        <tr>
-                            <th>Name:</th>
-                            <th>Phone Number:</th>
-                            <th>Address:</th>
-                            <th>Email:</th>
-                            <th>Voting Status:</th>
-                        </tr>
-                    </thead>
+        <div class="card-body table-responsive-xl">
+            <table id="example1" class="table datatable table-bordered table-striped">
+                <thead class="text-sm">
+                    <tr>
+                        <th>Name:</th>
+                        <th>Phone Number:</th>
+                        <th>Address:</th>
+                        <th>Email:</th>
+                        <th>Voting Status:</th>
+                    </tr>
+                </thead>
 
-                    <tbody class="text-sm">
-                        @if ($users)
-                            @foreach ($users as $key => $user)
-                                <tr>
-                                    <td>{{ $user->name ?? '' }}</td>
-                                    <td>{{ $user->phone ?? 'null' }}</td>
-                                    <td>{{ $user->address ?? 'null' }}</td>
-                                    <td>{{ $user->email ?? '' }}</td>
-                                    <td>
-                                        @if ($user->status === 'voting')
-                                            <span class="badge badge-success">Voting</span>
-                                        @elseif ($user->status === 'non-voting')
-                                            <span class="badge badge-warning">Non-Voting</span>
-                                        @else
-                                            <span class="badge badge-secondary">Unknown</span>
-                                        @endif
-                                    </td>
-                                </tr>
-                            @endforeach
-                        @endif
-                    </tbody>
-                </table>
-
-            </div>
+                <tbody class="text-sm">
+                    @if ($users)
+                    @foreach ($users as $key => $user)
+                    <tr>
+                        <td>{{ $user->name ?? '' }}</td>
+                        <td>{{ $user->phone ?? 'null' }}</td>
+                        <td>{{ $user->address ?? 'null' }}</td>
+                        <td>{{ $user->email ?? '' }}</td>
+                        <td>
+                            @if ($user->status === 'voting')
+                            <span class="badge badge-success">Voting</span>
+                            @elseif ($user->status === 'non-voting')
+                            <span class="badge badge-warning">Non-Voting</span>
+                            @else
+                            <span class="badge badge-secondary">Unknown</span>
+                            @endif
+                        </td>
+                    </tr>
+                    @endforeach
+                    @endif
+                </tbody>
+            </table>
 
         </div>
-    </div>
 
-    <!-- User Registeration -->
-    {{-- <div class="col-12">
+    </div>
+</div>
+
+<!-- User Registeration -->
+{{-- <div class="col-12">
         <div class="card top-selling overflow-auto">
 
             <div class="card-body pb-0">
@@ -72,7 +71,7 @@
         </div>
     </div> --}}
 
-    <!-- End Top Selling -->
+<!-- End Top Selling -->
 
 
 
