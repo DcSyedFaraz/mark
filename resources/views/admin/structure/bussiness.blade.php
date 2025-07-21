@@ -41,17 +41,17 @@
                 }
 
                 /* &:hover {
-                                                    transform: scale(0.98);
-                                                    box-shadow: 0 0 5px -2px rgba(0, 0, 0, 0.3);
-                                                    background-size: 130%;
-                                                    transition: all 500ms cubic-bezier(0.19, 1, 0.22, 1);
+                                                                transform: scale(0.98);
+                                                                box-shadow: 0 0 5px -2px rgba(0, 0, 0, 0.3);
+                                                                background-size: 130%;
+                                                                transition: all 500ms cubic-bezier(0.19, 1, 0.22, 1);
 
-                                                    .card-img-overlay {
-                                                        transition: all 800ms cubic-bezier(0.19, 1, 0.22, 1);
-                                                        background: rgb(255, 186, 33);
-                                                        background: linear-gradient(0deg, rgba(255, 186, 33, 0.5) 0%, rgba(255, 186, 33, 1) 100%);
-                                                    }
-                                                } */
+                                                                .card-img-overlay {
+                                                                    transition: all 800ms cubic-bezier(0.19, 1, 0.22, 1);
+                                                                    background: rgb(255, 186, 33);
+                                                                    background: linear-gradient(0deg, rgba(255, 186, 33, 0.5) 0%, rgba(255, 186, 33, 1) 100%);
+                                                                }
+                                                            } */
             }
 
             .card-footer {
@@ -174,8 +174,8 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="email">Email</label>
-                                                    <input type="email" class="form-control" id="email" name="email"
-                                                        required>
+                                                    <input type="email" class="form-control" id="email"
+                                                        name="email">
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="website">Website</label>
@@ -237,7 +237,7 @@
                                             </h6>
                                             <span class="">
 
-                                                @if (Auth::check() && (Auth::user()->id == $business->user_id || Auth::user()->hasRole('Admin')))
+                                                @if (Auth::check() && (Auth::id() == $business->user_id || Auth::user()->hasRole('Admin')))
                                                     <form method="post"
                                                         action="{{ route('bussinessDelete', $business->id) }}">
                                                         @csrf
@@ -313,7 +313,8 @@
                                                                             <label
                                                                                 for="otherCategory{{ $business->id }}">Other
                                                                                 Category:</label>
-                                                                            <input type="text" name="otherCategory" value="{{$business->otherCategory}}"
+                                                                            <input type="text" name="otherCategory"
+                                                                                value="{{ $business->otherCategory }}"
                                                                                 id="otherCategory{{ $business->id }}"
                                                                                 class="form-control">
                                                                         </div>

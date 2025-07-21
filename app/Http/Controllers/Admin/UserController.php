@@ -34,8 +34,8 @@ class UserController extends Controller
 
         $this->validate($request, [
             'name' => 'required',
-            'address' => 'required',
-            'phone' => 'required',
+            'address' => 'nullable',
+            'phone' => 'nullable',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|same:confirm-password',
             'roles' => 'required'
@@ -59,7 +59,7 @@ class UserController extends Controller
     {
         $user = User::find($id);
         $roles = Role::select('id', 'name')->get();
-        $userRole = $user->roles->pluck('name', 'name')->all();
+        $userRole = $user->roles()->pluck('name', 'name')->all();
 
         return view('admin.users.edit', compact('user', 'roles', 'userRole'));
     }
@@ -68,8 +68,8 @@ class UserController extends Controller
         // return $request;
         $this->validate($request, [
             'name' => 'required',
-            'address' => 'required',
-            'phone' => 'required',
+            'address' => 'nullable',
+            'phone' => 'nullable',
             'email' => 'required|email|unique:users,email,' . $id,
             'password' => 'same:confirm-password',
             'roles' => 'required'

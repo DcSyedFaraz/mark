@@ -43,11 +43,11 @@
                                         <table class="table table-striped table-hover text-sm">
                                             <thead>
                                                 <tr>
-                                                    <th>S.N</th>
+                                                    {{-- <th>S.N</th> --}}
                                                     <th>Full name:</th>
-                                                    <th>Email:</th>
+                                                    {{-- <th>Email:</th> --}}
                                                     <th>Address:</th>
-                                                    <th>Phone Number:</th>
+                                                    {{-- <th>Phone Number:</th> --}}
                                                     <th>Voting Status:</th>
                                                     <th>Actions</th>
                                                 </tr>
@@ -57,11 +57,11 @@
                                                 @if ($request)
                                                     @foreach ($request as $key => $user)
                                                         <tr>
-                                                            <td>{{ $key + 1 }}</td>
+                                                            {{-- <td>{{ $key + 1 }}</td> --}}
                                                             <td>{{ $user->name ?? '' }}</td>
-                                                            <td>{{ $user->email ?? '' }}</td>
+                                                            {{-- <td>{{ $user->email ?? '' }}</td> --}}
                                                             <td>{{ $user->address ?? 'null' }}</td>
-                                                            <td>{{ $user->phone ?? 'null' }}</td>
+                                                            {{-- <td>{{ $user->phone ?? 'null' }}</td> --}}
                                                             <td>
                                                                 @if ($user->status === 'voting')
                                                                     <span class="badge bg-success">Voting</span>

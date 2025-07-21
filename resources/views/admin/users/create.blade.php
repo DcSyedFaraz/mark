@@ -2,7 +2,7 @@
 
 
 @section('content')
-  
+
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <div class="container-fluid">
@@ -54,13 +54,13 @@
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
                                                 <strong>Address:</strong>
-                                                <input class="form-control" name="address" required>
+                                                <input class="form-control" name="address">
                                             </div>
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12">
                                             <div class="form-group">
                                                 <strong>Phone No:</strong>
-                                                <input class="form-control" type="tel" name="phone" required>
+                                                <input class="form-control" type="tel" name="phone">
                                             </div>
                                         </div>
                                         <div class="col-xs-6 col-sm-6 col-md-6">

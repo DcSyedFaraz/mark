@@ -20,6 +20,8 @@ use App\Http\Controllers\PollController;
 // users Dashboard
 use App\Http\Controllers\voting\DashboardController as VotingDashboardController;
 use App\Http\Controllers\voting\PostController as VotingPostController;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use UniSharp\LaravelFilemanager\Controllers\LfmController;
 
@@ -83,7 +85,6 @@ Route::group(['middleware' => ['auth', 'role:Admin|board_member|member', 'checkA
     Route::get('generate-pdf/{id}', [PollController::class, 'generatePDF'])->name('polls.pdf');
     // Comments
     Route::resource('comments', CommentController::class)->only(['store']);
-
 });
 
 
@@ -138,9 +139,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:Admin|board_me
     // Storage
     Route::get('/document', [DashboardController::class, 'document'])->name('document');
     Route::get('/signature', [DashboardController::class, 'signature'])->name('signature');
-
-
-
 });
 Auth::routes();
 Route::group(['prefix' => 'member', 'middleware' => ['auth', 'role:member', 'checkAccess']], function () {
@@ -196,8 +194,6 @@ Route::group(['prefix' => 'member', 'middleware' => ['auth', 'role:member', 'che
     Route::post('/update/profile', [VotingDashboardController::class, 'UserProfileUpdate'])->name('voting.profile.update');
     Route::post('/edit/profile', [VotingDashboardController::class, 'UserEditProfile'])->name('voting.edit.profile');
     Route::post('/bank/detail', [VotingDashboardController::class, 'UserBankDetail'])->name('voting.bank.detail');
-
-
 });
 
 Route::group(['prefix' => 'manage', 'middleware' => ['auth']], function () {
@@ -208,9 +204,6 @@ Route::group(['prefix' => 'manage', 'middleware' => ['auth']], function () {
 
     Route::get('/profile', [DashboardController::class, 'profile'])->name('profile.index');
     Route::post('profile/update', [DashboardController::class, 'update'])->name('profile.update');
-
-
-
 });
 
 Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
