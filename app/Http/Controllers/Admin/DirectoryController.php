@@ -98,23 +98,6 @@ class DirectoryController extends Controller
         return redirect()->back()->with('success', 'Business added successfully.');
     }
 
-
-    public function show($id)
-    {
-        //
-    }
-
-
-    public function edit($id)
-    {
-        //
-    }
-
-
-    public function update(Request $request, $id)
-    {
-        //
-    }
     public function bussinessUpdate(Request $request, $id)
     {
         // 1. Validate inline
@@ -141,10 +124,6 @@ class DirectoryController extends Controller
     }
 
 
-    public function destroy($id)
-    {
-        //
-    }
     public function bussinessDelete($id)
     {
         //    return $id;
