@@ -124,12 +124,6 @@
                             </a>
                         </li>
                         <li>
-                            <a class="nav-links {{ request()->routeIs('general.abl') ? 'active' : '' }}"
-                                href="{{ route('general.abl') }}">
-                                <i class="bi bi-circle"></i><span>Assoc. By-Laws</span>
-                            </a>
-                        </li>
-                        <li>
                             <a class="nav-links {{ request()->routeIs('general.wtr') ? 'active' : '' }}"
                                 href="{{ route('general.wtr') }}">
                                 <i class="bi bi-circle"></i><span>Water Testing Results</span>
@@ -148,15 +142,21 @@
                             </a>
                         </li>
                         <li>
-                            <a class="nav-links {{ request()->routeIs('general.ci') ? 'active' : '' }}"
-                                href="{{ route('general.ci') }}">
-                                <i class="bi bi-circle"></i><span>Miscellaneous Folder</span>
-                            </a>
-                        </li>
-                        <li>
                             <a class="nav-links {{ request()->routeIs('general.sm') ? 'active' : '' }}"
                                 href="{{ route('general.sm') }}">
                                 <i class="bi bi-circle"></i><span>Survey Map</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="nav-links {{ request()->routeIs('general.abl') ? 'active' : '' }}"
+                                href="{{ route('general.abl') }}">
+                                <i class="bi bi-circle"></i><span>Assoc. By-Laws</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="nav-links {{ request()->routeIs('general.ci') ? 'active' : '' }}"
+                                href="{{ route('general.ci') }}">
+                                <i class="bi bi-circle"></i><span>Miscellaneous Folder</span>
                             </a>
                         </li>
                         <li>
@@ -458,12 +458,12 @@
         var closeBtn = document.getElementById('close');
         var close = document.getElementById('closebtn');
 
-        closeBtn.addEventListener('click', ()=>{
+        closeBtn.addEventListener('click', () => {
             sidebar.classList.toggle('hide');
 
         })
 
-        close.addEventListener('click', ()=>{
+        close.addEventListener('click', () => {
             sidebar.classList.toggle('hide');
 
         })
